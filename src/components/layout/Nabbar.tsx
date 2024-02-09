@@ -1,6 +1,19 @@
-import { PowerCircle, PowerSquare } from "lucide-react";
+import { RowsIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
+import { ProfileDropdownMenu } from "../user/UserProfile/ProfileDropdownMenu";
+import { Button } from "../ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const Navbar = () => {
   const links = [
@@ -11,29 +24,64 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="px-4 py-2 flex justify-between items-center">
-      <div className="flex items-center space-x-4">
-        <div className="rounded-lg p-2">
-          <Image
-            src="/images/zameenVisit2.png"
-            alt="Zameen Visit"
-            width={100}
-            height={100}
-          />
-        </div>
+    <div className="px-4 py-2 flex justify-between items-center h-24">
+      <div className="rounded-lg p-2 max-lg:hidden">
+        <Image
+          src="/images/zameenVisit2.png"
+          alt="Zameen Visit"
+          width={120}
+          height={120}
+          objectFit="contain"
+        />
+      </div>
+      <div className="lg:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <RowsIcon className="h-6 w-6" />
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader>
+              {/* <SheetTitle>Edit profile</SheetTitle> */}
+              {/* <SheetDescription>
+                Make changes to your profile here. Click save when you're done.
+              </SheetDescription> */}
+            </SheetHeader>
+            <div className="flex flex-col items-start">
+              {links.map((link, index) => (
+                <Button key={index} variant="ghost">
+                  <Link href={link.href}>{link.name}</Link>
+                </Button>
+              ))}
+            </div>
+            <SheetFooter>
+              <SheetClose asChild>
+                {/* <Button type="submit">Save changes</Button> */}
+              </SheetClose>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      </div>
+
+      <div className="rounded-lg p-2 lg:hidden">
+        <Image
+          src="/images/zameenVisit2.png"
+          alt="Zameen Visit"
+          width={120}
+          height={120}
+          objectFit="contain"
+        />
+      </div>
+
+      <div className="flex items-center justify-center space-x-10 flex-1 max-lg:hidden">
         {links.map((link, index) => (
-          <Link key={index} href={link.href} className="hover:text-gray-300">
-            {link.name}
-          </Link>
+          <Button key={index} variant="ghost">
+            <Link href={link.href}>{link.name}</Link>
+          </Button>
         ))}
       </div>
       <div className="flex items-center space-x-4">
-        <button className="p-2 rounded-full bg-gray-700 hover:bg-gray-600">
-          <PowerCircle className="h-5 w-5 text-white" />
-        </button>
-        <button className="p-2 rounded-full bg-gray-700 hover:bg-gray-600">
-          <PowerSquare className="h-5 w-5 text-white" />
-        </button>
+        <ProfileDropdownMenu />
+        <Button className="max-sm:hidden">Add Listing</Button>
       </div>
     </div>
   );
