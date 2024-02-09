@@ -14,32 +14,37 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const Hero = () => {
   return (
-    <Carousel className="w-full max-w-xs">
-      <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index} className="">
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <Image
-                    src="/images/zameenVisit2.png"
-                    height={400}
-                    width={400}
-                    alt="Hero"
-                  />
-                  {/* <span className="text-4xl font-semibold">{index + 1}</span> */}
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+    <div className="w-[450px]">
+      <AspectRatio ratio={16 / 9}>
+        <Carousel className="w-full max-w-xl mx-auto">
+          <CarouselContent>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index} className="bg-green-500">
+                <div className="p-1">
+                  <Card className="">
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <Image
+                        src="/images/zameenVisit2.png"
+                        height={500}
+                        width={500}
+                        alt="Hero"
+                      />
+                      {/* <span className="text-4xl font-semibold">{index + 1}</span> */}
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </AspectRatio>
+    </div>
   );
 };
 

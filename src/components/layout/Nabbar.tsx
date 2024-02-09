@@ -1,5 +1,4 @@
-import React from "react";
-import { SearchCodeIcon, UserCircle2Icon } from "lucide-react";
+import { PowerCircle, PowerSquare } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -30,10 +29,10 @@ const Navbar = () => {
       </div>
       <div className="flex items-center space-x-4">
         <button className="p-2 rounded-full bg-gray-700 hover:bg-gray-600">
-          <SearchCodeIcon className="h-5 w-5 text-white" />
+          <PowerCircle className="h-5 w-5 text-white" />
         </button>
         <button className="p-2 rounded-full bg-gray-700 hover:bg-gray-600">
-          <UserCircle2Icon className="h-5 w-5 text-white" />
+          <PowerSquare className="h-5 w-5 text-white" />
         </button>
       </div>
     </div>
