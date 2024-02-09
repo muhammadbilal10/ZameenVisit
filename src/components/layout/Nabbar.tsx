@@ -24,7 +24,7 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="px-4 py-2 flex justify-between items-center h-24">
+    <div className="bg-white top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg fixed z-20 w-full border-b">
       <div className="rounded-lg p-2 max-lg:hidden">
         <Image
           src="/images/zameenVisit2.png"
