@@ -62,7 +62,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </div>
       </CardHeader>
       <Separator />
-      <CardFooter className={cn("p-2")}>
+      <CardFooter className={cn("p-2 mt-auto")}>
         <div className="flex items-center gap-3">
           <Avatar className="h-8 w-8">
             <AvatarImage src="https://github.com/shadcn.png" />

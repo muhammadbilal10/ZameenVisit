@@ -13,7 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const Navbar = () => {
   const links = [
@@ -24,15 +23,17 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="bg-white top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg fixed z-20 w-full border-b">
+    <div className="top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg fixed z-20 w-full ">
       <div className="rounded-lg p-2 max-lg:hidden">
-        <Image
-          src="/images/zameenVisit2.png"
-          alt="Zameen Visit"
-          width={120}
-          height={120}
-          objectFit="contain"
-        />
+        <Link href="/">
+          <Image
+            src="/images/zameenVisit2.png"
+            alt="Zameen Visit"
+            width={120}
+            height={120}
+            objectFit="contain"
+          />
+        </Link>
       </div>
       <div className="lg:hidden">
         <Sheet>

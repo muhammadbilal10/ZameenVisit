@@ -1,49 +1,23 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="w-[450px]">
-      <AspectRatio ratio={16 / 9}>
-        <Carousel className="w-full max-w-xl mx-auto">
-          <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index} className="bg-green-500">
-                <div className="p-1">
-                  <Card className="">
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <Image
-                        src="/images/zameenVisit2.png"
-                        height={500}
-                        width={500}
-                        alt="Hero"
-                      />
-                      {/* <span className="text-4xl font-semibold">{index + 1}</span> */}
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </AspectRatio>
+    <div className="relative text-white h-96 flex items-center justify-center text-center min-h-screen">
+      <Image
+        src="https://images.unsplash.com/photo-1560840067-ddcaeb7831d2?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Background"
+        layout="fill"
+        objectFit="cover"
+      />
+      <div className="z-10">
+        <h1 className="text-4xl font-bold">Find Your Dream Home</h1>
+        <p className="mt-4 max-w-lg mx-auto">
+          We are recognized for exceeding client expectations and delivering
+          great results through dedication, ease of process, and extraordinary
+          services to our worldwide clients.
+        </p>
+      </div>
     </div>
   );
 };
