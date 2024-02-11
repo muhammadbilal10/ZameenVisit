@@ -24,14 +24,14 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        // primary: {
-        //   DEFAULT: "hsl(var(--primary))",
-        //   foreground: "hsl(var(--primary-foreground))",
-        // },
         primary: {
-          DEFAULT: "hsl(217, 90%, 54%)", // This is the new blue color
-          foreground: "hsl(var(--primary-foreground))", // Keep or adjust the foreground color as needed
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
+        // primary: {
+        //   DEFAULT: "hsl(217, 90%, 54%)", // This is the new blue color
+        //   foreground: "hsl(var(--primary-foreground))", // Keep or adjust the foreground color as needed
+        // },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

@@ -11,6 +11,7 @@ import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AreaChart, Bath, Bed } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { ToolTips } from "@/components/common/ToolTip";
 
 interface PropertyCardProps {
   property: {
@@ -39,12 +40,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           src={property.image}
           alt={property.title}
           loading="lazy"
-          height={700}
+          height={149}
           width={700}
+          objectFit="contain"
         />
       </CardContent>
       <CardHeader>
-        <CardTitle className={cn("text-xl")}>{property.title}</CardTitle>
+        <CardTitle className={cn("text-xl truncate")}>
+          <ToolTips text={property.title} className="truncate" />
+        </CardTitle>
         <p className="text-md font-semibold text-primary">{property.price}</p>
         <CardDescription>{property.description}</CardDescription>
         <div>

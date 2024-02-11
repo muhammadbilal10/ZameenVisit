@@ -23,7 +23,7 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg fixed z-20 w-full ">
+    <div className="bg-transparent top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg lg:fixed z-20 w-full ">
       <div className="rounded-lg p-2 max-lg:hidden">
         <Link href="/">
           <Image

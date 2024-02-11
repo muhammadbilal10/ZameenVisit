@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import {} from "@radix-ui/react-icons";
+import { LocateIcon, Map } from "lucide-react";
 
 interface AgencyProps {
   id: number;
@@ -16,6 +18,7 @@ interface AgencyProps {
   address: string;
   phone: string;
   email: string;
+  city: string;
 }
 
 const AgencyCard: React.FC<AgencyProps> = ({
@@ -25,6 +28,7 @@ const AgencyCard: React.FC<AgencyProps> = ({
   address,
   phone,
   email,
+  city,
 }) => {
   return (
     <Card className="w-[220px]">
@@ -33,11 +37,15 @@ const AgencyCard: React.FC<AgencyProps> = ({
       </CardContent>
       <CardHeader>
         <CardTitle className={cn("text-lg")}>{name}</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardDescription>
+          <span className="flex items-center gap-1">
+            <Map size={16} /> {city}
+          </span>
+        </CardDescription>
       </CardHeader>
-      <CardFooter>
+      {/* <CardFooter>
         <p>Card Footer</p>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };
