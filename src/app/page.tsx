@@ -4,15 +4,16 @@ import { Hero } from "@/components/layout/Hero";
 
 import PropertyList from "@/components/property/PropertyList";
 import TitaniumAgencies from "@/components/property/TitaniumAgencies";
+import { PropertySearch } from "@/components/property/propertySearch";
+
 import { titaniumAgencies, properties, backgroundImages } from "@/constants";
 
 export default function Home() {
   return (
     <main className="">
-      <section className="">
-        {/* <Hero /> */}
+      <section id="#hero">
         <Hero images={backgroundImages} />
-        {/* <CustomCarousel images={backgroundImages} /> */}
+        <PropertySearch />
       </section>
       <section
         id="properties"

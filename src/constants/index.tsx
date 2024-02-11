@@ -309,3 +309,27 @@ export const backgroundImages = [
 
   "https://ultra-realhomes.b-cdn.net/wp-content/uploads/2022/06/office-working-space-scaled.jpg",
 ];
+
+export const propertyCategories = [
+  "House",
+  "Apartment",
+  "Plot",
+  "Commercial",
+  "Farm House",
+  "Penthouse",
+  "Upper Portion",
+  "Lower Portion",
+  "Room",
+  "Office",
+  "Shop",
+  "Warehouse",
+  "Factory",
+  "Building",
+  "Agricultural Land",
+  "Industrial Land",
+  "Residential Plot",
+  "Commercial Plot",
+  "Industrial Plot",
+  "Plot File",
+  "Plot Form",
+];
