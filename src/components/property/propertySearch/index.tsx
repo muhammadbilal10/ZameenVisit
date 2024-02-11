@@ -16,7 +16,7 @@ export function PropertySearch() {
   return (
     <Tabs
       defaultValue="buy"
-      className="w-3/4 mx-auto sm:w-1/2 -mt-40 z-30 relative"
+      className="w-3/4 mx-auto sm:w-1/2 -mt-32 z-30 relative"
     >
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="buy">Buy</TabsTrigger>

@@ -63,6 +63,7 @@ export function Hero({ images }: HeroProps) {
           <h1 className="text-3xl font-bold sm:text-4xl">
             Find Your Dream Home
           </h1>
+          <h1 className="text-xl font-bold sm:text-2xl">Zameen Visit</h1>
           <p className="mt-4 max-w-lg mx-auto w-80 sm:w-full">
             We are recognized for exceeding client expectations and delivering
             great results through dedication, ease of process, and extraordinary

@@ -23,7 +23,7 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="bg-transparent top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg lg:fixed z-20 w-full ">
+    <div className="bg-tranparent top-0 start-0 px-4 py-2 flex justify-between items-center h-24 shadow-lg lg:absolute z-40 w-full ">
       <div className="rounded-lg p-2 max-lg:hidden">
         <Link href="/">
           <Image
@@ -49,8 +49,10 @@ const Navbar = () => {
             </SheetHeader>
             <div className="flex flex-col items-start">
               {links.map((link, index) => (
-                <Button key={index} variant="ghost">
-                  <Link href={link.href}>{link.name}</Link>
+                <Button key={index} variant="ghost" className="">
+                  <Link href={link.href} className="">
+                    {link.name}
+                  </Link>
                 </Button>
               ))}
             </div>
@@ -75,7 +77,7 @@ const Navbar = () => {
 
       <div className="flex items-center justify-center space-x-10 flex-1 max-lg:hidden">
         {links.map((link, index) => (
-          <Button key={index} variant="ghost">
+          <Button key={index} variant="ghost" className="text-xl">
             <Link href={link.href}>{link.name}</Link>
           </Button>
         ))}

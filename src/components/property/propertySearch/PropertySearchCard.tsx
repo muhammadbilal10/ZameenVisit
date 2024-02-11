@@ -23,7 +23,7 @@ export function PropertySearchCard() {
       </CardHeader>
       <CardContent className="gap-3 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <div className="space-y-1">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">Category</Label>
           <CustomeSelect
             items={propertyCategories}
             placeholderVal="Select a Property Category "
