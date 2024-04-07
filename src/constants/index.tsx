@@ -7,6 +7,17 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+import {
+  EnvelopeOpenIcon,
+  ExitIcon,
+  PersonIcon,
+  HomeIcon,
+  PlusIcon,
+  HeartIcon,
+  MagnifyingGlassIcon,
+  PlusCircledIcon,
+  DashboardIcon,
+} from "@radix-ui/react-icons";
 
 export const socials = [
   {
@@ -332,4 +343,58 @@ export const propertyCategories = [
   "Industrial Plot",
   "Plot File",
   "Plot Form",
+];
+
+export const accountMenuItems = [
+  {
+    name: "Dashboard",
+    shortcut: "⇧⌘P",
+    icon: <DashboardIcon />,
+    href: "/dashboard",
+  },
+  {
+    name: "My Profile",
+    shortcut: "⌘B",
+    icon: <PersonIcon />,
+    href: "/my-profile",
+  },
+  {
+    name: "My Property List",
+    shortcut: "⌘S",
+    icon: <HomeIcon />,
+    href: "/my-properties",
+  },
+  {
+    name: "Add New Property",
+    shortcut: "⌘K",
+    icon: <PlusCircledIcon />,
+    href: "/add-property",
+  },
+  {
+    name: "Favorites",
+    shortcut: "⌘K",
+    icon: <HeartIcon />,
+    href: "/favorites",
+  },
+  {
+    name: "Saved Searches",
+    shortcut: "⌘K",
+    icon: <MagnifyingGlassIcon />,
+    href: "/saved-searches",
+  },
+  {
+    name: "Favorites",
+    shortcut: "⌘K",
+    icon: <HeartIcon />,
+    href: "/favorites",
+  },
+  // { name: "Logout", shortcut: "⇧⌘Q", icon: <ExitIcon /> },
+];
+
+export const areaMenuItems = [
+  "Marla",
+  "Kanal",
+  "Square Feet",
+  "Square Yards",
+  "Square Meters",
 ];

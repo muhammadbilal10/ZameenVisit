@@ -24,7 +24,7 @@ export default function Home() {
       <section className="py-10 px-10 lg:px-20 min-h-screen">
         <TitaniumAgencies titaniumAgencies={titaniumAgencies} />
       </section>
-      <section className="bg-[#e7f6fd]">
+      <section className=" bg-gradient-to-r from-sky-100 to-violet-100">
         <Footer />
       </section>
     </main>

@@ -53,9 +53,11 @@ export function Hero({ images }: HeroProps) {
             <Image
               src={img}
               alt={`Slide ${index + 1}`}
-              layout="fill"
-              objectFit="cover"
               priority={index === currentIndex}
+              quality={100}
+              fill
+              sizes="100vw"
+              className="object-cover w-full h-full"
             />
           </div>
         ))}

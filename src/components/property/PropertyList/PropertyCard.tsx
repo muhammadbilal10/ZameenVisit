@@ -42,7 +42,6 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           loading="lazy"
           height={149}
           width={700}
-          objectFit="contain"
         />
       </CardContent>
       <CardHeader>
