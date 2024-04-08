@@ -1,4 +1,6 @@
 import { PropertyCarousel } from "@/components/common/Carousel";
+import PropertyOverviewCard from "@/components/property/PropertyList/PropertyOverviewCard";
+import PropertyVideoCard from "@/components/property/PropertyList/PropertyVideoCard";
 import AgencyCard from "@/components/property/TitaniumAgencies/AgencyCard";
 import AgentContactForm from "@/components/property/TitaniumAgencies/AgentContactForm";
 import { MapPin } from "lucide-react";
@@ -38,17 +40,22 @@ export default async function ProptertyDetailsPage({
             PKR {property.price}
           </h2>
         </div>
-        <address className="flex gap-1 mt-2">
-          <MapPin />
+        <address className="flex items-center mt-2">
+          <MapPin className="mr-1 w-4 h-4" />
           {property.address}
         </address>
       </div>
       <div className="grid grid-cols-12 gap-10">
-        <div className="col-span-8">
+        <div className="lg:col-span-8 col-span-12 space-y-8">
           <PropertyCarousel />
+          <PropertyOverviewCard />
+          <PropertyVideoCard />
         </div>
-        <div className="col-span-4">
-          <AgentContactForm />
+
+        <div className="lg:col-span-4 col-span-12">
+          <div>
+            <AgentContactForm />
+          </div>
         </div>
       </div>
     </div>

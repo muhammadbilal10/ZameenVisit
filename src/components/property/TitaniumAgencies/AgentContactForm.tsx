@@ -18,24 +18,37 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import whatsapp from "@/images/socials/whatsapp.svg";
+import Link from "next/link";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "name must be at least 2 characters.",
+  name: z.string().min(4, {
+    message: "name must be at least 4 characters.",
   }),
   email: z.string().email({
     message: "email must be a valid email address.",
   }),
-  phone: z.string().min(11, {
-    message: "phone number must be at least 11 characters.",
+  phone: z.string().length(12, {
+    message: "phone number must be 12 characters.",
+  }),
+  role: z.string({
+    required_error: "Please select your interest.",
   }),
   message: z.string().min(10, {
     message: "message must be at least 10 characters.",
@@ -47,6 +60,7 @@ export default function AgentContactForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      message: "Hello, I am interested in [Amazing oceanfront apartment]",
     },
   });
 
@@ -55,7 +69,7 @@ export default function AgentContactForm() {
   }
 
   return (
-    <Card>
+    <Card className="">
       <CardHeader>
         <CardTitle>Agent Name</CardTitle>
         {/* <CardDescription>Card Description</CardDescription> */}
@@ -93,16 +107,48 @@ export default function AgentContactForm() {
 
             <FormField
               control={form.control}
-              name="name"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Mobile</FormLabel>
                   <FormControl>
-                    <Input placeholder="+923494411115" {...field} />
+                    <Input
+                      type="number"
+                      placeholder="+923494411115"
+                      {...field}
+                    />
                   </FormControl>
                   {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Identify Your Interest</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your interest..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="m@example.com">
+                        I'm a Buyer/Tennant
+                      </SelectItem>
+                      <SelectItem value="m@google.com">I'm a agent</SelectItem>
+                      <SelectItem value="m@support.com">other</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -137,11 +183,24 @@ export default function AgentContactForm() {
         </Form>
       </CardContent>
       <CardFooter className={cn("space-x-2")}>
-        <Button variant={"outline"} className="flex-1">
-          <Mail className="mr-2 h-4 w-4" /> WhatsApp
+        <Button asChild variant={"outline"} className="flex-1">
+          <Link href={`https://wa.me/+923200452298`} target="_blank">
+            <Image
+              src={whatsapp}
+              alt="whatsapp"
+              width={24}
+              height={24}
+              className="mr-2"
+            />
+            WhatsApp
+          </Link>
         </Button>
-        <Button variant={"outline"} className="flex-1">
-          <Mail className="mr-2 h-4 w-4" /> Call
+
+        <Button asChild variant={"outline"} className="flex-1">
+          <Link href={`tel:+923494411115`} target="_blank">
+            <Phone className="mr-2 h-5 w-5" />
+            Call
+          </Link>
         </Button>
       </CardFooter>
     </Card>
