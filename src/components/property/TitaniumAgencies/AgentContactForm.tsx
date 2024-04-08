@@ -143,9 +143,11 @@ export default function AgentContactForm() {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="m@example.com">
-                        I'm a Buyer/Tennant
+                        I&apos;m a Buyer/Tennant
                       </SelectItem>
-                      <SelectItem value="m@google.com">I'm a agent</SelectItem>
+                      <SelectItem value="m@google.com">
+                        I&apos;m a agent
+                      </SelectItem>
                       <SelectItem value="m@support.com">other</SelectItem>
                     </SelectContent>
                   </Select>

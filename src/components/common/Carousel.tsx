@@ -9,19 +9,22 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import { backgroundImages } from "@/constants";
 
-export function PropertyCarousel() {
+export function PropertyCarousel({
+  propertyImages,
+}: {
+  propertyImages: string[];
+}) {
   return (
     <Carousel>
       <CarouselContent>
-        {Array.from({ length: backgroundImages.length }).map((_, index) => (
+        {propertyImages.map((imageUrl, index) => (
           <CarouselItem key={index} className="basis-full">
             <div className="p-1">
               <Card className="">
                 <CardContent className="p-0">
                   <Image
-                    src={backgroundImages[index]}
+                    src={imageUrl}
                     alt="Property Image"
                     width={1280}
                     height={600}
