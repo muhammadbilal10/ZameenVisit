@@ -27,7 +27,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
       <h2 className="ml-4 mt-10 mb-10 scroll-m-20 pb-2 text-2xl font-semibold tracking-tight">
         Disocover latest properties
       </h2>
-      <div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {properties.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
