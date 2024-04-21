@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CustomeSelect } from "@/components/common/CustomSelect";
+import { CustomSelect } from "@/components/common/CustomSelect";
 import { areaMenuItems } from "@/constants";
 
 const formSchema = z.object({
@@ -160,7 +160,7 @@ export function PropertyAddForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Currency</FormLabel>
-                  <CustomeSelect
+                  <CustomSelect
                     items={areaMenuItems}
                     placeholderVal="Select a currency"
                     label="Currency"
@@ -192,7 +192,7 @@ export function PropertyAddForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Area Unit</FormLabel>
-                  <CustomeSelect
+                  <CustomSelect
                     items={areaMenuItems}
                     placeholderVal="Select a Area Unit "
                     label="Area Unit"
