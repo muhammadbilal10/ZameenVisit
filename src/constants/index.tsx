@@ -7,6 +7,9 @@ import {
   Twitter,
   Youtube,
 } from "lucide-react";
+
+import whatsapp from "@/images/socials/whatsapp.svg";
+
 import {
   EnvelopeOpenIcon,
   ExitIcon,
@@ -18,6 +21,7 @@ import {
   PlusCircledIcon,
   DashboardIcon,
 } from "@radix-ui/react-icons";
+import Image from "next/image";
 
 export const socials = [
   {
@@ -382,12 +386,7 @@ export const accountMenuItems = [
     icon: <MagnifyingGlassIcon />,
     href: "/saved-searches",
   },
-  {
-    name: "Favorites",
-    shortcut: "⌘K",
-    icon: <HeartIcon />,
-    href: "/favorites",
-  },
+
   // { name: "Logout", shortcut: "⇧⌘Q", icon: <ExitIcon /> },
 ];
 
@@ -398,3 +397,35 @@ export const areaMenuItems = [
   "Square Yards",
   "Square Meters",
 ];
+
+export const shareMenuItems = [
+  { icon: Facebook, text: "Facebook", link: "https://www.facebook.com" },
+  { icon: Twitter, text: "Twitter", link: "https://www.twitter.com" },
+  { icon: Linkedin, text: "Linkedin", link: "https://www.linkedin.com" },
+  { icon: EnvelopeOpenIcon, text: "Email", link: "mailto:" },
+  {
+    icon: () => <Image src={whatsapp} alt="whatsapp" width={18} height={18} />,
+    text: "WhatsApp",
+    link: "https://wa.me/+923200452298",
+  },
+];
+
+export function formatNumber(str: string) {
+  // Remove commas and convert to number
+  const num = Number(str.replace(/,/g, ""));
+
+  if (num >= 1000000000) {
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "B";
+  }
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  }
+  return str;
+}
+
+export const formatCurrency = (value: number, locale = "en-US") => {
+  return new Intl.NumberFormat(locale).format(value);
+};

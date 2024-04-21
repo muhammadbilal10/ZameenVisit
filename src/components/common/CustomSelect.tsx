@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function CustomeSelect({
+export function CustomSelect({
   items,
   placeholderVal,
   label,
@@ -25,7 +25,7 @@ export function CustomeSelect({
 }) {
   return (
     <Select defaultValue={defaultValue} onValueChange={onChange}>
-      <SelectTrigger className="w-[230px]">
+      <SelectTrigger className="">
         <SelectValue placeholder={placeholderVal} />
       </SelectTrigger>
       <SelectContent>

@@ -76,7 +76,7 @@ export default function AgentContactForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             <FormField
               control={form.control}
               name="name"
@@ -169,10 +169,10 @@ export default function AgentContactForm() {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Please include key details and any specific preferences for
                     your property inquiry.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}

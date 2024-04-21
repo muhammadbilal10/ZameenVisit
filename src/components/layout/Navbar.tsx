@@ -18,13 +18,13 @@ import { BookText, Handshake, Home, Menu, Phone } from "lucide-react";
 const Navbar = () => {
   const links = [
     { name: "Home", href: "/", icon: Home },
-    { name: "Real Estate", href: "/about", icon: Handshake },
-    { name: "Property Single", href: "/contact", icon: Home },
+    { name: "Properties", href: "/contact", icon: Home },
+    { name: "Agents", href: "/about", icon: Handshake },
     { name: "Blog", href: "/property-single", icon: BookText },
     { name: "Contact", href: "/contact", icon: Phone },
   ];
   return (
-    <div className="bg-white top-0 start-0 px-4 py-2 flex justify-between items-center h-16 shadow-lg fixed z-40 w-full ">
+    <div className="bg-white top-0 start-0 px-6 py-2 flex justify-between items-center h-16 shadow-lg fixed z-40  w-screen ">
       <div className="rounded-lg p-2 max-lg:hidden">
         <Link href="/">
           <Image

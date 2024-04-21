@@ -37,7 +37,7 @@ export function ProfileDropdownMenu() {
                 <span className="mr-2 h-4 w-4">{item.icon}</span>
                 {item.name}
               </Link>
-              <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
+              {/* <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut> */}
             </DropdownMenuItem>
           ))}
         </DropdownMenuGroup>
@@ -45,7 +45,7 @@ export function ProfileDropdownMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <ExitIcon className="mr-2 h-4 w-4" /> Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -40,6 +40,10 @@ export default function PropertyOverviewCard({
       value: property?.builtYear,
       icon: Calendar,
     },
+    {
+      text: "Updated on",
+      value: "August 21, 2023",
+    },
   ];
   return (
     <Card className="">

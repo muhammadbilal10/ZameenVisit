@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CustomeSelect } from "@/components/common/CustomeSelect";
+import { CustomeSelect } from "@/components/common/CustomSelect";
 import { areaMenuItems } from "@/constants";
 
 const formSchema = z.object({
