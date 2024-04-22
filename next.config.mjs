@@ -26,6 +26,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "demo17.houzez.co",
       },
+      {
+        protocol: "https",
+        hostname: "mainwpresidence.b-cdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "i.postimg.cc",
+      },
     ],
   },
 };

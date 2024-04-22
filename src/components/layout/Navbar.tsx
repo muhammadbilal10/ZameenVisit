@@ -1,3 +1,5 @@
+"use client";
+import * as React from "react";
 import { RowsIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,8 +16,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { BookText, Handshake, Home, Menu, Phone } from "lucide-react";
+import Modal from "../common/Modal";
+import LoginForm from "../common/LoginForm";
 
 const Navbar = () => {
+  const [isLoginOpen, setIsLoginOpen] = React.useState(false);
+  const [isSignupOpen, setIsSignupOpen] = React.useState(false);
   const links = [
     { name: "Home", href: "/", icon: Home },
     { name: "Properties", href: "/contact", icon: Home },
@@ -23,6 +29,14 @@ const Navbar = () => {
     { name: "Blog", href: "/property-single", icon: BookText },
     { name: "Contact", href: "/contact", icon: Phone },
   ];
+
+  const handleAddListing = () => {
+    const isLogin = false;
+    if (isLogin) {
+    } else {
+      setIsLoginOpen(true);
+    }
+  };
   return (
     <div className="bg-white top-0 start-0 px-6 py-2 flex justify-between items-center h-16 shadow-lg fixed z-40  w-screen ">
       <div className="rounded-lg p-2 max-lg:hidden">
@@ -99,7 +113,12 @@ const Navbar = () => {
       </div>
       <div className="flex items-center space-x-4">
         <ProfileDropdownMenu />
-        <Button className="max-sm:hidden">Add Listing</Button>
+        <Modal isOpen={isLoginOpen} setOpen={setIsLoginOpen}>
+          <LoginForm />
+        </Modal>
+        <Button className="max-sm:hidden" onClick={handleAddListing}>
+          Add Listing
+        </Button>
       </div>
     </div>
   );
