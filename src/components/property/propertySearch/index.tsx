@@ -24,13 +24,13 @@ export function PropertySearch() {
         <TabsTrigger value="projects">Projects</TabsTrigger>
       </TabsList>
       <TabsContent value="buy">
-        <PropertySearchCard />
+        <PropertySearchCard searchAction={"buy"} />
       </TabsContent>
       <TabsContent value="rent">
-        <PropertySearchCard />
+        <PropertySearchCard searchAction={"rent"} />
       </TabsContent>
       <TabsContent value="projects">
-        <PropertySearchCard />
+        <PropertySearchCard searchAction={"projects"} />
       </TabsContent>
     </Tabs>
   );
