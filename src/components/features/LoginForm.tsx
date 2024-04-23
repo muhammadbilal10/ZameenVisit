@@ -18,7 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
 import Link from "next/link";
 import Image from "next/image";
-import { addProperty } from "@/actions/property";
+import { login } from "@/actions/auth";
+import { useFormState } from "react-dom";
 
 const formSchema = z.object({
   email: z.string().min(2, {
@@ -29,7 +30,12 @@ const formSchema = z.object({
   }),
 });
 
-export default function LoginForm() {
+export default function LoginForm({
+  setIsSignupOpen,
+}: {
+  setIsSignupOpen: (value: boolean) => void;
+}) {
+  const [state, formAction] = useFormState(login, null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,14 +54,14 @@ export default function LoginForm() {
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="w-[360px] mx-auto my-12 space-y-4">
-        <div className="flex flex-col justify-end text-center">
+        <div className="flex flex-col justify-end text-center gap-2">
           <h1 className="text-3xl font-bold">Login</h1>
           <p className="text-balance text-muted-foreground">
             Enter your email below to login to your account
           </p>
         </div>
         <Form {...form}>
-          <form action={addProperty} className="space-y-8">
+          <form action={formAction} className="space-y-8">
             <FormField
               control={form.control}
               name="email"
@@ -84,7 +90,7 @@ export default function LoginForm() {
                   <div className="flex items-center">
                     <FormLabel>Password</FormLabel>
                     <Link
-                      href="/forgot-password"
+                      href="#"
                       className="ml-auto inline-block text-sm underline"
                     >
                       Forgot your password?
@@ -114,7 +120,11 @@ export default function LoginForm() {
 
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="#" className="underline">
+          <Link
+            href="#"
+            className="underline"
+            onClick={() => setIsSignupOpen(true)}
+          >
             Sign up
           </Link>
         </div>

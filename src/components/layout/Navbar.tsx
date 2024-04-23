@@ -17,17 +17,19 @@ import {
 } from "@/components/ui/sheet";
 import { BookText, Handshake, Home, Menu, Phone } from "lucide-react";
 import Modal from "../common/Modal";
-import LoginForm from "../common/LoginForm";
+import LoginForm from "../features/LoginForm";
+import SignupForm from "../features/SignupForm";
+import SigninForm from "../features/SigninForm";
 
 const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = React.useState(false);
   const [isSignupOpen, setIsSignupOpen] = React.useState(false);
   const links = [
     { name: "Home", href: "/", icon: Home },
-    { name: "Properties", href: "/contact", icon: Home },
-    { name: "Agents", href: "/about", icon: Handshake },
-    { name: "Blog", href: "/property-single", icon: BookText },
-    { name: "Contact", href: "/contact", icon: Phone },
+    { name: "Properties", href: "#", icon: Home },
+    { name: "Agents", href: "#", icon: Handshake },
+    { name: "Blog", href: "#", icon: BookText },
+    { name: "Contact", href: "#", icon: Phone },
   ];
 
   const handleAddListing = () => {
@@ -114,7 +116,12 @@ const Navbar = () => {
       <div className="flex items-center space-x-4">
         <ProfileDropdownMenu />
         <Modal isOpen={isLoginOpen} setOpen={setIsLoginOpen}>
-          <LoginForm />
+          {isSignupOpen ? (
+            <SignupForm setIsLoginOpen={setIsSignupOpen} />
+          ) : (
+            // <LoginForm setIsSignupOpen={setIsSignupOpen} />
+            <SigninForm setIsSignupOpen={setIsSignupOpen} />
+          )}
         </Modal>
         <Button className="max-sm:hidden" onClick={handleAddListing}>
           Add Listing

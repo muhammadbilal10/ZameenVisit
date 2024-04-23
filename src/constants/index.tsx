@@ -372,7 +372,7 @@ export const accountMenuItems = [
     name: "Add New Property",
     shortcut: "⌘K",
     icon: <PlusCircledIcon />,
-    href: "/add-property",
+    href: "/add-listing",
   },
   {
     name: "Favorites",

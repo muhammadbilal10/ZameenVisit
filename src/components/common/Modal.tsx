@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LoginForm from "./LoginForm";
+import LoginForm from "../features/LoginForm";
 import { cn } from "@/lib/utils";
 
 export default function Modal({
