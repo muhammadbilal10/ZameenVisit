@@ -40,25 +40,38 @@ export default function SigninForm({
           <p className="text-balance text-muted-foreground">
             Enter your email below to login to your account
           </p>
+          {state?.message && (
+            <div className="p-2 mt-8 items-center bg-[#ffebeb] rounded-md text-center">
+              <span className=" text-[#cb2a2f] text-small-regular">
+                {state?.message}
+              </span>
+            </div>
+          )}
         </div>
         <form action={formAction} className="space-y-3">
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input name="email" type="email" placeholder="Email" required />
+            <Input
+              name="email"
+              type="email"
+              placeholder="johndoe@example.com"
+              required
+            />
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="password">Password</Label>
+            <div className="flex">
+              <Label htmlFor="password">Password</Label>
+              <Link href="#" className="ml-auto inline-block text-sm underline">
+                Forgot your password?
+              </Link>
+            </div>
             <Input
               name="password"
               type="password"
               placeholder="Password"
               required
             />
-          </div>
-
-          <div className=" text-rose-500 text-small-regular">
-            <span>{state?.message}</span>
           </div>
 
           <SubmitButton />
@@ -68,22 +81,24 @@ export default function SigninForm({
         </form>
 
         <div className="ml-1 mt-6 text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="#"
-            className="underline"
-            onClick={() => setIsSignupOpen(true)}
-          >
-            Sign up
-          </Link>
+          <div className="mt-10">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="#"
+              className="underline"
+              onClick={() => setIsSignupOpen(true)}
+            >
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block h-[600px] rounded-r-lg">
+      <div className="hidden bg-muted lg:block h-[650px] rounded-r-lg">
         <Image
           src="https://i.postimg.cc/3N3tCw42/pexels-elly-fairytale-4008826.jpg"
           alt="Image"
           width="537"
-          height="600"
+          height="650"
           className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale rounded-r-lg "
         />
       </div>

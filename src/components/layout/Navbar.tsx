@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { RowsIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import Image from "next/image";
 import { ProfileDropdownMenu } from "../user/UserProfile/ProfileDropdownMenu";
@@ -17,9 +16,9 @@ import {
 } from "@/components/ui/sheet";
 import { BookText, Handshake, Home, Menu, Phone } from "lucide-react";
 import Modal from "../common/Modal";
-import LoginForm from "../features/LoginForm";
 import SignupForm from "../features/SignupForm";
 import SigninForm from "../features/SigninForm";
+import LoginForm from "../features/LoginForm";
 
 const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = React.useState(false);
@@ -115,9 +114,13 @@ const Navbar = () => {
       </div>
       <div className="flex items-center space-x-4">
         <ProfileDropdownMenu />
-        <Modal isOpen={isLoginOpen} setOpen={setIsLoginOpen}>
+        <Modal
+          isOpen={isLoginOpen}
+          setOpen={setIsLoginOpen}
+          className="h-[650px]"
+        >
           {isSignupOpen ? (
-            <SignupForm setIsLoginOpen={setIsSignupOpen} />
+            <SignupForm setIsSignupOpen={setIsSignupOpen} />
           ) : (
             // <LoginForm setIsSignupOpen={setIsSignupOpen} />
             <SigninForm setIsSignupOpen={setIsSignupOpen} />

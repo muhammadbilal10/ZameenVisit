@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import LoginForm from "../features/LoginForm";
 import { cn } from "@/lib/utils";
+import { PhoneInput } from "../ui/phone-input";
+import { ScrollArea } from "../ui/scroll-area";
 
 export default function Modal({
   isOpen,
@@ -23,8 +25,11 @@ export default function Modal({
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       {/* <DialogTrigger>Open</DialogTrigger> */}
-      <DialogContent className={cn("max-w-4xl h-[600px] p-0")}>
+      <DialogContent
+        className={cn("max-w-4xl h-full fixed p-0 z-50 ", className)}
+      >
         {children}
+
         {/* <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>
