@@ -20,12 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="relative">
+        {/* <div className="relative">
           <Navbar />
           <div className="mt-[65px]">{children}</div>
           <Toaster />
           <Footer />
-        </div>
+        </div> */}
+        {children}
       </body>
     </html>
   );

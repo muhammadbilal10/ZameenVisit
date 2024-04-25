@@ -1,9 +1,12 @@
 import exp from "constants";
 import {
+  CircleFadingPlus,
   Facebook,
   Github,
   Instagram,
+  LayoutDashboard,
   Linkedin,
+  SearchIcon,
   Twitter,
   Youtube,
 } from "lucide-react";
@@ -76,7 +79,7 @@ export const FooterServices = [
   { title: "Legal", services: ["Claim", "Privacy", "Terms"] },
 ];
 
-// Propterty data
+// Property data
 export const properties = [
   {
     id: 1,
@@ -221,8 +224,7 @@ export const properties = [
   },
 ];
 
-// Agenceis data
-
+// Agency data
 export const titaniumAgencies = [
   {
     id: 1,
@@ -388,6 +390,14 @@ export const accountMenuItems = [
   },
 
   // { name: "Logout", shortcut: "⇧⌘Q", icon: <ExitIcon /> },
+];
+
+export const dashboardLinks = [
+  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "#", icon: CircleFadingPlus, label: "Add New Property" },
+  { href: "#", icon: HomeIcon, label: "My Property List" },
+  { href: "#", icon: HeartIcon, label: "Favorites" },
+  { href: "#", icon: SearchIcon, label: "Saved Searches" },
 ];
 
 export const areaMenuItems = [

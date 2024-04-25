@@ -11,7 +11,7 @@ import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AreaChart, Bath, Bed } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { ToolTips } from "@/components/common/ToolTip";
+import { CustomTooltip } from "@/components/common/CustomTooltip";
 import Link from "next/link";
 
 interface PropertyCardProps {
@@ -62,7 +62,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </CardContent>
         <CardHeader>
           <CardTitle className={cn("text-xl truncate")}>
-            <ToolTips text={property.title} className="truncate" />
+            <CustomTooltip label={property.title}>
+              <p className="truncate">{property.title}</p>
+            </CustomTooltip>
           </CardTitle>
           <p className="text-md font-semibold text-primary">{property.price}</p>
           <CardDescription>{property.description}</CardDescription>
