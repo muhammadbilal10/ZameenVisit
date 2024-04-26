@@ -126,6 +126,7 @@ const Navbar = () => {
             <SigninForm setIsSignupOpen={setIsSignupOpen} />
           )}
         </Modal>
+
         <Button className="max-sm:hidden" onClick={handleAddListing}>
           Add Listing
         </Button>

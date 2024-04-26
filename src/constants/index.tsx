@@ -408,6 +408,11 @@ export const areaMenuItems = [
   "Square Meters",
 ];
 
+export const propertyPurposeList = ["Sale", "Rent"];
+
+export const propertyTypeList = ["House", "Apartment", "Condo"];
+export const currencyList = ["PKR", "USD", "EUR"];
+
 export const shareMenuItems = [
   { icon: Facebook, text: "Facebook", link: "https://www.facebook.com" },
   { icon: Twitter, text: "Twitter", link: "https://www.twitter.com" },

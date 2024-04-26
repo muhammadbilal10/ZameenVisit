@@ -13,6 +13,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,32 +37,48 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CustomSelect } from "@/components/common/CustomSelect";
-import { areaMenuItems } from "@/constants";
+import {
+  areaMenuItems,
+  currencyList,
+  propertyPurposeList,
+  propertyTypeList,
+} from "@/constants";
+import ImageUpload from "@/components/common/ImageUpload";
+import Modal from "@/components/common/Modal";
+import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Copy } from "lucide-react";
 
 const formSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
-
-  price: z
+  description: z.string().min(10, {
+    message: "Description must be at least 10 characters.",
+  }),
+  price: z.string().min(1, { message: "Please enter a price" }),
+  // currencyUnit: z.string().nonempty({ message: "Please select a currency" }),
+  propertyType: z
     .string()
-    .transform((val) => parseFloat(val))
-    .refine(
-      (val) => !isNaN(val) && val > 0,
-      "Price must be a positive number."
-    ),
+    .nonempty({ message: "Please select a property type" }),
+  purpose: z.string().min(1, { message: "Please select a purpose" }),
+  bedrooms: z.string().min(1, { message: "Please select a bedroom" }),
+  bathrooms: z.string().min(1, { message: "Please select a bathroom" }),
 
   area: z
     .string()
     .transform((val) => parseFloat(val))
     .refine((val) => !isNaN(val) && val > 0, "Area must be a positive number."),
-  areaUnit: z.string().nonempty({ message: "Please select a area unit" }),
-  description: z.string().min(10, {
-    message: "Description must be at least 10 characters.",
-  }),
+  aunit: z.string().min(1, { message: "Please select a area unit" }),
+
+  address: z.string().min(1, { message: "Address is required" }),
+  city: z.string().min(1, { message: "Please select a city" }),
+  state: z.string().min(1, { message: "State is required" }),
+  zipCode: z.string().min(1, { message: "zipCode is required" }),
 });
 
 export function PropertyAddForm() {
+  const [videoOpen, setVideoOpen] = useState(false);
   const now = new Date();
   const locale = "en-US";
 
@@ -70,7 +97,6 @@ export function PropertyAddForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      areaUnit: "",
       description: "",
     },
   });
@@ -79,35 +105,32 @@ export function PropertyAddForm() {
     console.log(values);
     alert(JSON.stringify(values));
     toast({
-      title: "Your email has been sent successfully",
+      title: "Your property has been added Successfully",
       description: formatted,
     });
 
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-      action: <ToastAction altText="Try again">Try again</ToastAction>,
-    });
+    // toast({
+    //   variant: "destructive",
+    //   title: "Uh oh! Something went wrong.",
+    //   description: "There was a problem with your request.",
+    //   action: <ToastAction altText="Try again">Try again</ToastAction>,
+    // });
   }
 
   return (
-    <Card className="">
-      <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="grid md:grid-cols-2  gap-10"
-          >
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col flex">
+        <Card className="">
+          <CardHeader>
+            <CardTitle>OverView</CardTitle>
+            {/* <CardDescription>Card Description</CardDescription> */}
+          </CardHeader>
+          <CardContent className="space-y-4 grid md:grid-cols">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem className="w-80">
+                <FormItem className="">
                   <FormLabel>Title</FormLabel>
                   <FormControl>
                     <Input
@@ -140,30 +163,55 @@ export function PropertyAddForm() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price</FormLabel>
-                  <FormControl>
-                    <Input placeholder="1000000 PKR" {...field} type="number" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex gap-2">
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="1000000 PKR"
+                        {...field}
+                        type="number"
+                        min="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
+              {/* <FormField
+                control={form.control}
+                name="currencyUnit"
+                disabled
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Currency</FormLabel>
+                    <CustomSelect
+                      items={currencyList}
+                      placeholderVal="Select a currency"
+                      label="Currency"
+                      onChange={field.onChange}
+                      defaultValue={"PKR"}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
+            </div>
             <FormField
               control={form.control}
-              name="areaUnit"
+              name="purpose"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Currency</FormLabel>
+                  <FormLabel>Listed in</FormLabel>
                   <CustomSelect
-                    items={areaMenuItems}
-                    placeholderVal="Select a currency"
-                    label="Currency"
+                    items={propertyPurposeList}
+                    placeholderVal="Select a purpose"
+                    label="Property Purpose"
                     onChange={field.onChange}
                     defaultValue={field.value}
                   />
@@ -171,7 +219,34 @@ export function PropertyAddForm() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="propertyType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Property Type</FormLabel>
+                  <CustomSelect
+                    items={propertyTypeList}
+                    placeholderVal="Select a property type"
+                    label="Property Purpose"
+                    onChange={field.onChange}
+                    defaultValue={field.value}
+                  />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          {/* <CardFooter>
+            <p>Card Footer</p>
+          </CardFooter> */}
+        </Card>
 
+        <Card className="">
+          <CardHeader>
+            <CardTitle>Listing Details</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <FormField
               control={form.control}
               name="area"
@@ -188,7 +263,7 @@ export function PropertyAddForm() {
 
             <FormField
               control={form.control}
-              name="areaUnit"
+              name="aunit"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Area Unit</FormLabel>
@@ -197,25 +272,162 @@ export function PropertyAddForm() {
                     placeholderVal="Select a Area Unit "
                     label="Area Unit"
                     onChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={"Marla"}
                   />
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="bedrooms"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Bedrooms</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="3 bedrooms"
+                      {...field}
+                      type="number"
+                      min="0"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <Button
-              className="place-self-center md:col-span-2 w-96"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
-    </Card>
+            <FormField
+              control={form.control}
+              name="bathrooms"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Bathrooms</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="3 bathrooms"
+                      {...field}
+                      type="number"
+                      min="0"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Address & Location</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <FormControl>
+                    <Input placeholder="DHA Phase 5" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Lahore" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>State</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Punjab" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="zipCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Zip Code</FormLabel>
+                  <FormControl>
+                    <Input placeholder="40100" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Photo & Video Attachment</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <ImageUpload />
+            <VideoModal />
+          </CardContent>
+        </Card>
+
+        <Button className="place-self-center md:col-span-2 w-96" type="submit">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
 }
+
+const VideoModal = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Add Video</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Add Videos of your Property</DialogTitle>
+          <DialogDescription>
+            Add videos of your property from Youtube. Upload on Youtube and
+            paste the link below.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center space-x-2">
+          <div className="grid flex-1 gap-2">
+            <Label htmlFor="link" className="sr-only">
+              Link
+            </Label>
+            <Input
+              id="link"
+              placeholder="https://www.youtube.com/embed/uTIcquf4Z-s"
+            />
+          </div>
+        </div>
+        <DialogFooter className="sm:justify-end">
+          <Button type="button" variant="secondary">
+            Add
+          </Button>
+          <DialogClose asChild></DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};

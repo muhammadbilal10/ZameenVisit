@@ -31,9 +31,16 @@ const AgencyCard: React.FC<AgencyProps> = ({
   city,
 }) => {
   return (
-    <Card className="w-[220px]">
+    <Card className="">
       <CardContent className={cn("p-0")}>
-        <Image src={image} alt={name} loading="lazy" height={220} width={220} />
+        <Image
+          src={image}
+          alt={name}
+          loading="lazy"
+          height={220}
+          width={600}
+          className="w-full"
+        />
       </CardContent>
       <CardHeader>
         <CardTitle className={cn("text-lg")}>{name}</CardTitle>

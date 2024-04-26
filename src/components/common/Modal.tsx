@@ -25,9 +25,7 @@ export default function Modal({
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
       {/* <DialogTrigger>Open</DialogTrigger> */}
-      <DialogContent
-        className={cn("max-w-4xl h-full fixed p-0 z-50 ", className)}
-      >
+      <DialogContent className={cn("max-w-4xl  fixed p-0 z-50 ", className)}>
         {children}
 
         {/* <DialogHeader>

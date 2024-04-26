@@ -35,13 +35,14 @@ async function getPropertyData(id: string): Promise<Property> {
       "This spacious 10 marla house with a basement is perfect for a growing family. It features 10 bedrooms, 4 bathrooms, a kitchen, and a lounge. The house is located in the heart of Lahore, Punjab, and offers easy access to all amenities. The modern design and high-quality construction make it an ideal choice for those looking for a comfortable and luxurious living space. Don't miss out on this opportunity to own your dream home! anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.",
     price: 100000,
     features: ["3 Bedrooms", "2 Bathrooms", "1 Kitchen", "1 Lounge"],
-    imageUrl: backgroundImages,
+    imagesUrl: backgroundImages,
+    videosUrl: [],
     propertyType: "Apartment",
     status: "for-sale",
   };
 }
 
-export default async function ProptertyDetailsPage({
+export default async function PropertyDetailsPage({
   params,
 }: {
   params: { slug: string[] };
@@ -81,7 +82,7 @@ export default async function ProptertyDetailsPage({
       </div>
       <div className="grid grid-cols-12 gap-4 md:gap-10">
         <div className="lg:col-span-8 col-span-12 space-y-8">
-          <PropertyCarousel propertyImages={property.imageUrl} />
+          <PropertyCarousel propertyImages={property.imagesUrl} />
           <PropertyOverviewCard property={property} />
           <PropertyDescriptionCard description={property.description} />
           <PropertyVideoCard />

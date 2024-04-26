@@ -19,7 +19,7 @@ export function CustomSelect({
 }: {
   items: string[];
   placeholderVal: string;
-  label: string;
+  label?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
 }) {

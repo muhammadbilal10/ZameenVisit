@@ -11,7 +11,8 @@ export interface Property {
     unit: "sqft" | "marla" | "kanal";
   };
   builtYear: number;
-  imageUrl: string[];
+  imagesUrl: string[];
+  videosUrl: string[];
   location: {
     address: string;
     city: string;

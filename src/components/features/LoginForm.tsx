@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
 import Link from "next/link";
 import Image from "next/image";
-import { login } from "@/actions/auth";
+import { login } from "@/server-actions/auth";
 import { useFormState } from "react-dom";
 
 const formSchema = z.object({

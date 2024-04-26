@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AddListingPage() {
   return (
-    <div>
+    <div className=" ">
       <PropertyAddForm />
     </div>
   );

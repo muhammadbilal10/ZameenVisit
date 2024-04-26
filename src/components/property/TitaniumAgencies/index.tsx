@@ -32,12 +32,12 @@ const TitaniumAgencies: React.FC<TitaniumAgenciesProps> = ({
       <h2 className="ml-4 mb-10 mt-10 scroll-m-20 pb-2 text-2xl font-semibold tracking-tight">
         Titanium Agencies
       </h2>
-      <Carousel className="ml-4 w-full max-w-60 sm:max-w-screen-sm md:max-w-screen-lg lg:max-w-screen-xl">
+      <Carousel className="ml-4 w-full ">
         <CarouselContent className="-ml-1">
           {titaniumAgencies.map((agency, index) => (
             <CarouselItem
               key={index}
-              className="pl-1 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+              className="pl-1 basis-full  md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
             >
               <div className="p-1">
                 <AgencyCard {...agency} />
