@@ -23,9 +23,9 @@ export default function RootLayout({
         {/* <div className="relative">
           <Navbar />
           <div className="mt-[65px]">{children}</div>
-          <Toaster />
           <Footer />
         </div> */}
+        <Toaster />
         {children}
       </body>
     </html>

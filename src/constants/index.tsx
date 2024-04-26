@@ -394,7 +394,7 @@ export const accountMenuItems = [
 
 export const dashboardLinks = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "#", icon: CircleFadingPlus, label: "Add New Property" },
+  { href: "/add-listing", icon: CircleFadingPlus, label: "Add New Property" },
   { href: "#", icon: HomeIcon, label: "My Property List" },
   { href: "#", icon: HeartIcon, label: "Favorites" },
   { href: "#", icon: SearchIcon, label: "Saved Searches" },

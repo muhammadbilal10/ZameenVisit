@@ -1,7 +1,7 @@
 import DashboardNavbar from "@/components/layout/DashboardNavbar";
 import DashboardSidebar from "@/components/layout/DashboardSidebar";
 
-export default function DashboardLayout({
+export default function UserLayout({
   children,
 }: {
   children: React.ReactNode;

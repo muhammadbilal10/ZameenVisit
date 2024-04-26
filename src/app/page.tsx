@@ -1,6 +1,7 @@
 import { CustomCarousel } from "@/components/common/CustomCarousel";
 import Footer from "@/components/layout/Footer";
 import { Hero } from "@/components/layout/Hero";
+import Navbar from "@/components/layout/Navbar";
 
 import PropertyList from "@/components/property/PropertyList";
 import TitaniumAgencies from "@/components/property/TitaniumAgencies";
@@ -11,6 +12,9 @@ import { titaniumAgencies, properties, backgroundImages } from "@/constants";
 export default function Home() {
   return (
     <main className="">
+      <section>
+        <Navbar />
+      </section>
       <section id="#hero">
         <Hero images={backgroundImages} />
         <PropertySearch />
@@ -21,9 +25,9 @@ export default function Home() {
       <section className="py-10 px-10 lg:px-20 min-h-screen">
         <TitaniumAgencies titaniumAgencies={titaniumAgencies} />
       </section>
-      {/* <section className=" bg-gradient-to-r from-sky-100 to-violet-100">
+      <section>
         <Footer />
-      </section> */}
+      </section>
     </main>
   );
 }
