@@ -4,6 +4,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
       },
       {
@@ -35,6 +39,10 @@ const nextConfig = {
         hostname: "i.postimg.cc",
       },
     ],
+  },
+  env: {
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "dosndnyp5",
+    NEXT_PUBLIC_CLOUDINARY_PRESET_NAME: "vy8pknlf",
   },
 };
 

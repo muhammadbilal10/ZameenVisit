@@ -118,64 +118,45 @@ export function PropertyAddForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col flex">
-        <Card className="">
-          <CardHeader>
-            <CardTitle>OverView</CardTitle>
-            {/* <CardDescription>Card Description</CardDescription> */}
-          </CardHeader>
-          <CardContent className="space-y-4 grid md:grid-cols">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem className="">
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Beautiful House in DHA Phase 5"
-                      {...field}
-                    />
-                  </FormControl>
-                  {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem className="md:col-span-2">
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Example: Freshly painted home with new appliances and carpeting. Easy walking to public transit and a great neighborhood."
-                      {...field}
-                      className="h-40"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="flex gap-2">
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col flex">
+          <Card className="">
+            <CardHeader>
+              <CardTitle>OverView</CardTitle>
+              {/* <CardDescription>Card Description</CardDescription> */}
+            </CardHeader>
+            <CardContent className="space-y-4 grid md:grid-cols">
               <FormField
                 control={form.control}
-                name="price"
+                name="title"
                 render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>Price</FormLabel>
+                  <FormItem className="">
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="1000000 PKR"
+                        placeholder="Beautiful House in DHA Phase 5"
                         {...field}
-                        type="number"
-                        min="0"
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="md:col-span-2">
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Example: Freshly painted home with new appliances and carpeting. Easy walking to public transit and a great neighborhood."
+                        {...field}
+                        className="h-40"
                       />
                     </FormControl>
                     <FormMessage />
@@ -183,7 +164,27 @@ export function PropertyAddForm() {
                 )}
               />
 
-              {/* <FormField
+              <div className="flex gap-2">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Price</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="1000000 PKR"
+                          {...field}
+                          type="number"
+                          min="0"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* <FormField
                 control={form.control}
                 name="currencyUnit"
                 disabled
@@ -201,198 +202,201 @@ export function PropertyAddForm() {
                   </FormItem>
                 )}
               /> */}
-            </div>
-            <FormField
-              control={form.control}
-              name="purpose"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Listed in</FormLabel>
-                  <CustomSelect
-                    items={propertyPurposeList}
-                    placeholderVal="Select a purpose"
-                    label="Property Purpose"
-                    onChange={field.onChange}
-                    defaultValue={field.value}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="propertyType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Property Type</FormLabel>
-                  <CustomSelect
-                    items={propertyTypeList}
-                    placeholderVal="Select a property type"
-                    label="Property Purpose"
-                    onChange={field.onChange}
-                    defaultValue={field.value}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-          {/* <CardFooter>
+              </div>
+              <FormField
+                control={form.control}
+                name="purpose"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Listed in</FormLabel>
+                    <CustomSelect
+                      items={propertyPurposeList}
+                      placeholderVal="Select a purpose"
+                      label="Property Purpose"
+                      onChange={field.onChange}
+                      defaultValue={field.value}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="propertyType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Property Type</FormLabel>
+                    <CustomSelect
+                      items={propertyTypeList}
+                      placeholderVal="Select a property type"
+                      label="Property Purpose"
+                      onChange={field.onChange}
+                      defaultValue={field.value}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            {/* <CardFooter>
             <p>Card Footer</p>
           </CardFooter> */}
-        </Card>
+          </Card>
 
-        <Card className="">
-          <CardHeader>
-            <CardTitle>Listing Details</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="area"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Area</FormLabel>
-                  <FormControl>
-                    <Input placeholder="1000" {...field} type="number" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <Card className="">
+            <CardHeader>
+              <CardTitle>Listing Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FormField
+                control={form.control}
+                name="area"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Area</FormLabel>
+                    <FormControl>
+                      <Input placeholder="1000" {...field} type="number" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="aunit"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Area Unit</FormLabel>
-                  <CustomSelect
-                    items={areaMenuItems}
-                    placeholderVal="Select a Area Unit "
-                    label="Area Unit"
-                    onChange={field.onChange}
-                    defaultValue={"Marla"}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="bedrooms"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormLabel>Bedrooms</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="3 bedrooms"
-                      {...field}
-                      type="number"
-                      min="0"
+              <FormField
+                control={form.control}
+                name="aunit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Area Unit</FormLabel>
+                    <CustomSelect
+                      items={areaMenuItems}
+                      placeholderVal="Select a Area Unit "
+                      label="Area Unit"
+                      onChange={field.onChange}
+                      defaultValue={"Marla"}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="bedrooms"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Bedrooms</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="3 bedrooms"
+                        {...field}
+                        type="number"
+                        min="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="bathrooms"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormLabel>Bathrooms</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="3 bathrooms"
-                      {...field}
-                      type="number"
-                      min="0"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
+              <FormField
+                control={form.control}
+                name="bathrooms"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Bathrooms</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="3 bathrooms"
+                        {...field}
+                        type="number"
+                        min="0"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Address & Location</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="DHA Phase 5" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>City</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Lahore" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="state"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>State</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Punjab" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="zipCode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Zip Code</FormLabel>
-                  <FormControl>
-                    <Input placeholder="40100" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Address & Location</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Location</FormLabel>
+                    <FormControl>
+                      <Input placeholder="DHA Phase 5" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="city"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>City</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Lahore" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="state"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>State</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Punjab" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="zipCode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Zip Code</FormLabel>
+                    <FormControl>
+                      <Input placeholder="40100" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Photo & Video Attachment</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ImageUpload />
-            <VideoModal />
-          </CardContent>
-        </Card>
-
-        <Button className="place-self-center md:col-span-2 w-96" type="submit">
-          Submit
-        </Button>
-      </form>
-    </Form>
+          <Button
+            className="place-self-center md:col-span-2 w-96"
+            type="submit"
+          >
+            Submit
+          </Button>
+        </form>
+      </Form>
+      <Card>
+        <CardHeader>
+          <CardTitle>Photo & Video Attachment</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <ImageUpload />
+          <VideoModal />
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
