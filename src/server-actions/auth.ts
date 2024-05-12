@@ -1,16 +1,19 @@
 "use server";
 
 import { signupFormSchema } from "@/lib/formSchema";
+import { base } from "@/utils/config";
+
 
 export async function login(prevState: any, formData: FormData) {
   const email = formData.get("email");
   const password = formData.get("password");
   console.log(email, password);
+  console.log(base.URL);
 
   try {
     //api.example.com/articles/${articleId}/comments
     const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/user/login`,
+      `${base.URL}/api/auth/user/login`,
       {
         method: "POST",
         headers: {
