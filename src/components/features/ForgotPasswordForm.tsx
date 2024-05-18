@@ -16,7 +16,8 @@ export function SubmitButton() {
     <Button disabled={pending} type="submit" className="w-full">
       {!pending ? (
         <>
-          <Mail className="h-5 w-5 mr-2" /> Continue
+          {/* <Mail className="h-5 w-5 mr-2" /> */}
+          Reset Password
         </>
       ) : (
         <>
@@ -77,7 +78,7 @@ export default function ForgotPasswordForm({
 
         <div className="ml-1 mt-6 text-center text-sm">
           <div className="mt-10">
-            Already have an account?{" "}
+            Back to?{" "}
             <Link
               href="#"
               className="underline"

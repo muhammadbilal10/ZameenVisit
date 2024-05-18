@@ -2,7 +2,7 @@ import { pinVerification } from "@/server-actions/auth";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, Loader2, Mail } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Loader2, Mail } from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
 import {
   InputOTP,
@@ -10,6 +10,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Arrow } from "@radix-ui/react-dropdown-menu";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -57,7 +58,7 @@ export default function OTPForm({
         <form action={formAction} className="space-y-6">
           <div className="flex justify-center">
             <InputOTP name="pin" className="" maxLength={4}>
-              <InputOTPGroup className="space-x-2 ">
+              <InputOTPGroup className="">
                 <InputOTPSlot className="h-14 w-14" index={0} />
                 <InputOTPSlot className="h-14 w-14" index={1} />
               </InputOTPGroup>
@@ -86,7 +87,18 @@ export default function OTPForm({
           </div>
           <SubmitButton />
         </form>
+        <button
+          onClick={() => {
+            setIsOTPOpen(false);
+            setIsSignInOpen(true);
+          }}
+          className="flex items-center justify-center w-full"
+        >
+          <ArrowLeft className="h-5 w-5 mr-2" />
+          Back to Log in
+        </button>
       </div>
+
       <div className="hidden bg-muted lg:block  rounded-r-lg">
         <Image
           src="https://i.postimg.cc/3N3tCw42/pexels-elly-fairytale-4008826.jpg"
