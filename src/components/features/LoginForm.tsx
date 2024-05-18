@@ -32,8 +32,10 @@ const formSchema = z.object({
 
 export default function LoginForm({
   setIsSignupOpen,
+  setIsLoginOpen,
 }: {
   setIsSignupOpen: (value: boolean) => void;
+  setIsLoginOpen: (value: boolean) => void;
 }) {
   const [state, formAction] = useFormState(login, null);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +54,7 @@ export default function LoginForm({
   }
 
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="relative w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="w-[360px] mx-auto my-12 space-y-4">
         <div className="flex flex-col justify-end text-center gap-2">
           <h1 className="text-3xl font-bold">Login</h1>
@@ -123,13 +125,15 @@ export default function LoginForm({
           <Link
             href="#"
             className="underline"
-            onClick={() => setIsSignupOpen(true)}
+            onClick={() => {
+              setIsSignupOpen(true);
+            }}
           >
             Sign up
           </Link>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block h-[600px] rounded-r-lg">
+      <div className="hidden bg-muted lg:block h-[650px] rounded-r-lg">
         <Image
           src="https://i.postimg.cc/3N3tCw42/pexels-elly-fairytale-4008826.jpg"
           alt="Image"

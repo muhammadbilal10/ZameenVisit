@@ -6,7 +6,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="relative">
       <Navbar />
       <div className="mt-[65px]">{children}</div>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }

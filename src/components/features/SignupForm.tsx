@@ -32,8 +32,10 @@ export function SubmitButton() {
 }
 export default function SignupForm({
   setIsSignupOpen,
+  setIsSignInOpen,
 }: {
   setIsSignupOpen: (value: boolean) => void;
+  setIsSignInOpen: (value: boolean) => void;
 }) {
   const [state, formAction] = useFormState(signup, null);
   const [value, setValue] = useState("");
@@ -62,7 +64,7 @@ export default function SignupForm({
   };
 
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full lg:grid  lg:grid-cols-2">
       <div className="w-[360px] mx-auto my-6 space-y-4">
         <div className="flex flex-col justify-end text-center gap-2">
           <h1 className="text-3xl font-bold">Sign Up</h1>
@@ -150,7 +152,10 @@ export default function SignupForm({
           <Link
             href="#"
             className="underline"
-            onClick={() => setIsSignupOpen(false)}
+            onClick={() => {
+              setIsSignupOpen(false);
+              setIsSignInOpen(true);
+            }}
           >
             Sign in
           </Link>

@@ -19,10 +19,15 @@ import Modal from "../common/Modal";
 import SignupForm from "../features/SignupForm";
 import SigninForm from "../features/SigninForm";
 import LoginForm from "../features/LoginForm";
+import ForgotPasswordForm from "../features/ForgotPasswordForm";
+import OTPForm from "../features/OTPForm";
 
 const Navbar = () => {
-  const [isLoginOpen, setIsLoginOpen] = React.useState(false);
+  const [isModelOpen, setIsModelOpen] = React.useState(false);
+  const [isLoginOpen, setIsLoginOpen] = React.useState(true);
   const [isSignupOpen, setIsSignupOpen] = React.useState(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = React.useState(false);
+  const [isOTPOpen, setIsOTPOpen] = React.useState(false);
   const links = [
     { name: "Home", href: "/", icon: Home },
     { name: "Properties", href: "#", icon: Home },
@@ -35,7 +40,7 @@ const Navbar = () => {
     const isLogin = false;
     if (isLogin) {
     } else {
-      setIsLoginOpen(true);
+      setIsModelOpen(true);
     }
   };
   return (
@@ -114,16 +119,33 @@ const Navbar = () => {
       </div>
       <div className="flex items-center space-x-4">
         <ProfileDropdownMenu />
-        <Modal
-          isOpen={isLoginOpen}
-          setOpen={setIsLoginOpen}
-          className="h-[650px]"
-        >
-          {isSignupOpen ? (
-            <SignupForm setIsSignupOpen={setIsSignupOpen} />
-          ) : (
-            // <LoginForm setIsSignupOpen={setIsSignupOpen} />
-            <SigninForm setIsSignupOpen={setIsSignupOpen} />
+        <Modal isOpen={isModelOpen} setOpen={setIsModelOpen} className="">
+          {isForgotPasswordOpen && (
+            <ForgotPasswordForm
+              setIsForgotPasswordOpen={setIsForgotPasswordOpen}
+              setIsSignInOpen={setIsLoginOpen}
+              setIsOTPOpen={setIsOTPOpen}
+            />
+          )}
+
+          {isSignupOpen && (
+            <SignupForm
+              setIsSignupOpen={setIsSignupOpen}
+              setIsSignInOpen={setIsLoginOpen}
+            />
+          )}
+          {isLoginOpen && (
+            <SigninForm
+              setIsForgotPasswordOpen={setIsForgotPasswordOpen}
+              setIsSignupOpen={setIsSignupOpen}
+              setIsSignInOpen={setIsLoginOpen}
+            />
+          )}
+          {isOTPOpen && (
+            <OTPForm
+              setIsSignInOpen={setIsLoginOpen}
+              setIsOTPOpen={setIsOTPOpen}
+            />
           )}
         </Modal>
 

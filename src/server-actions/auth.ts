@@ -64,3 +64,14 @@ export async function signup(prevState: any, formData: FormData) {
   //   return { message: "Failed to signup. Please try again." };
   // }
 }
+
+export async function forgotPassword(prevState: any, formData: FormData) {
+  const email = formData.get("email");
+  return { message: `Password reset link sent to ${email}`, status: "success" };
+}
+
+export async function pinVerification(prevState: any, formData: FormData) {
+  const pin = formData.get("pin");
+  console.log(pin);
+  return { message: `Pin verification successful`, status: "success" };
+}

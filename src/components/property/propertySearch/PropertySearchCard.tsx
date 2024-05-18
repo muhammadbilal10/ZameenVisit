@@ -59,6 +59,168 @@ import { ComboboxDemo } from "@/components/TestComponent";
 import { Slider } from "@/components/ui/slider";
 import { set } from "date-fns";
 
+const cities = [
+  {
+    label: "Islamabad",
+    value: "islamabad",
+  },
+  {
+    label: "Rawalpindi",
+    value: "rawalpindi",
+  },
+  {
+    label: "Lahore",
+    value: "lahore",
+  },
+  {
+    label: "Karachi",
+    value: "karachi",
+  },
+  {
+    label: "Peshawar",
+    value: "peshawar",
+  },
+  {
+    label: "Quetta",
+    value: "quetta",
+  },
+  {
+    label: "Faisalabad",
+    value: "faisalabad",
+  },
+  {
+    label: "Multan",
+    value: "multan",
+  },
+  {
+    label: "Gujranwala",
+    value: "gujranwala",
+  },
+  {
+    label: "Sialkot",
+    value: "sialkot",
+  },
+];
+
+const locations = [
+  {
+    label: "Gulberg, Islamabad",
+    value: "gulberg-islamabad",
+  },
+  {
+    label: "Bahria Town, Islamabad",
+    value: "bahria-town-islamabad",
+  },
+  {
+    label: "DHA, Islamabad",
+    value: "dha-islamabad",
+  },
+  {
+    label: "Gulberg, Lahore",
+    value: "gulberg-lahore",
+  },
+  {
+    label: "Bahria Town, Lahore",
+    value: "bahria-town-lahore",
+  },
+  {
+    label: "DHA, Lahore",
+    value: "dha-lahore",
+  },
+  {
+    label: "Clifton, Karachi",
+    value: "clifton-karachi",
+  },
+  {
+    label: "DHA, Karachi",
+    value: "dha-karachi",
+  },
+  {
+    label: "Gulshan-e-Iqbal, Karachi",
+    value: "gulshan-e-iqbal-karachi",
+  },
+  {
+    label: "Hayatabad, Peshawar",
+    value: "hayatabad-peshawar",
+  },
+  {
+    label: "University Town, Peshawar",
+    value: "university-town-peshawar",
+  },
+  {
+    label: "Cantt, Peshawar",
+    value: "cantt-peshawar",
+  },
+  {
+    label: "Cantt, Quetta",
+    value: "cantt-quetta",
+  },
+  {
+    label: "Jinnah Town, Quetta",
+    value: "jinnah-town-quetta",
+  },
+  {
+    label: "Model Town, Faisalabad",
+    value: "model-town-faisalabad",
+  },
+  {
+    label: "DHA, Faisalabad",
+    value: "dha-faisalabad",
+  },
+  {
+    label: "Gulberg, Faisalabad",
+    value: "gulberg-faisalabad",
+  },
+  {
+    label: "Cantt, Multan",
+    value: "cantt-multan",
+  },
+  {
+    label: "DHA, Multan",
+    value: "dha-multan",
+  },
+  {
+    label: "Gulgasht, Multan",
+    value: "gulgasht-multan",
+  },
+  {
+    label: "Cantt, Gujranwala",
+    value: "cantt-gujranwala",
+  },
+  {
+    label: "DC Colony, Gujranwala",
+    value: "dc-colony-gujranwala",
+  },
+];
+
+const areaUnits = [
+  {
+    label: "Marla",
+    value: "marla",
+    range: [0, 50],
+  },
+  {
+    label: "Kanal",
+    value: "kanal",
+    range: [0, 10],
+  },
+  {
+    label: "Square Feet",
+    value: "sqft",
+    range: [0, 5000],
+  },
+  {
+    label: "Square Yards",
+    value: "sqyd",
+    range: [0, 5000],
+  },
+  {
+    label: "Square Meters",
+    value: "sqm",
+    range: [0, 5000],
+  },
+];
+
 export function PropertySearchCard({ searchAction }: { searchAction: string }) {
   const [open, setOpen] = React.useState(false);
   const [priceOpen, setPriceOpen] = React.useState(false);
@@ -76,176 +238,9 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
   const [developerTitle, setDeveloperTitle] = React.useState("");
   const [areaRange, setAreaRange] = React.useState([0, 50]);
 
-  const cities = [
-    {
-      label: "Islamabad",
-      value: "islamabad",
-    },
-    {
-      label: "Rawalpindi",
-      value: "rawalpindi",
-    },
-    {
-      label: "Lahore",
-      value: "lahore",
-    },
-    {
-      label: "Karachi",
-      value: "karachi",
-    },
-    {
-      label: "Peshawar",
-      value: "peshawar",
-    },
-    {
-      label: "Quetta",
-      value: "quetta",
-    },
-    {
-      label: "Faisalabad",
-      value: "faisalabad",
-    },
-    {
-      label: "Multan",
-      value: "multan",
-    },
-    {
-      label: "Gujranwala",
-      value: "gujranwala",
-    },
-    {
-      label: "Sialkot",
-      value: "sialkot",
-    },
-  ];
-
-  const locations = [
-    {
-      label: "Gulberg, Islamabad",
-      value: "gulberg-islamabad",
-    },
-    {
-      label: "Bahria Town, Islamabad",
-      value: "bahria-town-islamabad",
-    },
-    {
-      label: "DHA, Islamabad",
-      value: "dha-islamabad",
-    },
-    {
-      label: "Gulberg, Lahore",
-      value: "gulberg-lahore",
-    },
-    {
-      label: "Bahria Town, Lahore",
-      value: "bahria-town-lahore",
-    },
-    {
-      label: "DHA, Lahore",
-      value: "dha-lahore",
-    },
-    {
-      label: "Clifton, Karachi",
-      value: "clifton-karachi",
-    },
-    {
-      label: "DHA, Karachi",
-      value: "dha-karachi",
-    },
-    {
-      label: "Gulshan-e-Iqbal, Karachi",
-      value: "gulshan-e-iqbal-karachi",
-    },
-    {
-      label: "Hayatabad, Peshawar",
-      value: "hayatabad-peshawar",
-    },
-    {
-      label: "University Town, Peshawar",
-      value: "university-town-peshawar",
-    },
-    {
-      label: "Cantt, Peshawar",
-      value: "cantt-peshawar",
-    },
-    {
-      label: "Cantt, Quetta",
-      value: "cantt-quetta",
-    },
-    {
-      label: "Jinnah Town, Quetta",
-      value: "jinnah-town-quetta",
-    },
-    {
-      label: "Model Town, Faisalabad",
-      value: "model-town-faisalabad",
-    },
-    {
-      label: "DHA, Faisalabad",
-      value: "dha-faisalabad",
-    },
-    {
-      label: "Gulberg, Faisalabad",
-      value: "gulberg-faisalabad",
-    },
-    {
-      label: "Cantt, Multan",
-      value: "cantt-multan",
-    },
-    {
-      label: "DHA, Multan",
-      value: "dha-multan",
-    },
-    {
-      label: "Gulgasht, Multan",
-      value: "gulgasht-multan",
-    },
-    {
-      label: "Cantt, Gujranwala",
-      value: "cantt-gujranwala",
-    },
-    {
-      label: "DC Colony, Gujranwala",
-      value: "dc-colony-gujranwala",
-    },
-  ];
-
-  const areaUnits = [
-    {
-      label: "Marla",
-      value: "marla",
-      range: [0, 50],
-    },
-    {
-      label: "Kanal",
-      value: "kanal",
-      range: [0, 10],
-    },
-    {
-      label: "Square Feet",
-      value: "sqft",
-      range: [0, 5000],
-    },
-    {
-      label: "Square Yards",
-      value: "sqyd",
-      range: [0, 5000],
-    },
-    {
-      label: "Square Meters",
-      value: "sqm",
-      range: [0, 5000],
-    },
-  ];
-
   return (
     <Card>
-      <CardHeader>
-        {/* <CardTitle>Account</CardTitle>
-        <CardDescription>
-          Make changes to your account here. Click save when you're done.
-        </CardDescription> */}
-      </CardHeader>
+      <CardHeader></CardHeader>
       <CardContent className="gap-3 grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <div className="space-y-1">
           <Label htmlFor="email">Category</Label>
@@ -253,6 +248,9 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
             items={propertyCategories}
             placeholderVal="Select a Category "
             label="Property Category"
+            onChange={(value) => {
+              setCategory(value);
+            }}
           />
         </div>
 
@@ -272,7 +270,7 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="p-0">
               <Command>
                 <CommandInput placeholder="Search city..." />
                 <CommandList className="">
@@ -322,7 +320,7 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className=" p-0">
               <Command>
                 <CommandInput placeholder="Search city..." />
                 <CommandList className="">
@@ -369,7 +367,7 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
                 }
               />
             </SelectTrigger>
-            <SelectContent className="max-sm:w-[300px]">
+            <SelectContent className="">
               <SelectGroup className="p-4">
                 <SelectLabel className="pl-1">Price Selector</SelectLabel>
 
@@ -448,10 +446,10 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
                 }
               />
             </SelectTrigger>
-            <SelectContent className="max-sm:w-[350px] w-[350px]">
+            <SelectContent className="">
               <SelectGroup className="p-4">
                 <div className="flex mb-2 justify-between">
-                  <SelectLabel className="pl-1">Price Selector</SelectLabel>
+                  <SelectLabel className="pl-1">Area Selector</SelectLabel>
                   <Select
                     value={areaUnit}
                     onValueChange={(value) => {
