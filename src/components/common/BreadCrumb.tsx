@@ -25,7 +25,7 @@ export function BreadCrumb({ breadCrumbItem }: BreadcrumbProps) {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className={`${item?.active === true ? "text-black" : ""}`}
-                href={item.href}
+                href={item?.active === true ? "#" : item.href}
               >
                 {item.name}
               </BreadcrumbLink>

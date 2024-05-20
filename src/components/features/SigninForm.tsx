@@ -6,8 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AlertCircle, AlertTriangle, Loader2, Mail } from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
-import { cn } from "@/lib/utils";
-import { set } from "date-fns";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();

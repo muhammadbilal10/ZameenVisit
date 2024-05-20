@@ -9,6 +9,7 @@ cloudinary.config({
 
 export async function uploadImage(prevState: any, formData: FormData) {
   const file = formData.get("image") as File;
+  console.log(file);
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
   const result = (await new Promise((resolve, reject) => {
