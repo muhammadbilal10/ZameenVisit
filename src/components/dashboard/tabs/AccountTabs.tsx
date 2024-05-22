@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProfileCard from "@/components/user/Account/ProfileCard";
+import UpdatePasswordForm from "@/components/user/Account/UpdatePasswordForm";
+import UpdateProfileForm from "@/components/user/Account/UpdateProfileForm";
 
 export default function AccountTabs() {
   return (
@@ -9,9 +10,11 @@ export default function AccountTabs() {
         <TabsTrigger value="password">Password</TabsTrigger>
       </TabsList>
       <TabsContent value="profile">
-        <ProfileCard />
+        <UpdateProfileForm />
       </TabsContent>
-      <TabsContent value="password">Change your password here.</TabsContent>
+      <TabsContent value="password">
+        <UpdatePasswordForm />
+      </TabsContent>
     </Tabs>
   );
 }

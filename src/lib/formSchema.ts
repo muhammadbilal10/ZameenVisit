@@ -23,7 +23,6 @@ export const signupFormSchema = z
         message:
           "Use 8 or more characters with a mix of letters, numbers and symbols",
       })
-
       .refine((password) => /[a-z]/.test(password), {
         message:
           "Use 8 or more characters with a mix of letters, numbers and symbols",
@@ -59,3 +58,43 @@ export const profileFormSchema = z.object({
   }),
   email: z.string().email(),
 });
+
+export const updatePasswordFormSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, {
+        message:
+          "Use 8 or more characters with a mix of letters, numbers and symbols",
+      })
+      .refine((password) => /[a-z]/.test(password), {
+        message:
+          "Use 8 or more characters with a mix of letters, numbers and symbols",
+        path: ["password"],
+      })
+      .refine((password) => /[0-9]/.test(password), {
+        message:
+          "Use 8 or more characters with a mix of letters, numbers and symbols",
+        path: ["password"],
+      })
+      .refine(
+        (password) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password),
+        {
+          message:
+            "Use 8 or more characters with a mix of letters, numbers and symbols",
+          path: ["password"],
+        }
+      )
+      .refine((password) => /[A-Z]/.test(password), {
+        message: "Password must contain at least one uppercase letter",
+        path: ["password"],
+      }),
+
+    confirmPassword: z.string().min(1, {
+      message: "Confirm password is required",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });

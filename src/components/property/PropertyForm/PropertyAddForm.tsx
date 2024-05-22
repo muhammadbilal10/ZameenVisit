@@ -48,6 +48,7 @@ import Modal from "@/components/common/Modal";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Copy } from "lucide-react";
+import { useFormStatus } from "react-dom";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -120,7 +121,10 @@ export function PropertyAddForm() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col flex">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col space-y-8"
+        >
           <Card className="">
             <CardHeader>
               <CardTitle>OverView</CardTitle>
@@ -379,24 +383,31 @@ export function PropertyAddForm() {
             </CardContent>
           </Card>
 
-          <Button
-            className="place-self-center md:col-span-2 w-96"
-            type="submit"
-          >
-            Submit
-          </Button>
+          <Card>
+            <CardHeader>
+              <CardTitle>Photo & Video Attachment</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* <ImageUpload /> */}
+              <VideoModal />
+            </CardContent>
+          </Card>
+
+          <div className="max-w-sm self-end">
+            <SubmitButton />
+          </div>
         </form>
       </Form>
-      <Card>
-        <CardHeader>
-          <CardTitle>Photo & Video Attachment</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <ImageUpload />
-          <VideoModal />
-        </CardContent>
-      </Card>
     </div>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button disabled={pending} type="submit">
+      {pending ? "Submitting..." : "Submit"}
+    </Button>
   );
 }
 

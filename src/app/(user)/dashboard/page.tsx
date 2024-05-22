@@ -68,11 +68,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import DashboardSidebar from "@/components/layout/DashboardSidebar";
 import DashboardNavbar from "@/components/layout/DashboardNavbar";
+import PropertyAdCard from "@/components/dashboard/Ad/PropertyAdCard";
 
 export default function Dashboard() {
   return (
-    <main className="grid flex-1 items-start gap-4   md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+    <main className="grid grid-cols-12 mt-10 gap-6">
+      <div className="lg:col-span-8 col-span-12">
+        <PropertyAdCard />
+      </div>
+      <div className="col-span-4"></div>
+      {/* <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
           <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
             <CardHeader className="pb-3">
@@ -495,7 +500,7 @@ export default function Dashboard() {
             </Pagination>
           </CardFooter>
         </Card>
-      </div>
+      </div> */}
     </main>
   );
 }

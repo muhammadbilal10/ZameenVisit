@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Loader2, UploadCloud } from "lucide-react";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useFormState } from "react-dom";
 import {
@@ -23,7 +23,9 @@ function SubmitButton() {
   return (
     <Button disabled={pending} type="submit" className="w-full">
       {!pending ? (
-        <>save changes</>
+        <>
+          <UploadCloud className="mr-2 h-4 w-4" /> Upload
+        </>
       ) : (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -38,15 +40,28 @@ export default function UploadProfileImage() {
   const [state, formAction] = useFormState(uploadImage, null);
   const [imageUrl, setImageUrl] = useState<string>("");
 
-  if (state?.secure_url) {
-    setImageUrl(state.secure_url);
-    console.log(state.secure_url);
-  }
+  useEffect(() => {
+    function handleUploadImage() {
+      if (state?.secure_url) {
+        setImageUrl(state.secure_url);
+        console.log(state.secure_url);
+      }
+    }
+    handleUploadImage();
+  }, [state]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageUrl(URL.createObjectURL(file));
+    }
+  };
+
   return (
-    <Card className="h-full">
-      <CardContent className="">
-        <form action={formAction} className="relative">
-          <div className="z-30 group hover:bg-gray-200 opacity-60 absolute rounded-full h-32 w-32 flex items-center justify-center  transition duration-500">
+    <form action={formAction} className="h-full">
+      <Card className="h-full">
+        <CardContent className="relative flex  items-center justify-center h-full">
+          <div className="z-30 group hover:bg-gray-200 opacity-60 absolute rounded-full h-32 w-32 flex items-center justify-center transition duration-500">
             <div className="hidden group-hover:block ">
               <Label htmlFor="image">
                 <UploadCloud className="h-10 w-10 cursor-pointer" />
@@ -59,6 +74,7 @@ export default function UploadProfileImage() {
                 placeholder="johndoe@example.com"
                 accept="image/*"
                 required
+                onChange={handleFileChange}
               />
             </div>
           </div>
@@ -70,8 +86,14 @@ export default function UploadProfileImage() {
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-        </form>
-      </CardContent>
-    </Card>
+          <p className="text-sm max-w-64 mt-64 text-center text-muted-foreground">
+            Allowed *.jpeg, *.jpg, *.png, *.gif max size of 3 Mb
+          </p>
+        </CardContent>
+        {/* <CardFooter>
+          <SubmitButton />
+        </CardFooter> */}
+      </Card>
+    </form>
   );
 }

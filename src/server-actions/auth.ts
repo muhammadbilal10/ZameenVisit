@@ -1,6 +1,6 @@
 "use server";
 
-import { signupFormSchema } from "@/lib/formSchema";
+import { signupFormSchema, updatePasswordFormSchema } from "@/lib/formSchema";
 
 export async function login(prevState: any, formData: FormData) {
   const email = formData.get("email");
@@ -74,4 +74,29 @@ export async function pinVerification(prevState: any, formData: FormData) {
   const pin = formData.get("pin");
   console.log(pin);
   return { message: `Pin verification successful`, status: "success" };
+}
+
+export async function updatePassword(prevState: any, formData: FormData) {
+  const data = updatePasswordFormSchema.safeParse({
+    password: formData.get("new-password"),
+    confirmPassword: formData.get("confirm-new-password"),
+  });
+
+  if (!data.success) {
+    return {
+      errors: data.error.flatten().fieldErrors,
+    };
+  }
+
+  // check current password from database if exist or not
+  // if exist then update password
+  // else return error message
+  if (true) {
+    return {
+      currentPassword: "Current password is incorrect",
+      status: "error",
+    };
+  }
+
+  return { message: "Password updated successfully", status: "success" };
 }

@@ -28,6 +28,7 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+
         // primary: {
         //   DEFAULT: "hsl(217, 90%, 54%)", // This is the new blue color
         //   foreground: "hsl(var(--primary-foreground))", // Keep or adjust the foreground color as needed
@@ -35,6 +36,10 @@ const config = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        teal: {
+          DEFAULT: "hsl(var(--teal))",
+          foreground: "hsl(var(--teal-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

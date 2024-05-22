@@ -29,7 +29,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button disabled={pending} type="submit" className="w-full">
+    <Button disabled={pending} type="submit">
       {!pending ? (
         <>save changes</>
       ) : (
@@ -42,22 +42,21 @@ function SubmitButton() {
   );
 }
 
-export default function ProfileCard() {
+export default function UpdateProfileForm() {
   const [state, formAction] = useFormState(updateProfile, null);
 
   return (
     <div className="grid grid-cols-12 gap-4">
-      <div className="col-span-4">
+      <div className="lg:col-span-4 col-span-12">
         <UploadProfileImage />
       </div>
-
-      <Card className="col-span-8">
-        <CardHeader>
-          {/* <CardTitle>Card Title</CardTitle>
+      <form action={formAction} className="lg:col-span-8 col-span-12">
+        <Card className="">
+          <CardHeader>
+            {/* <CardTitle>Card Title</CardTitle>
         <CardDescription>Card Description</CardDescription> */}
-        </CardHeader>
-        <CardContent>
-          <form action={formAction} className=" grid grid-cols-2 gap-2">
+          </CardHeader>
+          <CardContent className="grid sm:grid-cols-2 gap-2">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
               <Input
@@ -131,7 +130,7 @@ export default function ProfileCard() {
 
             <div>
               <Label htmlFor="country">Country</Label>
-              <Select name="country">
+              <Select name="country" required>
                 <SelectTrigger className="">
                   <SelectValue placeholder="Country" />
                 </SelectTrigger>
@@ -143,7 +142,7 @@ export default function ProfileCard() {
 
             <div>
               <Label htmlFor="address">City</Label>
-              <Select name="city">
+              <Select name="city" required>
                 <SelectTrigger className="">
                   <SelectValue placeholder="Country" />
                 </SelectTrigger>
@@ -157,11 +156,12 @@ export default function ProfileCard() {
             {state?.errors?.name}
             <div>{state?.errors?.password && state?.errors?.password[0]}</div>
           </div> */}
-            {/* <SubmitButton /> */}
-          </form>
-        </CardContent>
-        <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
-      </Card>
+          </CardContent>
+          <CardFooter className="justify-end">
+            <SubmitButton />
+          </CardFooter>
+        </Card>
+      </form>
     </div>
   );
 }
