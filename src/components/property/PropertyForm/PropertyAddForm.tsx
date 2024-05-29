@@ -48,38 +48,13 @@ import Modal from "@/components/common/Modal";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Copy } from "lucide-react";
-import { useFormStatus } from "react-dom";
-
-const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
-  description: z.string().min(10, {
-    message: "Description must be at least 10 characters.",
-  }),
-  price: z.string().min(1, { message: "Please enter a price" }),
-  // currencyUnit: z.string().nonempty({ message: "Please select a currency" }),
-  propertyType: z
-    .string()
-    .nonempty({ message: "Please select a property type" }),
-  purpose: z.string().min(1, { message: "Please select a purpose" }),
-  bedrooms: z.string().min(1, { message: "Please select a bedroom" }),
-  bathrooms: z.string().min(1, { message: "Please select a bathroom" }),
-
-  area: z
-    .string()
-    .transform((val) => parseFloat(val))
-    .refine((val) => !isNaN(val) && val > 0, "Area must be a positive number."),
-  aunit: z.string().min(1, { message: "Please select a area unit" }),
-
-  address: z.string().min(1, { message: "Address is required" }),
-  city: z.string().min(1, { message: "Please select a city" }),
-  state: z.string().min(1, { message: "State is required" }),
-  zipCode: z.string().min(1, { message: "zipCode is required" }),
-});
+import { useFormState, useFormStatus } from "react-dom";
+import { propertyFormSchema } from "@/lib/formSchema";
+import { addProperty } from "@/server-actions/property/property";
 
 export function PropertyAddForm() {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [state, formAction] = useFormState(addProperty, null);
   const now = new Date();
   const locale = "en-US";
 
@@ -94,15 +69,15 @@ export function PropertyAddForm() {
   const formatted = now.toLocaleString(locale, options);
   // ...
   const { toast } = useToast();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof propertyFormSchema>>({
+    resolver: zodResolver(propertyFormSchema),
     defaultValues: {
       title: "",
       description: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof propertyFormSchema>) {
     console.log(values);
     alert(JSON.stringify(values));
     toast({
@@ -122,7 +97,8 @@ export function PropertyAddForm() {
     <div>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          // onSubmit={form.handleSubmit(onSubmit)}
+          action={formAction}
           className="flex flex-col space-y-8"
         >
           <Card className="">
@@ -130,7 +106,7 @@ export function PropertyAddForm() {
               <CardTitle>OverView</CardTitle>
               {/* <CardDescription>Card Description</CardDescription> */}
             </CardHeader>
-            <CardContent className="space-y-4 grid md:grid-cols">
+            <CardContent className="space-y-4 grid md:grid-cols md:space-x-3">
               <FormField
                 control={form.control}
                 name="title"
@@ -141,6 +117,7 @@ export function PropertyAddForm() {
                       <Input
                         placeholder="Beautiful House in DHA Phase 5"
                         {...field}
+                        required
                       />
                     </FormControl>
                     {/* <FormDescription>
@@ -161,6 +138,7 @@ export function PropertyAddForm() {
                         placeholder="Example: Freshly painted home with new appliances and carpeting. Easy walking to public transit and a great neighborhood."
                         {...field}
                         className="h-40"
+                        required
                       />
                     </FormControl>
                     <FormMessage />
@@ -168,7 +146,7 @@ export function PropertyAddForm() {
                 )}
               />
 
-              <div className="flex gap-2">
+              <div className="flex">
                 <FormField
                   control={form.control}
                   name="price"
@@ -247,7 +225,7 @@ export function PropertyAddForm() {
           </CardFooter> */}
           </Card>
 
-          <Card className="">
+          <Card className="space-x-2">
             <CardHeader>
               <CardTitle>Listing Details</CardTitle>
             </CardHeader>
@@ -259,7 +237,12 @@ export function PropertyAddForm() {
                   <FormItem>
                     <FormLabel>Area</FormLabel>
                     <FormControl>
-                      <Input placeholder="1000" {...field} type="number" />
+                      <Input
+                        placeholder="1000"
+                        {...field}
+                        type="number"
+                        required
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -388,7 +371,7 @@ export function PropertyAddForm() {
               <CardTitle>Photo & Video Attachment</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* <ImageUpload /> */}
+              <ImageUpload />
               <VideoModal />
             </CardContent>
           </Card>

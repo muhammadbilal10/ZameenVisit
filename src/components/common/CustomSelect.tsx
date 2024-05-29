@@ -24,7 +24,7 @@ export function CustomSelect({
   onChange?: (value: string) => void;
 }) {
   return (
-    <Select defaultValue={defaultValue} onValueChange={onChange}>
+    <Select defaultValue={defaultValue} onValueChange={onChange} required>
       <SelectTrigger className="">
         <SelectValue placeholder={placeholderVal} />
       </SelectTrigger>

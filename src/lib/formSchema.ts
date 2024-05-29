@@ -17,6 +17,10 @@ export const signupFormSchema = z
         path: ["name"],
       }),
     email: z.string().email(),
+    role: z.string().min(1, { message: "Please select a role" }),
+    phoneNumber: z.string().min(10, {
+      message: "Phone number is required",
+    }),
     password: z
       .string()
       .min(8, {
@@ -59,6 +63,10 @@ export const profileFormSchema = z.object({
   email: z.string().email(),
 });
 
+export const forgotPasswordFormSchema = z.object({
+  email: z.string().email(),
+});
+
 export const updatePasswordFormSchema = z
   .object({
     password: z
@@ -98,3 +106,31 @@ export const updatePasswordFormSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const propertyFormSchema = z.object({
+  title: z.string().min(2, {
+    message: "Title must be at least 2 characters.",
+  }),
+  description: z.string().min(10, {
+    message: "Description must be at least 10 characters.",
+  }),
+  price: z.string().min(1, { message: "Please enter a price" }),
+  // currencyUnit: z.string().nonempty({ message: "Please select a currency" }),
+  propertyType: z
+    .string()
+    .nonempty({ message: "Please select a property type" }),
+  purpose: z.string().min(1, { message: "Please select a purpose" }),
+  bedrooms: z.string().min(1, { message: "Please select a bedroom" }),
+  bathrooms: z.string().min(1, { message: "Please select a bathroom" }),
+
+  area: z
+    .string()
+    .transform((val) => parseFloat(val))
+    .refine((val) => !isNaN(val) && val > 0, "Area must be a positive number."),
+  aunit: z.string().min(1, { message: "Please select a area unit" }),
+
+  address: z.string().min(1, { message: "Address is required" }),
+  city: z.string().min(1, { message: "Please select a city" }),
+  state: z.string().min(1, { message: "State is required" }),
+  zipCode: z.string().min(1, { message: "zipCode is required" }),
+});

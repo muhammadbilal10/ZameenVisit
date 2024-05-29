@@ -12,6 +12,15 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 import { useEffect, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
+import { set } from "date-fns";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -33,24 +42,44 @@ export function SubmitButton() {
 export default function SignupForm({
   setIsSignupOpen,
   setIsSignInOpen,
+  setIsOTPOpen,
 }: {
   setIsSignupOpen: (value: boolean) => void;
   setIsSignInOpen: (value: boolean) => void;
+  setIsOTPOpen: (value: boolean) => void;
 }) {
   const [state, formAction] = useFormState(signup, null);
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(true);
   const { toast } = useToast();
 
-  // useEffect(() => {
-  //   if (state?.errors) {
-  //     toast({
-  //       title: "Scheduled: Catch up ",
-  //       description: "Friday, February 10, 2023 at 5:57 PM",
-  //       action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
-  //     });
-  //   }
-  // }, [state?.errors]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (state?.success) {
+      toast({
+        title: "Success!",
+        description: state?.message,
+      });
+
+      setIsSignupOpen(false);
+      setIsOTPOpen(true);
+      const params = new URLSearchParams(searchParams);
+      params.set("email", "muhdbilal81@gmail.com");
+      router.replace(`${pathname}?${params.toString()}`);
+    }
+
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+  }, [state]);
 
   const handleOnChange = (value: string) => {
     setValue(value);
@@ -74,17 +103,27 @@ export default function SignupForm({
         </div>
         <form action={formAction} className="space-y-3">
           <div className="space-y-2">
-            <Input name="name" type="text" placeholder="Name" required />
+            {/* <Label htmlFor="name">Full Name</Label> */}
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Name"
+              required
+            />
             <div className=" text-rose-500 text-sm ">
               {state?.errors?.name && (
                 <p className="flex items-center">
-                  <AlertCircle className="h-4 w-4 mr-2" /> {state?.errors?.name}
+                  <AlertCircle className="h-4 w-4 mr-2" />{" "}
+                  {state?.errors?.name[0]}
                 </p>
               )}
             </div>
           </div>
           <div className="space-y-1">
+            {/* <Label htmlFor="email">Email</Label> */}
             <Input
+              id="email"
               name="email"
               type="email"
               placeholder="johndoe@example.com"
@@ -93,6 +132,7 @@ export default function SignupForm({
           </div>
 
           <div className="space-y-2">
+            {/* <Label htmlFor="password">Password</Label> */}
             <Input
               name="password"
               type="password"
@@ -109,13 +149,14 @@ export default function SignupForm({
           </div>
 
           <div className="space-y-2">
+            {/* <Label htmlFor="name">Full Name</Label> */}
             <Input
               name="confirm-password"
               type="password"
               placeholder="Confirm Password"
               required
             />
-            <div className=" text-rose-500 text-sm">
+            <div className=" text-destructive text-sm">
               {state?.errors?.confirmPassword && (
                 <p className="flex items-center">
                   <AlertCircle className="h-4 w-4 mr-2" />{" "}
@@ -132,9 +173,25 @@ export default function SignupForm({
               value={value}
               onChange={handleOnChange}
             />
-            {!isValid && (
-              <div className=" text-rose-500">Invalid phone number</div>
+            <input hidden name="phone-number" value={value} />
+            {(!isValid || state?.errors?.phoneNumber) && (
+              <p className="flex items-center text-destructive">
+                <AlertCircle className="h-4 w-4 mr-2" />
+                Please enter a valid phone number
+              </p>
             )}
+          </div>
+
+          <div className="space-y-1">
+            <Select name="role" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select User Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="user">User</SelectItem>
+                <SelectItem value="agent">Agent</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* <div className=" text-rose-500 text-sm">
@@ -161,7 +218,7 @@ export default function SignupForm({
           </Link>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block h-[650px] rounded-r-lg">
+      <div className="hidden bg-muted lg:block rounded-r-lg">
         <Image
           src="https://i.postimg.cc/3N3tCw42/pexels-elly-fairytale-4008826.jpg"
           alt="Image"

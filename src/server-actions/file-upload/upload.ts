@@ -8,8 +8,21 @@ cloudinary.config({
 });
 
 export async function uploadImage(prevState: any, formData: FormData) {
+  // check if the file size is less than 5 MB
   const file = formData.get("image") as File;
-  console.log(file);
+  if (file.size > 5 * 1024 * 1024) {
+    return {
+      error: "File size should be less than 5 MB",
+    };
+  }
+
+  // check if the file type is jpeg or png
+  if (!["image/jpeg", "image/png"].includes(file.type)) {
+    return {
+      error: "File type should be jpeg or png",
+    };
+  }
+
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
   const result = (await new Promise((resolve, reject) => {

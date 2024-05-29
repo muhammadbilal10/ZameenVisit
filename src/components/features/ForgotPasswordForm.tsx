@@ -9,6 +9,8 @@ import { useFormState, useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import { set } from "date-fns";
 import { useEffect } from "react";
+import { toast } from "../ui/use-toast";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -38,11 +40,30 @@ export default function ForgotPasswordForm({
   setIsOTPOpen: (value: boolean) => void;
 }) {
   const [state, formAction] = useFormState(forgotPassword, null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  if (state?.status === "success") {
-    setIsForgotPasswordOpen(false);
-    setIsOTPOpen(true);
-  }
+  // if (state?.status === "success") {
+  //   setIsForgotPasswordOpen(false);
+  //   setIsOTPOpen(true);
+  // }
+
+  useEffect(() => {
+    if (state?.message) {
+      toast({
+        title: "Success",
+        description: state?.message,
+      });
+      setIsForgotPasswordOpen(false);
+      setIsOTPOpen(true);
+      if (state?.email) {
+        const params = new URLSearchParams(searchParams);
+        params.set("email", state?.email);
+        router.replace(`${pathname}?${params.toString()}`);
+      }
+    }
+  }, [state]);
 
   return (
     <div className="w-full lg:grid lg:grid-cols-2 max-lg:my-12">
@@ -52,14 +73,12 @@ export default function ForgotPasswordForm({
           <p className="text-balance text-muted-foreground">
             Enter your email below to reset your password
           </p>
-          {state?.message && (
-            <div className="bg-red-100 text-red-700 p-4 rounded-md mb-4">
-              <ul>
-                <div className="flex items-center space-x-2">
-                  <AlertTriangle className="h-5 w-5" />
-                  <li>{state?.message}</li>
-                </div>
-              </ul>
+          {state?.error && (
+            <div className="bg-red-100 text-destructive p-4 rounded-md">
+              <div className="flex items-center space-x-2">
+                <AlertTriangle className="h-6 w-6" />
+                <p>{state?.message}</p>
+              </div>
             </div>
           )}
         </div>

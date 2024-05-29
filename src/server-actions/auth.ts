@@ -1,11 +1,17 @@
 "use server";
 
-import { signupFormSchema, updatePasswordFormSchema } from "@/lib/formSchema";
+import {
+  forgotPasswordFormSchema,
+  signupFormSchema,
+  updatePasswordFormSchema,
+} from "@/lib/formSchema";
+import { error } from "console";
+import { redirect } from "next/navigation";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 export async function login(prevState: any, formData: FormData) {
   const email = formData.get("email");
   const password = formData.get("password");
-  console.log(email, password);
 
   try {
     //api.example.com/articles/${articleId}/comments
@@ -34,7 +40,11 @@ export async function signup(prevState: any, formData: FormData) {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
     confirmPassword: formData.get("confirm-password") as string,
+    phoneNumber: formData.get("phone-number") as string,
+    role: formData.get("role") as string,
   });
+
+  console.log(results);
 
   if (!results.success) {
     console.log(results.error.flatten().fieldErrors);
@@ -43,37 +53,88 @@ export async function signup(prevState: any, formData: FormData) {
     };
   }
 
-  console.log(results.data);
-
-  // try {
-  //   const response = await fetch(
-  //     `https://zameen-server.onrender.com/api/auth/user/register`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ name, email, password }),
-  //     }
-  //   );
-  //   const result = await response.json();
-  //   console.log(result);
-  //   return result;
-  // } catch (error) {
-  //   console.log(error);
-  //   return { message: "Failed to signup. Please try again." };
-  // }
+  try {
+    const response = await fetch(
+      `https://zameen-server.onrender.com/api/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: results.data.name,
+          email: results.data.email,
+          phoneNumber: results.data.phoneNumber,
+          password: results.data.password,
+          image: "",
+          role: results.data.role,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    return { error: "Failed to signup. Please try again." };
+  }
 }
 
 export async function forgotPassword(prevState: any, formData: FormData) {
-  const email = formData.get("email");
-  return { message: `Password reset link sent to ${email}`, status: "success" };
+  const data = forgotPasswordFormSchema.safeParse({
+    email: formData.get("email"),
+  });
+
+  if (!data.success) {
+    return {
+      errors: data.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const response = await fetch(
+      `https://zameen-server.onrender.com/api/auth/user/forgotPassword`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.data.email }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result.append("email", data.data.email);
+  } catch (error) {
+    console.log(error);
+    return { message: "Failed to send reset password link. Please try again." };
+  }
 }
 
-export async function pinVerification(prevState: any, formData: FormData) {
+export async function otpVerification(prevState: any, formData: FormData) {
   const pin = formData.get("pin");
+  console.log(formData.get("email"));
   console.log(pin);
-  return { message: `Pin verification successful`, status: "success" };
+  try {
+    const response = await fetch(
+      `https://zameen-server.onrender.com/api/auth/verifyOtp`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          otp: pin,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to verify OTP. Please try again." };
+  }
 }
 
 export async function updatePassword(prevState: any, formData: FormData) {

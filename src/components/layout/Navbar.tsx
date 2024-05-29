@@ -132,6 +132,7 @@ const Navbar = () => {
             <SignupForm
               setIsSignupOpen={setIsSignupOpen}
               setIsSignInOpen={setIsLoginOpen}
+              setIsOTPOpen={setIsOTPOpen}
             />
           )}
           {isLoginOpen && (

@@ -1,4 +1,4 @@
-import { pinVerification } from "@/server-actions/auth";
+import { otpVerification } from "@/server-actions/auth";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,10 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Arrow } from "@radix-ui/react-dropdown-menu";
+import { useEffect } from "react";
+import { useToast } from "../ui/use-toast";
+import { useSearchParams } from "next/navigation";
+import { ToastAction } from "../ui/toast";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -34,7 +38,33 @@ export default function OTPForm({
   setIsSignInOpen: (value: boolean) => void;
   setIsOTPOpen: (value: boolean) => void;
 }) {
-  const [state, formAction] = useFormState(pinVerification, null);
+  const [state, formAction] = useFormState(otpVerification, null);
+  const { toast } = useToast();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    } else {
+      if (state?.success) {
+        setIsOTPOpen(false);
+        setIsSignInOpen(true);
+      }
+      if (state?.success === false) {
+        toast({
+          variant: "destructive",
+          title: "Failed to verify OTP",
+          description: state?.message,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    }
+  }, [state]);
 
   return (
     <div className="w-full lg:grid lg:grid-cols-2 max-lg:my-12">
@@ -44,7 +74,7 @@ export default function OTPForm({
           <p className="text-balance text-muted-foreground">
             Enter the verification code sent to your email ID
           </p>
-          {state?.message && (
+          {/* {state?.message && (
             <div className="bg-red-100 text-red-700 p-4 rounded-md">
               <ul>
                 <div className="flex items-center space-x-2">
@@ -53,11 +83,11 @@ export default function OTPForm({
                 </div>
               </ul>
             </div>
-          )}
+          )} */}
         </div>
         <form action={formAction} className="space-y-6">
           <div className="flex justify-center">
-            <InputOTP name="pin" className="" maxLength={4}>
+            <InputOTP name="pin" className="" maxLength={5}>
               <InputOTPGroup className="">
                 <InputOTPSlot className="h-14 w-14" index={0} />
                 <InputOTPSlot className="h-14 w-14" index={1} />
@@ -66,8 +96,10 @@ export default function OTPForm({
               <InputOTPGroup>
                 <InputOTPSlot className="h-14 w-14" index={2} />
                 <InputOTPSlot className="h-14 w-14" index={3} />
+                <InputOTPSlot className="h-14 w-14" index={4} />
               </InputOTPGroup>
             </InputOTP>
+            <input name="email" type="hidden" value={email || ""} />
           </div>
 
           <div className="ml-1 mt-6 text-center text-sm">
