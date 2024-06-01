@@ -3,17 +3,18 @@
 import { propertyFormSchema } from "@/lib/formSchema";
 import { headers } from "next/headers";
 import { json } from "stream/consumers";
+import { getSession } from "../auth";
 
 export async function addProperty(prevState: any, formData: FormData) {
+  const session = await getSession();
   try {
-    console.log(formData);
-
     const response = await fetch(
       `https://zameen-server.onrender.com/api/property/createProperty`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-access-token": `${session?.token}`,
         },
         body: JSON.stringify({
           title: formData.get("title"),

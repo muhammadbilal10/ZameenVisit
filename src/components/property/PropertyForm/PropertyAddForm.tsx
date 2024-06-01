@@ -496,8 +496,11 @@ export function PropertyAddForm() {
               {/* want to display list of youtube url in a card manner sharpe */}
               <div className="">
                 <div className="flex space-y-2 flex-col">
-                  {propertyVideoUrls?.map((url) => (
-                    <div className="flex items-center justify-between space-x-2 p-2 border border-gray-400  rounded-lg">
+                  {propertyVideoUrls?.map((url, index) => (
+                    <div
+                      key={index + 1}
+                      className="flex items-center justify-between space-x-2 p-2 border border-gray-400  rounded-lg"
+                    >
                       <div className="flex max-sm:flex-col sm:items-center max-sm:space-y-2 sm:space-x-2">
                         <Youtube className="text-red-600" />
                         <span>{url}</span>
@@ -524,7 +527,7 @@ export function PropertyAddForm() {
             </CardContent>
           </Card>
 
-          <ComboboxDemo />
+          {/* <ComboboxDemo /> */}
 
           <div className="max-w-sm self-end">
             <Button type="submit" disabled={isPending} className="w-full">
