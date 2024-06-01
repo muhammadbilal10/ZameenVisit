@@ -16,18 +16,26 @@ import {
 } from "@/components/ui/sheet";
 import { BookText, Handshake, Home, Menu, Phone } from "lucide-react";
 import Modal from "../common/Modal";
-import SignupForm from "../features/SignupForm";
-import SigninForm from "../features/SigninForm";
-import LoginForm from "../features/LoginForm";
-import ForgotPasswordForm from "../features/ForgotPasswordForm";
-import OTPForm from "../features/OTPForm";
+import SignupForm from "../auth/SignupForm";
+import SigninForm from "../auth/SigninForm";
+import LoginForm from "../auth/LoginForm";
+import ForgotPasswordForm from "../auth/ForgotPasswordForm";
+import OTPForm from "../auth/OTPForm";
+import UpdatePasswordForm from "../auth/UpdatePasswordForm";
+import { useSession } from "../auth/auth-wrapper";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isModelOpen, setIsModelOpen] = React.useState(false);
   const [isLoginOpen, setIsLoginOpen] = React.useState(true);
   const [isSignupOpen, setIsSignupOpen] = React.useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = React.useState(false);
+  const [isUpdatePasswordOpen, setIsUpdatePasswordOpen] = React.useState(false);
   const [isOTPOpen, setIsOTPOpen] = React.useState(false);
+
+  const session = useSession();
+  const router = useRouter();
+
   const links = [
     { name: "Home", href: "/", icon: Home },
     { name: "Properties", href: "#", icon: Home },
@@ -38,7 +46,8 @@ const Navbar = () => {
 
   const handleAddListing = () => {
     const isLogin = false;
-    if (isLogin) {
+    if (session) {
+      router.push("/add-listing");
     } else {
       setIsModelOpen(true);
     }
@@ -118,7 +127,7 @@ const Navbar = () => {
         ))}
       </div>
       <div className="flex items-center space-x-4">
-        <ProfileDropdownMenu />
+        {session && <ProfileDropdownMenu />}
         <Modal isOpen={isModelOpen} setOpen={setIsModelOpen} className="">
           {isForgotPasswordOpen && (
             <ForgotPasswordForm
@@ -146,6 +155,13 @@ const Navbar = () => {
             <OTPForm
               setIsSignInOpen={setIsLoginOpen}
               setIsOTPOpen={setIsOTPOpen}
+              setIsUpdatePasswordOpen={setIsUpdatePasswordOpen}
+            />
+          )}
+          {isUpdatePasswordOpen && (
+            <UpdatePasswordForm
+              setIsSignInOpen={setIsLoginOpen}
+              setIsUpdatePasswordOpen={setIsUpdatePasswordOpen}
             />
           )}
         </Modal>

@@ -1,5 +1,6 @@
 import { BreadCrumb } from "@/components/common/BreadCrumb";
 import { PropertyAddForm } from "@/components/property/PropertyForm/PropertyAddForm";
+import { getSession } from "@/server-actions/auth";
 import React from "react";
 
 const BREADCRUMB_ITEMS = [
@@ -16,7 +17,9 @@ const BREADCRUMB_ITEMS = [
   },
 ];
 
-export default function AddListingPage() {
+export default async function AddListingPage() {
+  const session = await getSession();
+  console.log(session);
   return (
     <div className="sm:px-6 sm:mx-8 max-w-7xl">
       <div>

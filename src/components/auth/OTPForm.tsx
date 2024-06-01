@@ -1,4 +1,4 @@
-import { otpVerification } from "@/server-actions/auth";
+import { otpVerification, resendOTP } from "@/server-actions/auth";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Arrow } from "@radix-ui/react-dropdown-menu";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 import { useToast } from "../ui/use-toast";
 import { useSearchParams } from "next/navigation";
 import { ToastAction } from "../ui/toast";
@@ -34,14 +34,19 @@ export function SubmitButton() {
 export default function OTPForm({
   setIsSignInOpen,
   setIsOTPOpen,
+  setIsUpdatePasswordOpen,
 }: {
   setIsSignInOpen: (value: boolean) => void;
   setIsOTPOpen: (value: boolean) => void;
+  setIsUpdatePasswordOpen: (value: boolean) => void;
 }) {
   const [state, formAction] = useFormState(otpVerification, null);
+  const [stateResend, formActionResend] = useFormState(resendOTP, null);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const type = searchParams.get("type");
   useEffect(() => {
     if (state?.error) {
       toast({
@@ -52,6 +57,15 @@ export default function OTPForm({
       });
     } else {
       if (state?.success) {
+        toast({
+          title: "OTP Verified",
+          description: "Your email has been verified successfully.",
+        });
+        if (type === "forgot-password") {
+          setIsOTPOpen(false);
+          setIsUpdatePasswordOpen(true);
+          return;
+        }
         setIsOTPOpen(false);
         setIsSignInOpen(true);
       }
@@ -66,6 +80,41 @@ export default function OTPForm({
     }
   }, [state]);
 
+  useEffect(() => {
+    if (stateResend?.success) {
+      toast({
+        title: "OTP Resent",
+        description: "We have resent the OTP to your email.",
+      });
+    }
+    if (stateResend?.success === false) {
+      toast({
+        variant: "destructive",
+        title: "Failed to resend OTP",
+        description: stateResend?.message,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+    if (stateResend?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+  }, [stateResend]);
+
+  const handleResendOtp = async () => {
+    if (!email) return;
+    const formData = new FormData();
+    formData.append("email", email);
+
+    startTransition(() => {
+      formActionResend(formData);
+    });
+  };
+
   return (
     <div className="w-full lg:grid lg:grid-cols-2 max-lg:my-12">
       <div className="w-[360px] mx-auto my-auto space-y-8">
@@ -73,6 +122,7 @@ export default function OTPForm({
           <h1 className="text-3xl font-bold">Verify your email</h1>
           <p className="text-balance text-muted-foreground">
             Enter the verification code sent to your email ID
+            <span className="block">{email}</span>
           </p>
           {/* {state?.message && (
             <div className="bg-red-100 text-red-700 p-4 rounded-md">
@@ -103,32 +153,38 @@ export default function OTPForm({
           </div>
 
           <div className="ml-1 mt-6 text-center text-sm">
-            <div className="mt-10">
+            <div className="mt-10 flex gap-2 justify-center">
               Did n&apos;t get a code? {""}
-              <Link
-                href="#"
+              <button
+                disabled={isPending}
                 className="underline"
-                onClick={() => {
-                  setIsOTPOpen(false);
-                  setIsSignInOpen(true);
-                }}
+                onClick={handleResendOtp}
               >
-                Click to resend
-              </Link>
+                {isPending ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  </>
+                ) : (
+                  "Click to resend"
+                )}
+              </button>
             </div>
           </div>
           <SubmitButton />
         </form>
-        <button
-          onClick={() => {
-            setIsOTPOpen(false);
-            setIsSignInOpen(true);
-          }}
-          className="flex items-center justify-center w-full"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to Log in
-        </button>
+        <div className="ml-1 mt-6 text-center text-sm">
+          Already have an account? {""}
+          <Link
+            href="#"
+            className="underline"
+            onClick={() => {
+              setIsOTPOpen(false);
+              setIsSignInOpen(true);
+            }}
+          >
+            Sign in
+          </Link>
+        </div>
       </div>
 
       <div className="hidden bg-muted lg:block  rounded-r-lg">

@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { accountMenuItems } from "@/constants";
 import { ExitIcon } from "@radix-ui/react-icons";
+import { logout } from "@/server-actions/auth";
 
 export function ProfileDropdownMenu() {
   return (
@@ -43,7 +45,11 @@ export function ProfileDropdownMenu() {
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={async () => {
+            await logout();
+          }}
+        >
           <ExitIcon className="mr-2 h-4 w-4" /> Log out
           {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
         </DropdownMenuItem>

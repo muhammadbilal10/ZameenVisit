@@ -123,11 +123,8 @@ export const propertyFormSchema = z.object({
   bedrooms: z.string().min(1, { message: "Please select a bedroom" }),
   bathrooms: z.string().min(1, { message: "Please select a bathroom" }),
 
-  area: z
-    .string()
-    .transform((val) => parseFloat(val))
-    .refine((val) => !isNaN(val) && val > 0, "Area must be a positive number."),
-  aunit: z.string().min(1, { message: "Please select a area unit" }),
+  area: z.string().min(1, { message: "Area must be a positive number." }),
+  areaUnit: z.string().min(1, { message: "Please select a area unit" }),
 
   address: z.string().min(1, { message: "Address is required" }),
   city: z.string().min(1, { message: "Please select a city" }),

@@ -43,12 +43,12 @@ export default function SigninForm({
           <p className="text-balance text-muted-foreground">
             Enter your email below to login to your account
           </p>
-          {state?.message && (
+          {state?.error && (
             <div className="bg-red-100 text-red-700 p-4 rounded-md mb-4">
               <ul>
                 <div className="flex items-center space-x-2">
                   <AlertTriangle className="h-4 w-4" />
-                  <li>{state?.message}</li>
+                  <li>{state?.error}</li>
                 </div>
               </ul>
             </div>
@@ -92,9 +92,9 @@ export default function SigninForm({
 
           <div className="space-y-4">
             <SubmitButton />
-            <Button type="button" variant="outline" className="w-full">
+            {/* <Button type="button" variant="outline" className="w-full">
               <Mail className="h-5 w-5 mr-2" /> Login with Google
-            </Button>
+            </Button> */}
           </div>
         </form>
         <div className="ml-1 mt-6 text-center text-sm">

@@ -9,8 +9,9 @@ import { useFormState, useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import { set } from "date-fns";
 import { useEffect } from "react";
-import { toast } from "../ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ToastAction } from "../ui/toast";
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -43,14 +44,18 @@ export default function ForgotPasswordForm({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // if (state?.status === "success") {
-  //   setIsForgotPasswordOpen(false);
-  //   setIsOTPOpen(true);
-  // }
+  const { toast } = useToast();
 
   useEffect(() => {
-    if (state?.message) {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+    if (state?.success) {
       toast({
         title: "Success",
         description: state?.message,
@@ -60,8 +65,16 @@ export default function ForgotPasswordForm({
       if (state?.email) {
         const params = new URLSearchParams(searchParams);
         params.set("email", state?.email);
+        params.set("type", "forgot-password");
         router.replace(`${pathname}?${params.toString()}`);
       }
+    }
+    if (state?.success === false) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: state?.message,
+      });
     }
   }, [state]);
 
@@ -73,10 +86,10 @@ export default function ForgotPasswordForm({
           <p className="text-balance text-muted-foreground">
             Enter your email below to reset your password
           </p>
-          {state?.error && (
+          {state?.message && (
             <div className="bg-red-100 text-destructive p-4 rounded-md">
               <div className="flex items-center space-x-2">
-                <AlertTriangle className="h-6 w-6" />
+                <AlertTriangle className="h-4 w-4" />
                 <p>{state?.message}</p>
               </div>
             </div>

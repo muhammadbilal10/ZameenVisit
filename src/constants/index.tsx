@@ -362,7 +362,7 @@ export const accountMenuItems = [
     name: "My Profile",
     shortcut: "⌘B",
     icon: <PersonIcon />,
-    href: "/my-profile",
+    href: "/account",
   },
   {
     name: "My Property List",

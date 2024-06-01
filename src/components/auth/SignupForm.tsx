@@ -67,7 +67,8 @@ export default function SignupForm({
       setIsSignupOpen(false);
       setIsOTPOpen(true);
       const params = new URLSearchParams(searchParams);
-      params.set("email", "muhdbilal81@gmail.com");
+      params.set("email", state?.email);
+      params.delete("type");
       router.replace(`${pathname}?${params.toString()}`);
     }
 
@@ -199,12 +200,12 @@ export default function SignupForm({
             <div>{state?.errors?.password && state?.errors?.password[0]}</div>
           </div> */}
           <SubmitButton />
-          <Button type="button" variant="outline" className="w-full">
+          {/* <Button type="button" variant="outline" className="w-full">
             <Mail className="h-5 w-5 mr-2" /> Signup with Google
-          </Button>
+          </Button> */}
         </form>
 
-        <div className="ml-1 mt-6 text-center text-sm">
+        <div className="ml-1 pt-6 text-center text-sm">
           Already have an account? {""}
           <Link
             href="#"

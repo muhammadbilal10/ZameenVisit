@@ -28,10 +28,16 @@ export function SubmitButton() {
   );
 }
 
-export default function ImageUpload() {
+export default function ImageUpload({
+  setUploadImagesUrl,
+  uploadImagesUrl,
+}: {
+  setUploadImagesUrl: (urls: string[]) => void;
+  uploadImagesUrl: string[];
+}) {
   const [state, formAction] = useFormState(uploadImage, null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string>();
-  const [uploadImagesUrl, setUploadImagesUrl] = useState<string[]>([]);
+  // const [uploadImagesUrl, setUploadImagesUrl] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { toast } = useToast();
@@ -90,7 +96,12 @@ export default function ImageUpload() {
             hidden
             onChange={handleFileChange}
           />
-          <input name="imagesUrl" hidden value={uploadImagesUrl} />
+          <input
+            name="imagesUrl"
+            hidden
+            value={JSON.stringify(uploadImagesUrl)}
+          />
+
           <h1 className="text-lg font-bold">Drop or Select file</h1>
           <p className="text-gray-700 mt-4">
             Drop files here or click{" "}

@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LoginForm from "../features/LoginForm";
+import LoginForm from "../auth/LoginForm";
 import { cn } from "@/lib/utils";
 import { PhoneInput } from "../ui/phone-input";
 import { ScrollArea } from "../ui/scroll-area";
