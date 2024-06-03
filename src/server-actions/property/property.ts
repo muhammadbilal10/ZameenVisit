@@ -14,7 +14,7 @@ export async function addProperty(prevState: any, formData: FormData) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": `${session?.token}`,
+          "x-access-token": `${session?.user?.token}`,
         },
         body: JSON.stringify({
           title: formData.get("title"),

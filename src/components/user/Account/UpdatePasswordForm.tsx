@@ -10,10 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import { updatePassword } from "@/server-actions/auth";
+import { updateProfilePassword } from "@/server-actions/user/profile";
 import { AlertCircle } from "lucide-react";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -27,9 +30,29 @@ function SubmitButton() {
 }
 
 export default function UpdatePasswordForm() {
-  const [state, formAction] = useFormState(updatePassword, null);
+  const [state, formAction] = useFormState(updateProfilePassword, null);
+  const ref = useRef<HTMLFormElement>(null);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+    if (state?.success) {
+      toast({
+        title: "Password Updated",
+        description: "Your password has been updated successfully.",
+      });
+      ref.current?.reset();
+    }
+  }, [state]);
   return (
-    <form action={formAction}>
+    <form action={formAction} ref={ref}>
       <Card>
         <CardHeader>
           <CardTitle>Update Password</CardTitle>
@@ -48,10 +71,9 @@ export default function UpdatePasswordForm() {
               required
             />
             <div className="text-destructive text-sm">
-              {state?.currentPassword && (
+              {state?.success === false && (
                 <p className="flex items-center">
-                  <AlertCircle className="h-4 w-4 mr-2" />{" "}
-                  {state?.currentPassword}
+                  <AlertCircle className="h-4 w-4 mr-2" /> {state?.message}
                 </p>
               )}
             </div>

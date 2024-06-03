@@ -5,19 +5,21 @@ import {
   signupFormSchema,
   updatePasswordFormSchema,
 } from "@/lib/formSchema";
+import { base } from "@/utils/config";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = "secret";
+const BASE_URL = "https://zameen-server.onrender.com";
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("3600 sec from now")
+    .setExpirationTime("24h from now")
     .sign(key);
 }
 
@@ -45,7 +47,7 @@ export async function updateSession(request: NextRequest) {
   if (!session) return;
   // Refresh the session so it doesn't expire
   const parsed = await decrypt(session);
-  parsed.expires = new Date(Date.now() + 1 * 60 * 60 * 1000);
+  parsed.expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const res = NextResponse.next();
   res.cookies.set({
     name: "session",
@@ -63,23 +65,23 @@ export async function login(prevState: any, formData: FormData) {
 
   try {
     //api.example.com/articles/${articleId}/comments
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
     const result = await response.json();
     console.log(result);
+    console.log(result);
     const user = result?.user;
+    console.log(user);
     if (result?.success) {
       // Create the session
       // const expires = new Date(Date.now() + 10 * 1000); // for 10 sec
-      const expires = new Date(Date.now() + 1 * 60 * 60 * 1000); // for 1 hour
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // for 1 hour
       const session = await encrypt({ user, expires });
       // Save the session in a cookie
       cookies().set("session", session, { expires, httpOnly: true });
@@ -123,7 +125,6 @@ export async function signup(prevState: any, formData: FormData) {
           email: results.data.email,
           phoneNumber: results.data.phoneNumber,
           password: results.data.password,
-          image: "",
           role: results.data.role,
         }),
       }

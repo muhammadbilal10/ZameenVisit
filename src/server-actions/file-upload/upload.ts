@@ -18,6 +18,7 @@ export async function uploadImage(prevState: any, formData: FormData) {
 
   // check if the file type is jpeg or png
   if (!["image/jpeg", "image/png"].includes(file.type)) {
+    console.log(file.type);
     return {
       error: "File type should be jpeg or png",
     };
@@ -42,5 +43,18 @@ export async function uploadImage(prevState: any, formData: FormData) {
       )
       .end(buffer);
   })) as any;
+  console.log(result);
   return result;
+}
+
+export async function deleteImage(prevState: any, formData: FormData) {
+  try {
+    const publicId = formData.get("public_id") as string;
+    const result = await cloudinary.uploader.destroy(publicId);
+    return result;
+  } catch (error) {
+    return {
+      error: "Failed to delete image. Please try again.",
+    };
+  }
 }

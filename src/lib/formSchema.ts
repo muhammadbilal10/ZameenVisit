@@ -60,7 +60,9 @@ export const profileFormSchema = z.object({
   name: z.string().min(3, {
     message: "Name must be at least 3 characters long",
   }),
-  email: z.string().email(),
+  phoneNumber: z.string().min(1, {
+    message: "Phone number is required",
+  }),
 });
 
 export const forgotPasswordFormSchema = z.object({
@@ -107,6 +109,7 @@ export const updatePasswordFormSchema = z
     path: ["confirmPassword"],
   });
 
+// Property Form Schema
 export const propertyFormSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",

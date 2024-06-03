@@ -1,5 +1,6 @@
 import { BreadCrumb } from "@/components/common/BreadCrumb";
 import AccountTabs from "@/components/dashboard/tabs/AccountTabs";
+import { getSession } from "@/server-actions/auth";
 
 const BREADCRUMB_ITEMS = [
   {
@@ -15,7 +16,7 @@ const BREADCRUMB_ITEMS = [
   },
 ];
 
-export default function AccountPage() {
+export default async function AccountPage() {
   return (
     <div className="sm:px-6 sm:mx-8 max-w-7xl">
       <div>

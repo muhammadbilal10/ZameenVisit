@@ -43,16 +43,17 @@ export default function SigninForm({
           <p className="text-balance text-muted-foreground">
             Enter your email below to login to your account
           </p>
-          {state?.error && (
-            <div className="bg-red-100 text-red-700 p-4 rounded-md mb-4">
-              <ul>
-                <div className="flex items-center space-x-2">
-                  <AlertTriangle className="h-4 w-4" />
-                  <li>{state?.error}</li>
-                </div>
-              </ul>
-            </div>
-          )}
+          {state?.error ||
+            (state?.success === false && (
+              <div className="bg-red-100 text-red-700 p-4 rounded-md mb-4">
+                <ul>
+                  <div className="flex items-center space-x-2">
+                    <AlertTriangle className="h-4 w-4" />
+                    <li>{state?.error || state?.message}</li>
+                  </div>
+                </ul>
+              </div>
+            ))}
         </div>
         <form action={formAction} className="space-y-8">
           <div className="space-y-8">
