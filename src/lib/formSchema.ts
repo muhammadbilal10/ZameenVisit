@@ -115,7 +115,7 @@ export const propertyFormSchema = z.object({
     message: "Title must be at least 2 characters.",
   }),
   description: z.string().min(140, {
-    message: "Description must be at least 10 characters.",
+    message: "Description must be at least 140 characters.",
   }),
   dob: z.date({
     required_error: "A date of built is required.",

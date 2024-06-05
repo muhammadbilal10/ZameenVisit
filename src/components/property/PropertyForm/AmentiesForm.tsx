@@ -10,10 +10,8 @@ export default function AmenitiesForm({
   selectedAmenities,
   setSelectedAmenities,
 }: {
-  selectedAmenities: Record<string, string[]>;
-  setSelectedAmenities: React.Dispatch<
-    React.SetStateAction<Record<string, string[]>>
-  >;
+  selectedAmenities: Section[];
+  setSelectedAmenities: React.Dispatch<React.SetStateAction<Section[]>>;
 }) {
   const sections: Section[] = [
     {
@@ -78,16 +76,27 @@ export default function AmenitiesForm({
   ];
 
   const handleCheckboxChange = (title: string, item: string) => {
-    setSelectedAmenities((prevSelectedItems) => {
-      console.log(prevSelectedItems);
-      const existingItems = prevSelectedItems[title] || [];
+    setSelectedAmenities((prevAmenities) => {
+      const existingSectionIndex = prevAmenities.findIndex(
+        (a) => a.title === title
+      );
 
-      return {
-        ...prevSelectedItems,
-        [title]: existingItems.includes(item)
-          ? existingItems.filter((i) => i !== item)
-          : [...existingItems, item],
-      };
+      // If a section with the same title already exists, update its items
+      if (existingSectionIndex !== -1) {
+        return prevAmenities.map((section, index) =>
+          index === existingSectionIndex
+            ? {
+                ...section,
+                items: section.items.includes(item)
+                  ? section.items.filter((i) => i !== item)
+                  : [...section.items, item],
+              }
+            : section
+        );
+      } else {
+        // If a section with the title doesn't exist, add a new one
+        return [...prevAmenities, { title, items: [item] }];
+      }
     });
   };
 

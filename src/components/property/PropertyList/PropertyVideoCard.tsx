@@ -8,7 +8,16 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
-export default function PropertyVideoCard() {
+export default function PropertyVideoCard({
+  videoUrl,
+}: {
+  videoUrl: string[];
+}) {
+  function convertToEmbedUrl(url: string) {
+    const videoId = url.split("v=")[1].split("&")[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
   return (
     <Card className="">
       <CardHeader>
@@ -16,15 +25,14 @@ export default function PropertyVideoCard() {
       </CardHeader>
       <Separator className="my-4" />
       <CardContent>
-        {/* <iframe
-          src="https://www.youtube.com/watch?v=gfU1iZnjRZM"
-          frameborder="0"
-          allowfullscreen
-        /> */}
         <iframe
           width="100%"
           height="417"
-          src="https://www.youtube.com/embed/uTIcquf4Z-s"
+          src={
+            videoUrl?.length > 0
+              ? convertToEmbedUrl(videoUrl[0])
+              : "https://www.youtube.com/embed/gfU1iZnjRZM"
+          }
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

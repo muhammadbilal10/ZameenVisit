@@ -4,7 +4,7 @@ import Modal from "@/components/common/Modal";
 import { Filter } from "@/components/property/PropertyFilters/Filter";
 import PropertyCard from "@/components/property/PropertyList/PropertyCard";
 import { Button } from "@/components/ui/button";
-import { getPropertiesById } from "@/server-actions/property/property";
+import { getUserPropertiesById } from "@/server-actions/property/property";
 import { PlusIcon, Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -24,8 +24,8 @@ const BREADCRUMB_ITEMS = [
 ];
 
 export default async function PropertyList() {
-  const properties = await getPropertiesById();
-  console.log(properties);
+  const res = await getUserPropertiesById();
+  console.log(res);
   return (
     <div className="sm:px-6 sm:mx-8 max-w-7xl">
       <div>
@@ -53,7 +53,7 @@ export default async function PropertyList() {
         </div>
       </div>
       <div className="grid gap-4 mt-4  md:grid-cols-2 lg:grid-cols-3">
-        {properties.map((property: any) => (
+        {res?.properties?.map((property: any) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>

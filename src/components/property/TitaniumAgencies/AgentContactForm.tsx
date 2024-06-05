@@ -37,6 +37,8 @@ import Image from "next/image";
 import whatsapp from "@/images/socials/whatsapp.svg";
 import Link from "next/link";
 
+import { useSession } from "@/components/auth/auth-wrapper";
+
 const formSchema = z.object({
   name: z.string().min(4, {
     message: "name must be at least 4 characters.",
@@ -56,13 +58,19 @@ const formSchema = z.object({
 });
 
 export default function AgentContactForm() {
+  const session = useSession();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: session?.user?.name || "",
+      email: session?.user?.email || "",
+      phone: session?.user?.phoneNumber || "",
       message: "Hello, I am interested in [Amazing oceanfront apartment]",
     },
   });
+
+  console.log(session);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);

@@ -2,24 +2,26 @@ export interface Property {
   id: string;
   title: string;
   description: string;
-  purpose: "sale" | "rent";
+  purpose: string;
   price: number;
   bedrooms: number;
   bathrooms: number;
   areaSize: {
     size: number;
-    unit: "sqft" | "marla" | "kanal";
+    unit: string;
   };
   builtYear: number;
-  imagesUrl: string[];
-  videosUrl: string[];
+  imageUrl: string[];
+  videoUrl: string[];
   location: {
     address: string;
     city: string;
-    state: string;
-    zipCode: string;
+    geo: {
+      lat: number;
+      lng: number;
+    };
   };
   features: string[];
-  propertyType: "House" | "Apartment" | "Condo";
-  status: "for-sale" | "sold" | "pending";
+  propertyType: string;
+  status: string;
 }

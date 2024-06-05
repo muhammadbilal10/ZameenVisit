@@ -68,7 +68,7 @@ export default function PropertyOverviewCard({
             </div>
           ))}
         </div>
-        <div className="md:col-span-4 col-span-12">Map</div>
+        <div className="md:col-span-4 col-span-12"></div>
       </CardContent>
       {/* <CardFooter>
         <p>Card Footer</p>

@@ -13,6 +13,7 @@ export async function addProperty(prevState: any, formData: FormData) {
   );
   const videoURL = JSON.parse((formData?.get("videoUrl") as string) || "[]");
   const amenties = JSON.parse((formData?.get("amenties") as string) || "[]");
+  const location = JSON.parse((formData?.get("location") as string) || "{}");
   console.log(formData);
 
   try {
@@ -36,7 +37,7 @@ export async function addProperty(prevState: any, formData: FormData) {
         builtYear: 2015,
         imageUrl: propertyImagesURL,
         videoUrl: videoURL,
-        location: formData.get("location"),
+        location: location,
         propertyType: formData.get("propertyType"),
         features: amenties,
         status: formData.get("purpose"),
@@ -78,7 +79,25 @@ export async function getFilteredProperties(filters: any) {
   }
 }
 
-export async function getPropertiesById() {
+export async function getPropertyById(id: string) {
+  const session = await getSession();
+  try {
+    const response = await fetch(`${base.URL}/api/property/getProperty/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to get property. Please try again." };
+  }
+}
+
+export async function getUserPropertiesById() {
   const session = await getSession();
   try {
     const response = await fetch(`${base.URL}/api/property/getUserProperties`, {
@@ -88,6 +107,7 @@ export async function getPropertiesById() {
       },
     });
     const properties = await response.json();
+    console.log(properties);
     return properties;
   } catch (error) {
     console.log(error);

@@ -100,15 +100,18 @@ const items = [
   },
 ] as const;
 
+interface Section {
+  title: string;
+  items: string[];
+}
+
 export function PropertyAddForm() {
   const [isPending, startTransition] = useTransition();
   const [videoOpen, setVideoOpen] = useState(false);
   const [state, formAction] = useFormState(addProperty, null);
   const [propertyVideoUrls, setPropertyVideoUrls] = useState<string[]>([]);
   const [propertyImageUrls, setPropertyImageUrls] = useState<string[]>([]);
-  const [selectedAmenities, setSelectedAmenities] = useState<
-    Record<string, string[]>
-  >({});
+  const [selectedAmenities, setSelectedAmenities] = useState<Section[]>([]);
   const [location, setLocation] = useState({
     address: "",
     city: "",

@@ -110,7 +110,8 @@ export default function ImageUpload({
           </p>
         </div>
         <p className="text-gray-500 text-xs mt-2">
-          Image size should be less than 5 MB
+          Image should be in <span className="text-teal">jpeg, png</span> and
+          less than 5 MB
         </p>
       </Label>
 

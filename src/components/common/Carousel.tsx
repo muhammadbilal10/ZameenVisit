@@ -15,20 +15,21 @@ export function PropertyCarousel({
 }: {
   propertyImages: string[];
 }) {
+  console.log(propertyImages);
   return (
     <Carousel>
       <CarouselContent>
-        {propertyImages.map((imageUrl, index) => (
+        {propertyImages?.map((imageUrl, index) => (
           <CarouselItem key={index} className="basis-full">
             <div className="p-1">
               <Card className="">
-                <CardContent className="p-0">
+                <CardContent className="p-0 relative h-[400px]">
                   <Image
                     src={imageUrl}
                     alt="Property Image"
                     width={1280}
                     height={600}
-                    className="w-full object-cover"
+                    className="object-cover w-full h-full rounded-lg"
                   />
                 </CardContent>
               </Card>
