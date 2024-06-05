@@ -42,6 +42,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "minimals.cc",
       },
+      {
+        protocol: "https",
+        hostname: "example.com",
+      },
     ],
   },
   env: {

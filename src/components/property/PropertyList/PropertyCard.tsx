@@ -13,6 +13,7 @@ import { AreaChart, Bath, Bed } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { CustomTooltip } from "@/components/common/CustomTooltip";
 import Link from "next/link";
+import { formatCurrency, formatNumber } from "@/constants";
 
 interface PropertyCardProps {
   property: {
@@ -20,11 +21,14 @@ interface PropertyCardProps {
     title: string;
     description: string;
     price: string;
-    image: string;
+    imageUrl: string[];
     location: string;
-    noOfBedrooms: number;
-    noOfBathrooms: number;
-    area: string;
+    bedrooms: number;
+    bathrooms: number;
+    areaSize: {
+      size: number;
+      unit: string;
+    };
     agentInfo: {
       name: string;
       phone: string;
@@ -35,8 +39,8 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   function createPropertySlug() {
-    const baseSlug = `${property.noOfBedrooms}-bedroom-${"apartment"}-${
-      property.agentInfo.name
+    const baseSlug = `${property.bedrooms}-bedroom-${"apartment"}-${
+      property.agentInfo?.name
     }-${property.location}`;
     const id = property.id;
 
@@ -50,15 +54,16 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
     <Link href={createPropertySlug()}>
       <Card className={cn("w-full")}>
-        <CardContent className={cn("p-0")}>
-          <Image
-            src={property.image}
-            alt={property.title}
-            loading="lazy"
-            height={149}
-            width={700}
-            className="w-full"
-          />
+        <CardContent className={cn("p-0 h-52 w-full relative")}>
+          {property?.imageUrl?.length > 0 && (
+            <Image
+              src={property.imageUrl[0]}
+              alt="Property Image"
+              width={600}
+              height={200}
+              className="object-cover w-full h-full"
+            />
+          )}
         </CardContent>
         <CardHeader>
           <CardTitle className={cn("text-xl truncate")}>
@@ -66,18 +71,23 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
               <p className="truncate">{property.title}</p>
             </CustomTooltip>
           </CardTitle>
-          <p className="text-md font-semibold text-primary">{property.price}</p>
-          <CardDescription>{property.description}</CardDescription>
+          <p className="text-md font-semibold text-primary">
+            PKR {formatCurrency(Number(property.price))}
+          </p>
+          <CardDescription className="line-clamp-3">
+            {property.description}
+          </CardDescription>
           <div>
             <div className="flex items-center gap-4 text-muted-foreground">
               <span className="flex items-center gap-1">
-                <Bed size={16} /> {property.noOfBedrooms}
+                <Bed size={16} /> {property.bedrooms}
               </span>
               <span className="flex items-center gap-1">
-                <Bath size={16} /> {property.noOfBathrooms}
+                <Bath size={16} /> {property?.bedrooms}
               </span>
               <span className="flex items-center gap-1">
-                <AreaChart size={16} /> {property.area}
+                <AreaChart size={16} /> {property?.areaSize?.size}{" "}
+                {property?.areaSize?.unit}
               </span>
             </div>
           </div>
@@ -89,7 +99,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>{}</AvatarFallback>
             </Avatar>
-            <p className="">{property.agentInfo.name}</p>
+            <p className="">{property?.agentInfo?.name}</p>
           </div>
         </CardFooter>
       </Card>

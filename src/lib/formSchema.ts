@@ -111,11 +111,14 @@ export const updatePasswordFormSchema = z
 
 // Property Form Schema
 export const propertyFormSchema = z.object({
-  title: z.string().min(2, {
+  title: z.string().min(10, {
     message: "Title must be at least 2 characters.",
   }),
-  description: z.string().min(10, {
+  description: z.string().min(140, {
     message: "Description must be at least 10 characters.",
+  }),
+  dob: z.date({
+    required_error: "A date of built is required.",
   }),
   price: z.string().min(1, { message: "Please enter a price" }),
   // currencyUnit: z.string().nonempty({ message: "Please select a currency" }),
@@ -129,8 +132,11 @@ export const propertyFormSchema = z.object({
   area: z.string().min(1, { message: "Area must be a positive number." }),
   areaUnit: z.string().min(1, { message: "Please select a area unit" }),
 
-  address: z.string().min(1, { message: "Address is required" }),
-  city: z.string().min(1, { message: "Please select a city" }),
-  state: z.string().min(1, { message: "State is required" }),
-  zipCode: z.string().min(1, { message: "zipCode is required" }),
+  // address: z.string().min(1, { message: "Address is required" }),
+  // location: z.string({
+  //   required_error: "Location is required",
+  // }),
+  // city: z.string().min(1, { message: "Please select a city" }),
+  // state: z.string().min(1, { message: "State is required" }),
+  // zipCode: z.string().min(1, { message: "zipCode is required" }),
 });

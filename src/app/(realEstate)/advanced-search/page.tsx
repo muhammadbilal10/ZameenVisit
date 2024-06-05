@@ -20,6 +20,7 @@ const BREAD_CRUMB_LIST = [
 
 async function getProperties(searchParams: any) {
   const propertiesData = await getFilteredProperties(searchParams);
+  console.log("propertiesData", propertiesData);
   return propertiesData;
 }
 
@@ -37,8 +38,11 @@ export default async function AdvancedSearchPage({
         <h1 className="text-2xl font-bold text-gray-800">Search Properties</h1>
       </div>
       <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2 lg:grid-cols-3">
-        {properties?.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+        {propertiesData?.property?.map((property: any) => (
+          <PropertyCard
+            key={property.id}
+            property={propertiesData.property || []}
+          />
         ))}
       </div>
     </div>

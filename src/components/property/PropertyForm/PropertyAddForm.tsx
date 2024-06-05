@@ -45,15 +45,33 @@ import {
 } from "@/constants";
 import ImageUpload from "@/components/common/ImageUpload";
 import Modal from "@/components/common/Modal";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Label } from "@/components/ui/label";
-import { Copy, Delete, Loader2, Youtube, YoutubeIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  Copy,
+  Delete,
+  Loader2,
+  Youtube,
+  YoutubeIcon,
+} from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
 import { propertyFormSchema } from "@/lib/formSchema";
 import { addProperty } from "@/server-actions/property/property";
 import { Checkbox } from "@/components/ui/checkbox";
-import { isValid } from "date-fns";
-import { ComboboxDemo } from "@/components/common/LocationSearch";
+import { format, isValid } from "date-fns";
+import { LocationSearch } from "@/components/common/LocationSearch";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import MapBox from "../PropertyMap/LocationMap";
+import LocationMap from "../PropertyMap/LocationMap";
+import AmentiesForm from "./AmentiesForm";
+import { useRouter } from "next/navigation";
 
 const items = [
   {
@@ -88,6 +106,17 @@ export function PropertyAddForm() {
   const [state, formAction] = useFormState(addProperty, null);
   const [propertyVideoUrls, setPropertyVideoUrls] = useState<string[]>([]);
   const [propertyImageUrls, setPropertyImageUrls] = useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<
+    Record<string, string[]>
+  >({});
+  const [location, setLocation] = useState({
+    address: "",
+    city: "",
+    geo: {
+      lat: 31.5204,
+      lng: 74.3587,
+    },
+  });
   const now = new Date();
   const locale = "en-US";
 
@@ -102,6 +131,7 @@ export function PropertyAddForm() {
   const formatted = now.toLocaleString(locale, options);
   // ...
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof propertyFormSchema>>({
     resolver: zodResolver(propertyFormSchema),
     defaultValues: {
@@ -109,6 +139,23 @@ export function PropertyAddForm() {
       description: "",
     },
   });
+
+  useEffect(() => {
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: state.error,
+      });
+    }
+    if (state?.success) {
+      toast({
+        title: "Property added successfully",
+        description: "Property has been added successfully",
+      });
+      router.push("/property-list");
+    }
+  }, [state]);
 
   async function onSubmit(values: z.infer<typeof propertyFormSchema>) {
     console.log(values);
@@ -121,33 +168,20 @@ export function PropertyAddForm() {
     formData.append("price", values.price);
     formData.append("purpose", values.purpose);
     formData.append("propertyType", values.propertyType);
+    formData.append("dob", JSON.stringify(values.dob));
 
     formData.append("area", values.area);
     formData.append("areaUnit", values.areaUnit);
     formData.append("bedrooms", values.bedrooms);
     formData.append("bathrooms", values.bathrooms);
-    formData.append("address", values.address);
-    formData.append("city", values.city);
-    formData.append("state", values.state);
-    formData.append("zipCode", values.zipCode);
     formData.append("imagesUrl", JSON.stringify(propertyImageUrls));
     formData.append("videoUrl", JSON.stringify(propertyVideoUrls));
+    formData.append("location", JSON.stringify(location));
+    formData.append("amenties", JSON.stringify(selectedAmenities));
 
     startTransition(() => {
       formAction(formData);
     });
-
-    // toast({
-    //   title: "Your property has been added Successfully",
-    //   description: formatted,
-    // });
-
-    // toast({
-    //   variant: "destructive",
-    //   title: "Uh oh! Something went wrong.",
-    //   description: "There was a problem with your request.",
-    //   action: <ToastAction altText="Try again">Try again</ToastAction>,
-    // });
   }
 
   return (
@@ -273,6 +307,49 @@ export function PropertyAddForm() {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="dob"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date of birth</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              " pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date: any) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    {/* <FormDescription></FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </CardContent>
             {/* <CardFooter>
             <p>Card Footer</p>
@@ -359,71 +436,47 @@ export function PropertyAddForm() {
             </CardContent>
           </Card>
 
-          {/* <Card>
+          <Card>
             <CardHeader>
-              <CardTitle>Feature and Amenities</CardTitle>
-              <CardDescription>
-                Add features and amenities of your property
-              </CardDescription>
+              <CardTitle>Features and Amenities</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <FormField
-                  control={form.control}
-                  name="items"
-                  render={() => (
-                    <FormItem>
-                      <div className="mb-4">
-                        <FormLabel className="text-base">Sidebar</FormLabel>
-                        <FormDescription>
-                          Select the items you want to display in the sidebar.
-                        </FormDescription>
-                      </div>
-                      {items.map((item) => (
-                        <FormField
-                          key={item.id}
-                          control={form.control}
-                          name="items"
-                          render={({ field }) => {
-                            return (
-                              <FormItem
-                                key={item.id}
-                                className="flex flex-row items-start space-x-3 space-y-0"
-                              >
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value?.includes(item.id)}
-                                    onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([
-                                            ...field.value,
-                                            item.id,
-                                          ])
-                                        : field.onChange(
-                                            field.value?.filter(
-                                              (value) => value !== item.id
-                                            )
-                                          );
-                                    }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="font-normal">
-                                  {item.label}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      ))}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <CardContent>
+              <AmentiesForm
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+              />
             </CardContent>
-          </Card> */}
+          </Card>
 
           <Card>
+            <CardHeader>
+              <CardTitle>Address & Location</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormLabel>Location</FormLabel>
+                    <FormControl>
+                      <input {...field} />
+                    </FormControl>
+                    <LocationSearch
+                      location={location}
+                      setLocation={setLocation}
+                    />
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              /> */}
+              <LocationSearch location={location} setLocation={setLocation} />
+              <LocationMap location={location} setLocation={setLocation} />
+            </CardContent>
+          </Card>
+
+          {/* <Card>
             <CardHeader>
               <CardTitle>Address & Location</CardTitle>
             </CardHeader>
@@ -481,7 +534,7 @@ export function PropertyAddForm() {
                 )}
               />
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Card>
             <CardHeader>

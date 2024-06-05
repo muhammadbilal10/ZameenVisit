@@ -44,17 +44,32 @@ const locations = [
   },
 ];
 
-export function ComboboxDemo() {
+type Location = {
+  city: string;
+  address: string;
+  geo: {
+    lat: number;
+    lng: number;
+  };
+};
+
+export function LocationSearch({
+  location,
+  setLocation,
+}: {
+  location: Location;
+  setLocation: (location: Location) => void;
+}) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const [location, setLocation] = React.useState("");
 
   const [state, formAction] = useFormState(getLocations, null);
+  const [isPending, startTransition] = React.useTransition();
 
   const handleInputChange = async (value: string) => {
     const formData = new FormData();
     formData.append("location", value);
-    React.startTransition(() => {
+    startTransition(() => {
       formAction(formData);
     });
   };
@@ -68,8 +83,9 @@ export function ComboboxDemo() {
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {location
-            ? locations.find((loc) => loc.value === location)?.label
+          {location?.address
+            ? state?.find((loc: Location) => loc.address === location?.address)
+                ?.address
             : "Select a location"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -77,31 +93,34 @@ export function ComboboxDemo() {
       <PopoverContent className=" p-0">
         <Command>
           <CommandInput
-            placeholder="Search city..."
+            placeholder="Search Location..."
             onValueChange={(value) => {
               handleInputChange(value);
             }}
           />
           <CommandList className="">
-            <CommandEmpty>No Location found.</CommandEmpty>
+            <CommandEmpty>
+              {isPending ? "Loading..." : "No results found"}
+            </CommandEmpty>
             <CommandGroup>
-              {locations?.map((loc) => (
+              {state?.map((loc: Location) => (
                 <CommandItem
-                  key={loc.value}
-                  value={loc.value}
+                  key={loc?.address}
+                  value={loc.address}
                   onSelect={(currentValue) => {
-                    console.log(currentValue);
-                    setLocation(currentValue === location ? "" : currentValue);
+                    setLocation(loc);
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      location === loc.value ? "opacity-100" : "opacity-0"
+                      location?.address === loc?.address
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
-                  {loc.label}
+                  {loc.address}
                 </CommandItem>
               ))}
             </CommandGroup>

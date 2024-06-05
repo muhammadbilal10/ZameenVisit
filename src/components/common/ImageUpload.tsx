@@ -77,8 +77,8 @@ export default function ImageUpload({
   };
 
   const handleRemoveImage = (index: number) => {
-    // const newImagesUrl = imageUrl.filter((_, i) => i !== index);
-    // setImageUrl(newImagesUrl);
+    const updatedImages = uploadImagesUrl.filter((_, i) => i !== index);
+    setUploadImagesUrl(updatedImages);
   };
 
   return (
@@ -144,7 +144,7 @@ export default function ImageUpload({
               className="rounded-md h-full w-full grayscale"
             />
             {isPending && (
-              <div className="absolute top-1 left-1 bg-[#161c247a]  flex items-center justify-center">
+              <div className="absolute top-1 left-1   flex items-center justify-center">
                 <Loader2 className="h-5 w-5 animate-spin text-white" />
               </div>
             )}

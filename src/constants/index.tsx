@@ -368,7 +368,7 @@ export const accountMenuItems = [
     name: "My Property List",
     shortcut: "⌘S",
     icon: <HomeIcon />,
-    href: "/my-properties",
+    href: "/property-list",
   },
   {
     name: "Add New Property",
@@ -409,7 +409,7 @@ export const areaMenuItems = [
   "Square Meters",
 ];
 
-export const propertyPurposeList = ["Sale", "Rent"];
+export const propertyPurposeList = ["sale", "rent"];
 
 export const propertyTypeList = ["House", "Apartment", "Condo"];
 export const currencyList = ["PKR", "USD", "EUR"];

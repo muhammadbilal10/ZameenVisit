@@ -55,9 +55,9 @@ export default function DashboardSidebar() {
           <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
           <span className="sr-only">Acme Inc</span>
         </Link>
-        {dashboardLinks.map((link) => (
+        {dashboardLinks.map((link, index) => (
           <NavbarLink
-            key={link.href}
+            key={index + 1}
             href={link.href}
             icon={link.icon}
             label={link.label}
