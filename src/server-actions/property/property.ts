@@ -71,8 +71,8 @@ export async function getFilteredProperties(filters: any) {
       }
     );
     const data = await response.json();
-    console.log(data);
-    return { property: data };
+
+    return data;
   } catch (error) {
     console.log(error);
     return { error: "Failed to get property. Please try again." };
@@ -112,5 +112,29 @@ export async function getUserPropertiesById() {
   } catch (error) {
     console.log(error);
     return { error: "Failed to get property. Please try again." };
+  }
+}
+
+export async function deleteProperty(prevState: any, formData: FormData) {
+  const id = formData.get("id");
+  console.log(id);
+  const session = await getSession();
+  try {
+    const response = await fetch(`${base.URL}/api/property/deleteProperty`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+      body: JSON.stringify({
+        propertyId: id,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to delete property. Please try again." };
   }
 }

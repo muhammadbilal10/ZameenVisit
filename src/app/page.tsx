@@ -17,7 +17,9 @@ export default function Home() {
       </section>
       <section id="#hero">
         <Hero images={backgroundImages} />
-        <PropertySearch />
+        <div className="w-3/4 mx-auto sm:w-1/2 -mt-32 z-30 relative">
+          <PropertySearch />
+        </div>
       </section>
       <section id="properties" className="pt-14 lg:px-20 min-h-screen">
         <PropertyList properties={properties} />

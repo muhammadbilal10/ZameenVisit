@@ -54,7 +54,7 @@ export default async function PropertyList() {
       </div>
       <div className="grid gap-4 mt-4  md:grid-cols-2 lg:grid-cols-3">
         {res?.properties?.map((property: any) => (
-          <PropertyCard key={property.id} property={property} />
+          <PropertyCard key={property.id} property={property} type={"edit"} />
         ))}
       </div>
     </div>

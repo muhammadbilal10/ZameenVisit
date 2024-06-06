@@ -16,15 +16,17 @@ export function CustomSelect({
   label,
   defaultValue,
   onChange,
+  value,
 }: {
   items: string[];
   placeholderVal: string;
   label?: string;
+  value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
 }) {
   return (
-    <Select defaultValue={defaultValue} onValueChange={onChange}>
+    <Select defaultValue={defaultValue} value={value} onValueChange={onChange}>
       <SelectTrigger className="">
         <SelectValue placeholder={placeholderVal} />
       </SelectTrigger>

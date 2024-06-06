@@ -221,19 +221,38 @@ const areaUnits = [
   },
 ];
 
-export function PropertySearchCard({ searchAction }: { searchAction: string }) {
+type PropertySearchCardProps = {
+  category: string;
+  city: string;
+  location: string;
+  priceMin: string;
+  priceMax: string;
+  areaMin: string;
+  areaMax: string;
+  areaUnit: string;
+};
+
+export function PropertySearchCard({
+  searchActions,
+  searchType,
+}: {
+  searchActions: PropertySearchCardProps;
+  searchType: string;
+}) {
   const [open, setOpen] = React.useState(false);
   const [priceOpen, setPriceOpen] = React.useState(false);
   const [locationOpen, setLocationOpen] = React.useState(false);
   const [areaOpen, setAreaOpen] = React.useState(false);
-  const [city, setCity] = React.useState("");
-  const [category, setCategory] = React.useState("");
-  const [location, setLocation] = React.useState("");
-  const [priceMin, setPriceMin] = React.useState("");
-  const [priceMax, setPriceMax] = React.useState("");
-  const [areaMin, setAreaMin] = React.useState("");
-  const [areaMax, setAreaMax] = React.useState("");
-  const [areaUnit, setAreaUnit] = React.useState("marla");
+  const [city, setCity] = React.useState(searchActions?.city || "");
+  const [category, setCategory] = React.useState(searchActions?.category || "");
+  const [location, setLocation] = React.useState(searchActions?.location || "");
+  const [priceMin, setPriceMin] = React.useState(searchActions?.priceMin || "");
+  const [priceMax, setPriceMax] = React.useState(searchActions?.priceMax || "");
+  const [areaMin, setAreaMin] = React.useState(searchActions?.areaMin || "");
+  const [areaMax, setAreaMax] = React.useState(searchActions?.areaMax || "");
+  const [areaUnit, setAreaUnit] = React.useState(
+    searchActions?.areaUnit || "marla"
+  );
   const [projectTitle, setProjectTitle] = React.useState("");
   const [developerTitle, setDeveloperTitle] = React.useState("");
   const [areaRange, setAreaRange] = React.useState([0, 50]);
@@ -248,6 +267,7 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
             items={propertyCategories}
             placeholderVal="Select a Category "
             label="Property Category"
+            value={category}
             onChange={(value) => {
               setCategory(value);
             }}
@@ -435,7 +455,7 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="area">Area (Marla)</Label>
+          <Label htmlFor="area">Area ({areaUnit})</Label>
           <Select open={areaOpen} onOpenChange={setAreaOpen}>
             <SelectTrigger className="">
               <SelectValue
@@ -551,12 +571,12 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button asChild className="max-sm:w-full w-[230px]">
+        <Button asChild className="max-sm:w-full w-[150px] ml-auto">
           <Link
             href={{
               pathname: "/advanced-search",
               query: {
-                searchAction: searchAction,
+                searchType: searchType,
                 category: category,
                 city: city,
                 location: location,
@@ -564,6 +584,8 @@ export function PropertySearchCard({ searchAction }: { searchAction: string }) {
                 priceMax: priceMax,
                 areaMin: areaMin,
                 areaMax: areaMax,
+                areaUnit: areaUnit,
+                page: 1,
               },
             }}
           >

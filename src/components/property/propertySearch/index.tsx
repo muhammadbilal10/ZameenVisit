@@ -12,25 +12,28 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PropertySearchCard } from "./PropertySearchCard";
 
-export function PropertySearch() {
+export function PropertySearch({ searchActions }: { searchActions?: any }) {
   return (
-    <Tabs
-      defaultValue="buy"
-      className="w-3/4 mx-auto sm:w-1/2 -mt-32 z-30 relative"
-    >
-      <TabsList className="grid w-full grid-cols-3">
+    <Tabs defaultValue="buy">
+      <TabsList
+        className="grid w-full grid-cols-3"
+        defaultValue={searchActions?.searchType}
+      >
         <TabsTrigger value="buy">Buy</TabsTrigger>
         <TabsTrigger value="rent">Rent</TabsTrigger>
         <TabsTrigger value="projects">Projects</TabsTrigger>
       </TabsList>
       <TabsContent value="buy">
-        <PropertySearchCard searchAction={"buy"} />
+        <PropertySearchCard searchType={"buy"} searchActions={searchActions} />
       </TabsContent>
       <TabsContent value="rent">
-        <PropertySearchCard searchAction={"rent"} />
+        <PropertySearchCard searchType={"rent"} searchActions={searchActions} />
       </TabsContent>
       <TabsContent value="projects">
-        <PropertySearchCard searchAction={"projects"} />
+        <PropertySearchCard
+          searchType={"projects"}
+          searchActions={searchActions}
+        />
       </TabsContent>
     </Tabs>
   );
