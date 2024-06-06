@@ -55,7 +55,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ComboboxDemo } from "@/components/TestComponent";
 import { Slider } from "@/components/ui/slider";
 import { set } from "date-fns";
 
@@ -222,7 +221,7 @@ const areaUnits = [
 ];
 
 type PropertySearchCardProps = {
-  category: string;
+  propertyType: string;
   city: string;
   location: string;
   priceMin: string;
@@ -234,7 +233,7 @@ type PropertySearchCardProps = {
 
 export function PropertySearchCard({
   searchActions,
-  searchType,
+  searchType: purpose,
 }: {
   searchActions: PropertySearchCardProps;
   searchType: string;
@@ -244,7 +243,9 @@ export function PropertySearchCard({
   const [locationOpen, setLocationOpen] = React.useState(false);
   const [areaOpen, setAreaOpen] = React.useState(false);
   const [city, setCity] = React.useState(searchActions?.city || "");
-  const [category, setCategory] = React.useState(searchActions?.category || "");
+  const [propertyType, setCategory] = React.useState(
+    searchActions?.propertyType || ""
+  );
   const [location, setLocation] = React.useState(searchActions?.location || "");
   const [priceMin, setPriceMin] = React.useState(searchActions?.priceMin || "");
   const [priceMax, setPriceMax] = React.useState(searchActions?.priceMax || "");
@@ -267,7 +268,7 @@ export function PropertySearchCard({
             items={propertyCategories}
             placeholderVal="Select a Category "
             label="Property Category"
-            value={category}
+            value={propertyType}
             onChange={(value) => {
               setCategory(value);
             }}
@@ -576,9 +577,8 @@ export function PropertySearchCard({
             href={{
               pathname: "/advanced-search",
               query: {
-                searchType: searchType,
-                category: category,
-                city: city,
+                purpose: purpose === "buy" ? "sale" : "rent",
+                propertyType: propertyType,
                 location: location,
                 priceMin: priceMin,
                 priceMax: priceMax,
@@ -586,6 +586,7 @@ export function PropertySearchCard({
                 areaMax: areaMax,
                 areaUnit: areaUnit,
                 page: 1,
+                city: city,
               },
             }}
           >

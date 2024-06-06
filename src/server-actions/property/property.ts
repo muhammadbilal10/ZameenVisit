@@ -53,7 +53,9 @@ export async function addProperty(prevState: any, formData: FormData) {
 }
 
 export async function getFilteredProperties(filters: any) {
+  console.log(filters?.priceMin);
   const filter = new URLSearchParams(filters).toString();
+
   console.log(filter);
 
   // convert filter into params
@@ -71,7 +73,7 @@ export async function getFilteredProperties(filters: any) {
       }
     );
     const data = await response.json();
-
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

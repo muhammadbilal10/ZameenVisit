@@ -11,8 +11,8 @@ export default function PropertyFeaturesCard({ features }: { features: any }) {
       </CardHeader>
       <CardContent>
         <div className="">
-          {features?.map((feature: any) => (
-            <div>
+          {features?.map((feature: any, index: number) => (
+            <div key={index}>
               <h3 className=" font-semibold my-4">{feature?.title}</h3>
               <ul className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4">
                 {feature?.items?.map((item: any) => (

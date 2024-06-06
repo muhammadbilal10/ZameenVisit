@@ -19,13 +19,18 @@ import Link from "next/link";
 import { accountMenuItems } from "@/constants";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { logout } from "@/server-actions/auth";
+import { useSession } from "@/components/auth/auth-wrapper";
 
 export function ProfileDropdownMenu() {
+  const session = useSession();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className={cn("cursor-pointer")}>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarImage
+            src={session?.user?.image || "https://github.com/shadcn.png"}
+            alt={session?.user?.name || "@Shadcn"}
+          />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

@@ -34,6 +34,7 @@ export default async function AdvancedSearchPage({
   console.log("AdvancedSearchPage", searchParams);
   const currentPage = Number(searchParams?.page) || 1;
   const properties = await getProperties(searchParams);
+  console.log("properties", properties);
 
   return (
     <div className="px-5 py-7">
@@ -46,10 +47,7 @@ export default async function AdvancedSearchPage({
       </div>
       <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2 lg:grid-cols-3">
         {properties?.map((property: any) => (
-          <PropertyCard
-            key={property.id}
-            property={properties.property || []}
-          />
+          <PropertyCard key={property.id} property={property || []} />
         ))}
       </div>
       <div className="mt-8">

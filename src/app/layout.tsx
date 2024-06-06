@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/layout/Footer";
 import { AuthWrapper } from "@/components/auth/auth-wrapper";
 import { getSession } from "@/server-actions/auth";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,12 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={cn(
+          inter.className
+          // "bg-gradient-to-r from-sky-100 to-violet-100"
+        )}
+      >
         {/* <div className="relative">
           <Navbar />
           <div className="mt-[65px]">{children}</div>

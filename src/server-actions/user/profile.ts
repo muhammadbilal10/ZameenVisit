@@ -110,31 +110,6 @@ export async function updateProfile(prevState: any, formData: FormData) {
     console.log(error);
     return { error: "Failed to update profile. Please try again." };
   }
-
-  // try {
-  //   const response = await fetch(`${process.env.BASE_URL}/api/user/${id}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-access-token": session?.user?.token,
-  //     },
-  //   });
-  //   const result = await response.json();
-  // const user = result?.user;
-  // if (result?.success) {
-  //   // Create the session
-  //   // const expires = new Date(Date.now() + 10 * 1000); // for 10 sec
-  //   const expires = new Date(Date.now() + 1 * 60 * 60 * 1000); // for 1 hour
-  //   const session = await encrypt({ user, expires });
-  //   // Save the session in a cookie
-  //   cookies().set("session", session, { expires, httpOnly: true });
-  // } else {
-  //   return result;
-  // }
-
-  // } catch (error) {
-  //   return { error: "Failed to fetch user. Please try again." };
-  // }
 }
 
 export async function updateProfilePassword(
@@ -152,21 +127,18 @@ export async function updateProfilePassword(
     const session = await getSession();
     console.log(session?.user?.token);
 
-    const response = await fetch(
-      `${process.env.BASE_URL}/api/user/resetProfilePassword`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": session?.user?.token,
-        },
-        body: JSON.stringify({
-          oldPassword: formData.get("current-password"),
-          newPassword: data.data.password,
-          confirmPassword: data.data.confirmPassword,
-        }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/user/resetProfilePassword`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+      body: JSON.stringify({
+        oldPassword: formData.get("current-password"),
+        newPassword: data.data.password,
+        confirmPassword: data.data.confirmPassword,
+      }),
+    });
     const result = await response.json();
     console.log(result);
     return result;

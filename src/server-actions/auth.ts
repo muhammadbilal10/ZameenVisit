@@ -113,22 +113,19 @@ export async function signup(prevState: any, formData: FormData) {
   }
 
   try {
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: results.data.name,
-          email: results.data.email,
-          phoneNumber: results.data.phoneNumber,
-          password: results.data.password,
-          role: results.data.role,
-        }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: results.data.name,
+        email: results.data.email,
+        phoneNumber: results.data.phoneNumber,
+        password: results.data.password,
+        role: results.data.role,
+      }),
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -149,16 +146,13 @@ export async function forgotPassword(prevState: any, formData: FormData) {
   }
 
   try {
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/forgotPassword`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.data.email }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/forgotPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: data.data.email }),
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -171,19 +165,16 @@ export async function forgotPassword(prevState: any, formData: FormData) {
 export async function otpVerification(prevState: any, formData: FormData) {
   const pin = formData.get("pin");
   try {
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/verifyOtp`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          otp: pin,
-        }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/verifyOtp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.get("email"),
+        otp: pin,
+      }),
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -195,16 +186,13 @@ export async function otpVerification(prevState: any, formData: FormData) {
 
 export async function resendOTP(prevState: any, formData: FormData) {
   try {
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/resendOtp`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: formData.get("email") }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/resendOtp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: formData.get("email") }),
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -227,20 +215,17 @@ export async function updatePassword(prevState: any, formData: FormData) {
       };
     }
 
-    const response = await fetch(
-      `https://zameen-server.onrender.com/api/auth/resetPassword`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          password: formData.get("password"),
-          confirmPassword: formData.get("confirm-password"),
-        }),
-      }
-    );
+    const response = await fetch(`${base.URL}/api/auth/resetPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.get("email"),
+        password: formData.get("password"),
+        confirmPassword: formData.get("confirm-password"),
+      }),
+    });
     const result = await response.json();
     console.log(result);
     return result;

@@ -16,12 +16,12 @@ export function PropertySearch({ searchActions }: { searchActions?: any }) {
   return (
     <Tabs defaultValue="buy">
       <TabsList
-        className="grid w-full grid-cols-3"
+        className="grid w-full max-w-lg grid-cols-2 mx-auto"
         defaultValue={searchActions?.searchType}
       >
         <TabsTrigger value="buy">Buy</TabsTrigger>
         <TabsTrigger value="rent">Rent</TabsTrigger>
-        <TabsTrigger value="projects">Projects</TabsTrigger>
+        {/* <TabsTrigger value="projects">Projects</TabsTrigger> */}
       </TabsList>
       <TabsContent value="buy">
         <PropertySearchCard searchType={"buy"} searchActions={searchActions} />
@@ -29,12 +29,12 @@ export function PropertySearch({ searchActions }: { searchActions?: any }) {
       <TabsContent value="rent">
         <PropertySearchCard searchType={"rent"} searchActions={searchActions} />
       </TabsContent>
-      <TabsContent value="projects">
+      {/* <TabsContent value="projects">
         <PropertySearchCard
           searchType={"projects"}
           searchActions={searchActions}
         />
-      </TabsContent>
+      </TabsContent> */}
     </Tabs>
   );
 }
