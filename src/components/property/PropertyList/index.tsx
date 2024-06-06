@@ -28,9 +28,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
         Disocover latest properties
       </h2>
       <div className="px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {properties.map((property) => (
+        {/* {properties.map((property) => (
           <PropertyCard key={property.id} property={property} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const BREAD_CRUMB_LIST = [
 async function getProperties(searchParams: any) {
   const propertiesData = await getFilteredProperties(searchParams);
   console.log("propertiesData", propertiesData);
-  return propertiesData?.properties;
+  return propertiesData;
 }
 
 export default async function AdvancedSearchPage({
@@ -33,8 +33,9 @@ export default async function AdvancedSearchPage({
 }) {
   console.log("AdvancedSearchPage", searchParams);
   const currentPage = Number(searchParams?.page) || 1;
-  const properties = await getProperties(searchParams);
-  console.log("properties", properties);
+  const propertiesData = await getProperties(searchParams);
+  const properties = propertiesData?.properties;
+  const totalPages = propertiesData?.totalPages;
 
   return (
     <div className="px-5 py-7">
