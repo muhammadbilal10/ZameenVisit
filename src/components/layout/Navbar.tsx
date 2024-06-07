@@ -25,6 +25,13 @@ import UpdatePasswordForm from "../auth/UpdatePasswordForm";
 import { useSession } from "../auth/auth-wrapper";
 import { useRouter } from "next/navigation";
 
+const NAVBAR_LINKS = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "Properties", href: "#", icon: Home },
+  { name: "Agents", href: "#", icon: Handshake },
+  { name: "Contact", href: "/contact", icon: Phone },
+];
+
 const Navbar = () => {
   const [isModelOpen, setIsModelOpen] = React.useState(false);
   const [isLoginOpen, setIsLoginOpen] = React.useState(true);
@@ -35,14 +42,6 @@ const Navbar = () => {
 
   const session = useSession();
   const router = useRouter();
-
-  const links = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Properties", href: "#", icon: Home },
-    { name: "Agents", href: "#", icon: Handshake },
-    { name: "Blog", href: "#", icon: BookText },
-    { name: "Contact", href: "#", icon: Phone },
-  ];
 
   const handleAddListing = () => {
     const isLogin = false;
@@ -84,7 +83,7 @@ const Navbar = () => {
                   className="h-16 w-24 object-cover"
                 />
               </Link>
-              {links.map((link, index) => (
+              {NAVBAR_LINKS.map((link, index) => (
                 // <Button key={index} variant="ghost" className="">
                 //   <Link href={link.href} className="">
                 //     {link.name}
@@ -120,7 +119,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center justify-center space-x-10 flex-1 max-lg:hidden">
-        {links.map((link, index) => (
+        {NAVBAR_LINKS.map((link, index) => (
           <Button key={index} variant="ghost" className="text-md">
             <Link href={link.href}>{link.name}</Link>
           </Button>

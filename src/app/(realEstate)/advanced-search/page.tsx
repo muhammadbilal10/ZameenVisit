@@ -52,7 +52,7 @@ export default async function AdvancedSearchPage({
         ))}
       </div>
       <div className="mt-8">
-        <CustomPagination totalPages={6} currentPage={currentPage} />
+        <CustomPagination totalPages={totalPages} currentPage={currentPage} />
       </div>
     </div>
   );

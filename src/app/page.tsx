@@ -12,22 +12,22 @@ import { titaniumAgencies, properties, backgroundImages } from "@/constants";
 
 const AREA_IMAGES = [
   {
-    title: "Area 1",
+    title: "Lahore",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/building-8-980x500.webp",
   },
   {
-    title: "Area 2",
+    title: "Islamabad",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/background-e1692365269357-980x777.webp",
   },
   {
-    title: "Area 3",
+    title: "Karachi",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/05/header-e1683715581611-1-e1691152986557-940x777.webp",
   },
   {
-    title: "Area 4",
+    title: "Faisalabad",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/building-980x660.webp",
   },
@@ -49,7 +49,7 @@ export default function Home() {
         <PropertyList properties={properties} />
       </section>
       <section className="pt-14 lg:px-20 min-h-screen">
-        <h1 className="text-3xl font-bold py-10">Properties by Area</h1>
+        <h1 className="text-3xl font-bold py-10">Properties by City</h1>
         <div className="grid grid-cols-4 gap-4">
           {AREA_IMAGES.map((area, index) => (
             <TestComponent key={index} image={area.image} title={area.title} />
