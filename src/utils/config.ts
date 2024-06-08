@@ -13,6 +13,9 @@ interface BaseConfig {
   RUNNING: string;
   DEV_TOOLS: boolean;
   MAP_TOKEN: string;
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: string;
+  CLOUDINARY_API_KEY: string;
+  CLOUDINARY_API_SECRET: string;
 }
 
 // Define base configuration with actual types
@@ -21,6 +24,9 @@ const base: BaseConfig = {
   URL: CONST.APP_ROUTES.BASE,
   MAP_TOKEN:
     "pk.eyJ1IjoiemVlZTk5IiwiYSI6ImNsd3Rqc2ZzNzAzeHYyb3IxMm9xanFrdGwifQ.rTUqcwbx5ehH3YvrizHfug",
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "dosndnyp5",
+  CLOUDINARY_API_KEY: "817347555493295",
+  CLOUDINARY_API_SECRET: "CmMgWFCTBqRNdms3r3LafnLaB68",
   RUNNING: process.env.REACT_APP_NODE_ENV!,
   DEV_TOOLS: process.env.REACT_APP_NODE_ENV === "development",
 };
