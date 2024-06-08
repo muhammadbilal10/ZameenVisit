@@ -23,12 +23,7 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-      <body
-        className={cn(
-          inter.className
-          // "bg-gradient-to-r from-sky-100 to-violet-100"
-        )}
-      >
+      <body className={cn(inter.className, "")}>
         {/* <div className="relative">
           <Navbar />
           <div className="mt-[65px]">{children}</div>

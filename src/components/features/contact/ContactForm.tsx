@@ -14,10 +14,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { contactUs } from "@/server-actions/company/contact";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function ContactForm() {
   const [state, formAction] = useFormState(contactUs, null);
+
+  useEffect(() => {
+    if (state?.status === "success") {
+      alert("Email sent successfully.");
+    }
+  }, [state]);
 
   return (
     <Card className="">
@@ -42,9 +49,9 @@ export default function ContactForm() {
               />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="mobile">Mobile</Label>
+              <Label htmlFor="mobileNumber">Mobile</Label>
               <Input
-                name="mobile"
+                name="mobileNumber"
                 type="tel"
                 placeholder="+923494411115"
                 required
@@ -54,6 +61,7 @@ export default function ContactForm() {
           <div className="space-y-1">
             <Label htmlFor="message">Message</Label>
             <Textarea
+              name="message"
               className="h-36"
               placeholder="Type your message here."
               required
@@ -70,5 +78,9 @@ export default function ContactForm() {
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  return <Button>{!pending ? "Send Email" : "Please wait..."}</Button>;
+  return (
+    <Button disabled={pending}>
+      {!pending ? "Send Email" : "Please wait..."}
+    </Button>
+  );
 }

@@ -1,4 +1,3 @@
-import TestComponent from "@/components/TestComponent";
 import { CustomCarousel } from "@/components/common/CustomCarousel";
 import Footer from "@/components/layout/Footer";
 import { Hero } from "@/components/layout/Hero";
@@ -7,33 +6,41 @@ import Navbar from "@/components/layout/Navbar";
 import PropertyList from "@/components/property/PropertyList";
 import TitaniumAgencies from "@/components/property/TitaniumAgencies";
 import { PropertySearch } from "@/components/property/propertySearch";
+import CitySearchCard from "@/components/property/propertySearch/CitySearchCard";
 
 import { titaniumAgencies, properties, backgroundImages } from "@/constants";
+import { getLatestProperties } from "@/server-actions/property/property";
 
-const AREA_IMAGES = [
+const CITIES = [
   {
     title: "Lahore",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/building-8-980x500.webp",
+    value: "lahore",
   },
   {
     title: "Islamabad",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/background-e1692365269357-980x777.webp",
+    value: "islamabad",
   },
   {
     title: "Karachi",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/05/header-e1683715581611-1-e1691152986557-940x777.webp",
+    value: "karachi",
   },
   {
     title: "Faisalabad",
     image:
       "https://reno.b-cdn.net/wp-content/uploads/2023/08/building-980x660.webp",
+    value: "faisalabad",
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const data = await getLatestProperties();
+  const properties = data?.properties;
   return (
     <main className="">
       <section>
@@ -48,11 +55,16 @@ export default function Home() {
       <section id="properties" className="pt-14 lg:px-20 min-h-screen">
         <PropertyList properties={properties} />
       </section>
-      <section className="pt-14 lg:px-20 min-h-screen">
+      <section className="pt-14 p-8 lg:px-20 min-h-screen">
         <h1 className="text-3xl font-bold py-10">Properties by City</h1>
-        <div className="grid grid-cols-4 gap-4">
-          {AREA_IMAGES.map((area, index) => (
-            <TestComponent key={index} image={area.image} title={area.title} />
+        <div className="grid lg:grid-cols-4 gap-4">
+          {CITIES.map((city, index) => (
+            <CitySearchCard
+              key={index}
+              image={city.image}
+              title={city.title}
+              value={city.value}
+            />
           ))}
         </div>
       </section>

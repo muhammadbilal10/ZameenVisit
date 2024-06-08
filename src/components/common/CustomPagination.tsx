@@ -30,7 +30,10 @@ export default function CustomPagination({
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href={createPageUrl(currentPage - 1)} />
+            <PaginationPrevious
+              href={currentPage - 1 < 1 ? "#" : createPageUrl(currentPage - 1)}
+              className={`${currentPage === 1 && "pointer-events-none"}`}
+            />
           </PaginationItem>
           {Array.from({ length: totalPages }, (_, i) => (
             <PaginationItem key={i}>
@@ -47,8 +50,14 @@ export default function CustomPagination({
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
-              href={createPageUrl(currentPage + 1)}
-              isActive={false}
+              href={
+                currentPage + 1 > totalPages
+                  ? "#"
+                  : createPageUrl(currentPage + 1)
+              }
+              className={`${
+                currentPage === totalPages && "pointer-events-none"
+              }`}
             />
           </PaginationItem>
         </PaginationContent>

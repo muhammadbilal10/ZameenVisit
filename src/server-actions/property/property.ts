@@ -81,6 +81,26 @@ export async function getFilteredProperties(filters: any) {
   }
 }
 
+export async function getLatestProperties() {
+  try {
+    const session = await getSession();
+    const response = await fetch(
+      `${base.URL}/api/property/getLatestProperties`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": session?.user?.token,
+        },
+      }
+    );
+    const properties = await response.json();
+    console.log(properties);
+    return properties;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to get property. Please try again." };
+  }
+}
 export async function getPropertyById(id: string) {
   const session = await getSession();
   try {

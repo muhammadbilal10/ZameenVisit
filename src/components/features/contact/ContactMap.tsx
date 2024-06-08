@@ -59,40 +59,14 @@ export default function ContactMap() {
             latitude={CURRENT_LOCATION.latitude}
             onClose={() => setSelectedMarker(!selectedMarker)}
           >
-            {/* <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden">
-              <div className="bg-cover bg-center h-56">
-                <Image
-                  src="/images/central-park.jpg"
-                  alt="Central Park"
-                  width={500}
-                  height={300}
-                />
+            <div className="relative">
+              <p>
+                <Mail size={20} color="tomato" />
+              </p>
+              <div className="absolute -bottom-20 bg-white p-4 text-2xl shadow-lg">
+                hello
               </div>
-              <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800">
-                  Central Park
-                </h2>
-                <p className="text-gray-600 mt-2">New York, NY, USA</p>
-                <div className="flex items-center mt-3 text-gray-600">
-                  <Clock className="h-5 w-5 text-gray-600" />
-                  <h3 className="px-2 text-sm">Open 24 hours</h3>
-                </div>
-                <div className="flex items-center mt-3 text-gray-600">
-                  <Mail className="h-5 w-5 text-gray-600" />
-                  <h3 className="px-2 text-sm">info@centralparknyc.org</h3>
-                </div>
-                <div className="mt-4">
-                  <a
-                    href="https://goo.gl/maps/xXW5n7Kr4cF2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-indigo-600 hover:text-indigo-800 font-semibold"
-                  >
-                    View on Google Maps
-                  </a>
-                </div>
-              </div>
-            </div> */}
+            </div>
           </Popup>
         )}
         <Marker longitude={139.750567} latitude={35.668641}>

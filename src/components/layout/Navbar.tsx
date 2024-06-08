@@ -23,11 +23,12 @@ import ForgotPasswordForm from "../auth/ForgotPasswordForm";
 import OTPForm from "../auth/OTPForm";
 import UpdatePasswordForm from "../auth/UpdatePasswordForm";
 import { useSession } from "../auth/auth-wrapper";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const NAVBAR_LINKS = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Properties", href: "#", icon: Home },
+  { name: "Properties", href: "/advanced-search", icon: Home },
   { name: "Agents", href: "#", icon: Handshake },
   { name: "Contact", href: "/contact", icon: Phone },
 ];
@@ -42,6 +43,8 @@ const Navbar = () => {
 
   const session = useSession();
   const router = useRouter();
+  const pathName = usePathname();
+  console.log("pathName", pathName);
 
   const handleAddListing = () => {
     const isLogin = false;
@@ -120,7 +123,16 @@ const Navbar = () => {
 
       <div className="flex items-center justify-center space-x-10 flex-1 max-lg:hidden">
         {NAVBAR_LINKS.map((link, index) => (
-          <Button key={index} variant="ghost" className="text-md">
+          <Button
+            key={index}
+            variant="ghost"
+            className={
+              (cn("text-md border-b-2"),
+              pathName === link.href
+                ? "bg-transparent shadow-none rounded-none border-b-2 border-transparent border-gray-700"
+                : "")
+            }
+          >
             <Link href={link.href}>{link.name}</Link>
           </Button>
         ))}

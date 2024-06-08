@@ -2,7 +2,7 @@ import { BreadCrumb } from "@/components/common/BreadCrumb";
 import ContactCard from "@/components/features/contact/ContactCard";
 import ContactForm from "@/components/features/contact/ContactForm";
 import ContactMap from "@/components/features/contact/ContactMap";
-import { PropertySearch } from "@/components/property/propertySearch";
+import ContactPropertySearch from "@/components/features/contact/ContactPropertySearch";
 import React from "react";
 
 const CONTACT_BREAD_CRUMB_LIST = [
@@ -35,7 +35,7 @@ export default function ContactPage() {
             <ContactForm />
           </div>
           <div className="lg:col-span-4 col-span-12">
-            <PropertySearch />
+            <ContactPropertySearch />
           </div>
         </div>
       </div>

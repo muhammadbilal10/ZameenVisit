@@ -376,18 +376,18 @@ export const accountMenuItems = [
     icon: <PlusCircledIcon />,
     href: "/add-listing",
   },
-  {
-    name: "Favorites",
-    shortcut: "⌘K",
-    icon: <HeartIcon />,
-    href: "/favorites",
-  },
-  {
-    name: "Saved Searches",
-    shortcut: "⌘K",
-    icon: <MagnifyingGlassIcon />,
-    href: "/saved-searches",
-  },
+  // {
+  //   name: "Favorites",
+  //   shortcut: "⌘K",
+  //   icon: <HeartIcon />,
+  //   href: "/favorites",
+  // },
+  // {
+  //   name: "Saved Searches",
+  //   shortcut: "⌘K",
+  //   icon: <MagnifyingGlassIcon />,
+  //   href: "/saved-searches",
+  // },
 
   // { name: "Logout", shortcut: "⇧⌘Q", icon: <ExitIcon /> },
 ];
@@ -397,8 +397,8 @@ export const dashboardLinks = [
   { href: "/add-listing", icon: CircleFadingPlus, label: "Add New Property" },
   { href: "/property-list", icon: HomeIcon, label: "My Property List" },
   { href: "/account", icon: PersonIcon, label: "My Profile" },
-  { href: "#", icon: HeartIcon, label: "Favorites" },
-  { href: "#", icon: SearchIcon, label: "Saved Searches" },
+  // { href: "#", icon: HeartIcon, label: "Favorites" },
+  // { href: "#", icon: SearchIcon, label: "Saved Searches" },
 ];
 
 export const areaMenuItems = [
