@@ -13,16 +13,36 @@ import { Input } from "@/components/ui/input";
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { contactUs } from "@/server-actions/company/contact";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 export default function ContactForm() {
   const [state, formAction] = useFormState(contactUs, null);
+  const { toast } = useToast();
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state?.status === "success") {
-      alert("Email sent successfully.");
+    if (state?.success) {
+      toast({
+        title: "Email sent",
+        description: "We will get back to you soon.",
+      });
+      formRef.current?.reset();
+    }
+    if (state?.success === false) {
+      toast({
+        title: "Failed to send email",
+        description: "Please try again.",
+      });
+    }
+    if (state?.error) {
+      toast({
+        title: "Error",
+        description: state.error,
+      });
     }
   }, [state]);
 
@@ -33,7 +53,7 @@ export default function ContactForm() {
         {/* <CardDescription>Card Description</CardDescription> */}
       </CardHeader>
       <CardContent>
-        <form action={formAction} className="space-y-4">
+        <form action={formAction} className="space-y-4" ref={formRef}>
           <div className="grid sm:grid-cols-3 gap-4">
             <div className="space-y-1">
               <Label htmlFor="name">Name</Label>

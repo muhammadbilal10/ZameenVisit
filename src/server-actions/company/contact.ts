@@ -21,6 +21,8 @@ export async function contactUs(prevState: any, formData: FormData) {
     console.log(data);
     return data;
   } catch (error) {
-    return error;
+    return {
+      error: "Failed to send email",
+    };
   }
 }

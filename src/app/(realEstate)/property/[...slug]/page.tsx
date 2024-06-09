@@ -29,21 +29,25 @@ export default async function PropertyDetailsPage({
   const propertyId = params.slug[1];
   const property = await getPropertyData(propertyId);
 
+  if (!property) {
+    return <div>Property not found</div>;
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 mb-10">
       <div className="py-8">
         <div className="flex max-lg:flex-col justify-between space-y-2">
           <h2 className="md:text-3xl text-xl  font-normal uppercase">
-            {property.title}
+            {property?.title}
           </h2>
           <h2 className="lg:text-2xl text-xl  font-bold">
-            PKR {formatNumber(property?.price.toString())}
+            PKR {property?.price && formatNumber(property?.price.toString())}
           </h2>
         </div>
         <div className="flex justify-between">
           <address className="flex items-center mt-2">
             <MapPin className="mr-1 w-4 h-4" />
-            {property.location.address}
+            {property?.location.address}
           </address>
           <div className="flex items-center gap-2 mt-2">
             <ShareDropdown
@@ -60,11 +64,11 @@ export default async function PropertyDetailsPage({
       </div>
       <div className="grid grid-cols-12 gap-4 md:gap-10">
         <div className="lg:col-span-8 col-span-12 space-y-8">
-          <PropertyCarousel propertyImages={property.imageUrl} />
+          <PropertyCarousel propertyImages={property?.imageUrl} />
           <PropertyOverviewCard property={property} />
-          <PropertyDescriptionCard description={property.description} />
+          <PropertyDescriptionCard description={property?.description} />
           <PropertyFeaturesCard features={property?.features} />
-          <PropertyVideoCard videoUrl={property.videoUrl} />
+          <PropertyVideoCard videoUrl={property?.videoUrl} />
         </div>
 
         <div className="lg:col-span-4 col-span-12">

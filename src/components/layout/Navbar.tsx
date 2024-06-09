@@ -25,6 +25,7 @@ import UpdatePasswordForm from "../auth/UpdatePasswordForm";
 import { useSession } from "../auth/auth-wrapper";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import CustomNavigationMenu from "../common/CustomNavigationMenu";
 
 const NAVBAR_LINKS = [
   { name: "Home", href: "/", icon: Home },
@@ -136,6 +137,7 @@ const Navbar = () => {
             <Link href={link.href}>{link.name}</Link>
           </Button>
         ))}
+        <CustomNavigationMenu />
       </div>
       <div className="flex items-center space-x-4">
         {session && <ProfileDropdownMenu />}

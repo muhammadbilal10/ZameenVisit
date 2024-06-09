@@ -50,6 +50,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "reno.b-cdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "lasvegas.wpresidence.net",
+      },
     ],
   },
   env: {
