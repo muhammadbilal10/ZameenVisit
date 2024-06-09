@@ -120,6 +120,7 @@ export const propertyFormSchema = z.object({
   dob: z.date({
     required_error: "A date of built is required.",
   }),
+  contactEmail: z.string().email(),
   price: z.string().min(1, { message: "Please enter a price" }),
   // currencyUnit: z.string().nonempty({ message: "Please select a currency" }),
   propertyType: z

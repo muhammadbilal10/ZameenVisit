@@ -41,6 +41,9 @@ export async function addProperty(prevState: any, formData: FormData) {
         propertyType: formData.get("propertyType"),
         features: amenties,
         status: formData.get("purpose"),
+        contactNumber: formData.get("mobile"),
+        contactEmail: formData.get("email"),
+        whatsAppNumber: formData.get("whatsapp"),
       }),
     });
     const data = await response.json();

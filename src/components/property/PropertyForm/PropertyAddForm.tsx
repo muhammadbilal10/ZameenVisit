@@ -48,6 +48,7 @@ import Modal from "@/components/common/Modal";
 import { useEffect, useState, useTransition } from "react";
 import { Label } from "@/components/ui/label";
 import {
+  AlertCircle,
   CalendarIcon,
   Copy,
   Delete,
@@ -72,6 +73,8 @@ import MapBox from "../PropertyMap/LocationMap";
 import LocationMap from "../PropertyMap/LocationMap";
 import AmentiesForm from "./AmentiesForm";
 import { useRouter } from "next/navigation";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const items = [
   {
@@ -112,6 +115,11 @@ export function PropertyAddForm() {
   const [propertyVideoUrls, setPropertyVideoUrls] = useState<string[]>([]);
   const [propertyImageUrls, setPropertyImageUrls] = useState<string[]>([]);
   const [selectedAmenities, setSelectedAmenities] = useState<Section[]>([]);
+  const [mobile, setMobile] = useState<string>("");
+  const [isMobileValid, setIsMobileValid] = useState(true);
+  const [whatsapp, setWhatsapp] = useState<string>("");
+  const [isWhatsappValid, setIsWhatsappValid] = useState(true);
+
   const [location, setLocation] = useState({
     address: "",
     city: "",
@@ -156,7 +164,7 @@ export function PropertyAddForm() {
         title: "Property added successfully",
         description: "Property has been added successfully",
       });
-      router.push("/property-list");
+      router.replace("/property-list");
     }
   }, [state]);
 
@@ -181,7 +189,9 @@ export function PropertyAddForm() {
     formData.append("videoUrl", JSON.stringify(propertyVideoUrls));
     formData.append("location", JSON.stringify(location));
     formData.append("amenties", JSON.stringify(selectedAmenities));
-
+    formData.append("email", values.contactEmail);
+    formData.append("mobile", mobile);
+    formData.append("whatsapp", whatsapp);
     startTransition(() => {
       formAction(formData);
     });
@@ -580,6 +590,80 @@ export function PropertyAddForm() {
                   propertyVideoUrls={propertyVideoUrls}
                 />
               )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Contact Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FormField
+                control={form.control}
+                name="contactEmail"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="johndoe@gmail.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="space-y-1">
+                <Label htmlFor="mobile">Mobile</Label>
+                <PhoneInput
+                  defaultCountry="PK"
+                  international
+                  value={mobile}
+                  onChange={(value: string) => {
+                    if (value) {
+                      setIsMobileValid(isValidPhoneNumber(value));
+                    } else {
+                      setIsMobileValid(true);
+                    }
+                    setMobile(value);
+                  }}
+                />
+
+                {!isMobileValid && (
+                  <p className="flex items-center text-destructive">
+                    <AlertCircle className="h-4 w-4 mr-2" />
+                    Please enter a valid phone number
+                  </p>
+                )}
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="whatsappNumber">Whatsapp</Label>
+                <PhoneInput
+                  defaultCountry="PK"
+                  international
+                  value={whatsapp}
+                  onChange={(value: string) => {
+                    if (value) {
+                      setIsWhatsappValid(isValidPhoneNumber(value));
+                    } else {
+                      setIsWhatsappValid(true);
+                      setWhatsapp(whatsapp);
+                    }
+                  }}
+                />
+
+                {!isWhatsappValid && (
+                  <p className="flex items-center text-destructive">
+                    <AlertCircle className="h-4 w-4 mr-2" />
+                    Please enter a valid phone number
+                  </p>
+                )}
+              </div>
             </CardContent>
           </Card>
 
