@@ -4,7 +4,10 @@ import Modal from "@/components/common/Modal";
 import { Filter } from "@/components/property/PropertyFilters/Filter";
 import PropertyCard from "@/components/property/PropertyList/PropertyCard";
 import { Button } from "@/components/ui/button";
-import { getUserPropertiesById } from "@/server-actions/property/property";
+import {
+  getUserPropertiesById,
+  promoteProperty,
+} from "@/server-actions/property/property";
 import { PlusIcon, Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -23,7 +26,18 @@ const BREADCRUMB_ITEMS = [
   },
 ];
 
-export default async function PropertyList() {
+export default async function PropertyList({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  console.log(searchParams);
+  if (searchParams?.propertyId && searchParams?.productId) {
+    const propertyId = searchParams?.propertyId;
+    const productId = Number(searchParams?.productId);
+    console.log(propertyId, productId);
+    const res = await promoteProperty(productId, propertyId);
+  }
   const res = await getUserPropertiesById();
   console.log(res);
   return (
@@ -40,7 +54,7 @@ export default async function PropertyList() {
           </Link>
         </Button>
       </div>
-      <div className="flex justify-between">
+      {/* <div className="flex justify-between">
         <div>
           <Search className="w-6 h-6" />
         </div>
@@ -51,7 +65,7 @@ export default async function PropertyList() {
             items={["Latest", "Popular", "New"]}
           />
         </div>
-      </div>
+      </div> */}
       <div className="grid gap-4 mt-4  md:grid-cols-2 lg:grid-cols-3">
         {res?.properties?.map((property: any) => (
           <PropertyCard key={property.id} property={property} type={"edit"} />

@@ -163,3 +163,26 @@ export async function deleteProperty(prevState: any, formData: FormData) {
     return { error: "Failed to delete property. Please try again." };
   }
 }
+
+export async function promoteProperty(productId: number, propertyId: string) {
+  const session = await getSession();
+  try {
+    const response = await fetch(`${base.URL}/api/property/promote`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+      body: JSON.stringify({
+        productId,
+        propertyId,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to promote property. Please try again." };
+  }
+}

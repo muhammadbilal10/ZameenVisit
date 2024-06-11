@@ -81,6 +81,7 @@ interface PropertyCardProps {
       email: string;
       image: string;
     };
+    promotionType: string;
   };
   type?: string;
 }
@@ -97,6 +98,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
     return `/property/${slug}/${id}`;
   }
 
+  const router = useRouter();
+
   return (
     <div className="relative">
       {type === "edit" && (
@@ -104,8 +107,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
           <DeleteProperty id={property.id} />
         </div>
       )}
-      <Link href={createPropertySlug()}>
-        <Card className={cn("w-full")}>
+
+      <Card className={cn("w-full")}>
+        <Link href={createPropertySlug()}>
           <CardContent className={cn("p-0 h-52 w-full")}>
             {property?.imageUrl?.length > 0 && (
               <Image
@@ -145,19 +149,30 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
             </div>
           </CardHeader>
           <Separator />
-          <CardFooter className={cn("p-2 mt-auto")}>
-            <div className="flex items-center gap-3">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src={property?.user?.image} />
-                <AvatarFallback>
-                  {property?.user?.name?.split(" ").map((name) => name[0])}
-                </AvatarFallback>
-              </Avatar>
-              <p className="">{property?.user?.name}</p>
-            </div>
-          </CardFooter>
-        </Card>
-      </Link>
+        </Link>
+        <CardFooter className={cn("p-2 mt-auto")}>
+          <div className="flex items-center gap-3">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={property?.user?.image} />
+              <AvatarFallback>
+                {property?.user?.name?.split(" ").map((name) => name[0])}
+              </AvatarFallback>
+            </Avatar>
+            <p className="">{property?.user?.name}</p>
+          </div>
+          {type === "edit" && (
+            <Button
+              className="ml-auto"
+              disabled={property?.promotionType ? true : false}
+              onClick={() => {
+                router.push(`/buy-products?propertyId=${property.id}`);
+              }}
+            >
+              {property?.promotionType ? "Promoted" : "Hot list"}
+            </Button>
+          )}
+        </CardFooter>
+      </Card>
     </div>
   );
 };
