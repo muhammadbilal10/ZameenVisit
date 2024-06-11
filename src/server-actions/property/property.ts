@@ -14,6 +14,7 @@ export async function addProperty(prevState: any, formData: FormData) {
   const videoURL = JSON.parse((formData?.get("videoUrl") as string) || "[]");
   const amenties = JSON.parse((formData?.get("amenties") as string) || "[]");
   const location = JSON.parse((formData?.get("location") as string) || "{}");
+  const builddate = JSON.parse((formData?.get("dob") as string) || "{}");
   console.log(formData);
 
   try {
@@ -44,6 +45,7 @@ export async function addProperty(prevState: any, formData: FormData) {
         contactNumber: formData.get("mobile"),
         contactEmail: formData.get("email"),
         whatsAppNumber: formData.get("whatsapp"),
+        builddate: builddate,
       }),
     });
     const data = await response.json();

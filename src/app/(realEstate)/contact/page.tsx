@@ -35,7 +35,7 @@ export default function ContactPage() {
             <ContactForm />
           </div>
           <div className="lg:col-span-4 col-span-12">
-            <ContactPropertySearch />
+            {/* <ContactPropertySearch /> */}
           </div>
         </div>
       </div>

@@ -326,7 +326,7 @@ export function PropertyAddForm() {
                 name="dob"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date of birth</FormLabel>
+                    <FormLabel>Date of built</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
