@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { AuthWrapper } from "@/components/auth/auth-wrapper";
 import { getSession } from "@/server-actions/auth";
 import { cn } from "@/lib/utils";
+import TawkToChat from "@/components/chat/TwakToChat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default async function RootLayout({
           <Footer />
         </div> */}
         <Toaster />
+        <TawkToChat />
         <AuthWrapper value={session}>{children}</AuthWrapper>
       </body>
     </html>
