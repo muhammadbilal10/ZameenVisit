@@ -106,6 +106,7 @@ export async function getLatestProperties() {
     return { error: "Failed to get property. Please try again." };
   }
 }
+
 export async function getPropertyById(id: string) {
   const session = await getSession();
   try {

@@ -24,4 +24,9 @@ export interface Property {
   features: string[];
   propertyType: string;
   status: string;
+  user: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+  };
 }

@@ -5,13 +5,19 @@ import { getSession } from "../auth";
 
 export async function contactUs(prevState: any, formData: FormData) {
   try {
-    const { name, email, mobileNumber, message } = Object.fromEntries(
-      formData.entries()
-    );
+    const { name, email, mobileNumber, message, role, agentEmail } =
+      Object.fromEntries(formData.entries());
     const session = await getSession();
     const response = await fetch(`${base.URL}/api/contact`, {
       method: "POST",
-      body: JSON.stringify({ name, email, mobileNumber, message }),
+      body: JSON.stringify({
+        name,
+        email,
+        mobileNumber,
+        message,
+        agentEmail,
+        interest: role,
+      }),
       headers: {
         "Content-Type": "application/json",
         "x-access-token": session?.user?.token || "",

@@ -40,7 +40,7 @@ export default async function PropertyDetailsPage({
           <h2 className="md:text-3xl text-xl  font-normal uppercase">
             {property?.title}
           </h2>
-          <h2 className="lg:text-2xl text-xl  font-bold">
+          <h2 className="lg:text-2xl text-xl font-bold">
             PKR {property?.price && formatNumber(property?.price.toString())}
           </h2>
         </div>
@@ -73,7 +73,10 @@ export default async function PropertyDetailsPage({
 
         <div className="lg:col-span-4 col-span-12">
           <div>
-            <AgentContactForm />
+            <AgentContactForm
+              agentName={property?.user?.name}
+              agentEmail={property?.user?.email}
+            />
           </div>
         </div>
       </div>

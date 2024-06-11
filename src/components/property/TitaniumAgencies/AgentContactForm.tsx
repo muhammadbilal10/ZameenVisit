@@ -38,6 +38,10 @@ import whatsapp from "@/images/socials/whatsapp.svg";
 import Link from "next/link";
 
 import { useSession } from "@/components/auth/auth-wrapper";
+import { useFormState } from "react-dom";
+import { contactUs } from "@/server-actions/company/contact";
+import { useEffect, useRef, useTransition } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(4, {
@@ -46,8 +50,8 @@ const formSchema = z.object({
   email: z.string().email({
     message: "email must be a valid email address.",
   }),
-  phone: z.string().length(12, {
-    message: "phone number must be 12 characters.",
+  phone: z.string().length(13, {
+    message: "phone number must be 13 characters.",
   }),
   role: z.string({
     required_error: "Please select your interest.",
@@ -57,7 +61,13 @@ const formSchema = z.object({
   }),
 });
 
-export default function AgentContactForm() {
+export default function AgentContactForm({
+  agentName,
+  agentEmail,
+}: {
+  agentName: string;
+  agentEmail: string;
+}) {
   const session = useSession();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -65,26 +75,63 @@ export default function AgentContactForm() {
     defaultValues: {
       name: session?.user?.name || "",
       email: session?.user?.email || "",
-      phone: session?.user?.phoneNumber || "",
+      phone: "",
       message: "Hello, I am interested in [Amazing oceanfront apartment]",
     },
   });
 
   console.log(session);
 
+  const [state, formAction] = useFormState(contactUs, null);
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
+
+  const formRef = useRef<HTMLFormElement>(null);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("email", values.email);
+    formData.append("mobileNumber", values.phone);
+    formData.append("role", values.role);
+    formData.append("message", values.message);
+    formData.append("agentEmail", agentEmail);
+
+    startTransition(() => {
+      formAction(formData);
+    });
   }
+
+  useEffect(() => {
+    if (state?.success) {
+      toast({
+        title: "Message sent successfully",
+        description: "We'll get back to you soon.",
+      });
+      form.reset();
+    }
+    if (state?.error) {
+      toast({
+        variant: "destructive",
+        title: "Failed to send message",
+        description: "Please try again later.",
+      });
+    }
+  }, [state]);
 
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>Agent Name</CardTitle>
+        <CardTitle>{agentName ?? ""}</CardTitle>
         {/* <CardDescription>Card Description</CardDescription> */}
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-2"
+            ref={formRef}
+          >
             <FormField
               control={form.control}
               name="name"
@@ -120,11 +167,7 @@ export default function AgentContactForm() {
                 <FormItem>
                   <FormLabel>Mobile</FormLabel>
                   <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="+923494411115"
-                      {...field}
-                    />
+                    <Input type="text" placeholder="+923494411115" {...field} />
                   </FormControl>
                   {/* <FormDescription>
                     This is your public display name.
@@ -150,13 +193,11 @@ export default function AgentContactForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
+                      <SelectItem value="buyer">
                         I&apos;m a Buyer/Tennant
                       </SelectItem>
-                      <SelectItem value="m@google.com">
-                        I&apos;m a agent
-                      </SelectItem>
-                      <SelectItem value="m@support.com">other</SelectItem>
+                      <SelectItem value="agent">I&apos;m a agent</SelectItem>
+                      <SelectItem value="other">other</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -186,8 +227,8 @@ export default function AgentContactForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">
-              Send Message
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </Form>
