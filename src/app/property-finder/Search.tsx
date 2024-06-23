@@ -14,7 +14,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch('http://localhost:443/api/property/cities');
+      const response = await fetch('https://zameen-server.onrender.com/api/property/cities');
       const data = await response.json();
       setCities(data.cities);
     };
@@ -26,7 +26,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     const selectedCity = e.target.value;
     setCity(selectedCity);
     onSearch({ city: selectedCity, location: '' });
-    const response = await fetch('http://localhost:443/api/property/findAddressesByCity', {
+    const response = await fetch('https://zameen-server.onrender.com/api/property/findAddressesByCity', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ city: selectedCity }),
