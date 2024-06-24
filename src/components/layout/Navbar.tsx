@@ -42,7 +42,11 @@ const NAVBAR_LINKS = [
     href: "/blog",
     icon: Handshake,
   },
-
+  {
+    name: "About",
+    href: "/about",
+    icon: Handshake,
+  },
   { name: "Contact", href: "/contact", icon: Phone },
 ];
 
@@ -134,7 +138,7 @@ const Navbar = () => {
         />
       </div>
 
-      <div className="flex items-center justify-center space-x-10 flex-1 max-lg:hidden">
+      <div className="flex items-center justify-center space-x-4 flex-1 max-lg:hidden">
         {NAVBAR_LINKS.map((link, index) => (
           <Button
             key={index}

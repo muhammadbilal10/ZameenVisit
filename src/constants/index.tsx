@@ -90,8 +90,8 @@ export const FooterServices = [
         link: "/contact",
       },
       {
-        text: "Partners",
-        link: "/partners",
+        text: "Agents",
+        link: "/agents",
       },
     ],
   },
