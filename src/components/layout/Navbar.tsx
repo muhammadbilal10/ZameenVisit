@@ -30,7 +30,19 @@ import CustomNavigationMenu from "../common/CustomNavigationMenu";
 const NAVBAR_LINKS = [
   { name: "Home", href: "/", icon: Home },
   { name: "Properties", href: "/advanced-search", icon: Home },
-  { name: "Agents", href: "#", icon: Handshake },
+  {
+    name: "Plot Finder",
+    href: "/plot-finder",
+    icon: Home,
+  },
+
+  { name: "Agents", href: "/agents", icon: Handshake },
+  {
+    name: "Blog",
+    href: "/blog",
+    icon: Handshake,
+  },
+
   { name: "Contact", href: "/contact", icon: Phone },
 ];
 
@@ -130,7 +142,7 @@ const Navbar = () => {
             className={
               (cn("text-md border-b-2"),
               pathName === link.href
-                ? "bg-transparent shadow-none rounded-none border-b-2 border-transparent border-gray-700"
+                ? "bg-transparent shadow-none rounded-none border-b-2  border-transparent border-gray-700"
                 : "")
             }
           >

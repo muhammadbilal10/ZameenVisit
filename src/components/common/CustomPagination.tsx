@@ -35,7 +35,7 @@ export default function CustomPagination({
               className={`${currentPage === 1 && "pointer-events-none"}`}
             />
           </PaginationItem>
-          {Array.from({ length: totalPages }, (_, i) => (
+          {Array.from({ length: totalPages > 8 ? 8 : totalPages }, (_, i) => (
             <PaginationItem key={i}>
               <PaginationLink
                 href={createPageUrl(i + 1)}
@@ -48,6 +48,16 @@ export default function CustomPagination({
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
+          {totalPages > 8 && (
+            <PaginationItem>
+              <PaginationLink
+                href={createPageUrl(totalPages)}
+                isActive={currentPage === totalPages}
+              >
+                {totalPages}
+              </PaginationLink>
+            </PaginationItem>
+          )}
           <PaginationItem>
             <PaginationNext
               href={

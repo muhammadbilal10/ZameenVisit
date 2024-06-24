@@ -66,7 +66,6 @@ export async function getFilteredProperties(filters: any) {
   // convert filter into params
 
   try {
-    console.log(`${base.URL}/api/property/searchProperties?${filter}`);
     const session = await getSession();
     const response = await fetch(
       `${base.URL}/api/property/searchProperties?${filter}`,
@@ -187,5 +186,24 @@ export async function promoteProperty(productId: number, propertyId: string) {
   } catch (error) {
     console.log(error);
     return { error: "Failed to promote property. Please try again." };
+  }
+}
+
+export async function getPlotFinderProperties(location: string) {
+  try {
+    const response = await fetch(
+      `${base.URL}/api/property/propertiesFind?location=${location}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const properties = await response.json();
+    console.log(properties);
+    return properties;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to get property. Please try again." };
   }
 }

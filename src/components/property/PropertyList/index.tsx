@@ -25,17 +25,17 @@ type PropertyListProps = {
 const PropertyList = ({ properties }: { properties: any }) => {
   console.log(properties);
 
-  let numPropertiesToDisplay;
-  if (window.innerWidth >= 1280) {
-    // Large screen
-    numPropertiesToDisplay = 8;
-  } else if (window.innerWidth >= 768) {
-    // Medium screen
-    numPropertiesToDisplay = 6;
-  } else {
-    // Small screen
-    numPropertiesToDisplay = 8;
-  }
+  // let numPropertiesToDisplay;
+  // if (window.innerWidth >= 1280) {
+  //   // Large screen
+  //   numPropertiesToDisplay = 8;
+  // } else if (window.innerWidth >= 768) {
+  //   // Medium screen
+  //   numPropertiesToDisplay = 6;
+  // } else {
+  //   // Small screen
+  //   numPropertiesToDisplay = 8;
+  // }
 
   return (
     <div className="">
@@ -43,7 +43,7 @@ const PropertyList = ({ properties }: { properties: any }) => {
         Discover latest properties
       </h2>
       <div className="px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {properties?.slice(0, numPropertiesToDisplay)?.map((property: any) => (
+        {properties?.slice(0, properties?.length)?.map((property: any) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>

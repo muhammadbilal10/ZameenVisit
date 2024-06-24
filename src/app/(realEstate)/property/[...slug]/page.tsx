@@ -4,8 +4,8 @@ import PropertyDescriptionCard from "@/components/property/PropertyList/Property
 import PropertyFeaturesCard from "@/components/property/PropertyList/PropertyFeaturesCard";
 import PropertyOverviewCard from "@/components/property/PropertyList/PropertyOverviewCard";
 import PropertyVideoCard from "@/components/property/PropertyList/PropertyVideoCard";
-import AgencyCard from "@/components/property/TitaniumAgencies/AgencyCard";
-import AgentContactForm from "@/components/property/TitaniumAgencies/AgentContactForm";
+import AgencyCard from "@/components/property/Agencies/AgencyCard";
+import AgentContactForm from "@/components/property/Agencies/AgentContactForm";
 import { Button } from "@/components/ui/button";
 import { backgroundImages, formatNumber, shareMenuItems } from "@/constants";
 import { getPropertyById } from "@/server-actions/property/property";

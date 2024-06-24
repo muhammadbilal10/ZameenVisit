@@ -14,12 +14,14 @@ import { PropertySearchCard } from "./PropertySearchCard";
 
 export function PropertySearch({ searchActions }: { searchActions?: any }) {
   return (
-    <Tabs defaultValue="buy">
+    <Tabs defaultValue="buy" className="">
       <TabsList
         className="grid w-full max-w-lg grid-cols-2 mx-auto"
         defaultValue={searchActions?.searchType}
       >
-        <TabsTrigger value="buy">Buy</TabsTrigger>
+        <TabsTrigger value="buy" className="">
+          Buy
+        </TabsTrigger>
         <TabsTrigger value="rent">Rent</TabsTrigger>
         {/* <TabsTrigger value="projects">Projects</TabsTrigger> */}
       </TabsList>

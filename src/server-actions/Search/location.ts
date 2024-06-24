@@ -1,6 +1,7 @@
 "use server";
 
 import { base } from "@/utils/config";
+import { getSession } from "../auth";
 
 const BASE_URL = "https://api.mapbox.com/search/geocode/v6/forward";
 
@@ -34,5 +35,22 @@ export async function getLocations(prevState: any, formData: FormData) {
   } catch (error) {
     console.log(error);
     return { error: "Failed to get locations. Please try again." };
+  }
+}
+
+export async function getCities() {
+  try {
+    const session = await getSession();
+    const response = await fetch(`${base.URL}/api/property/cities`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return { error: "Failed to get cities. Please try again." };
   }
 }

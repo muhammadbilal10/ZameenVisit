@@ -69,6 +69,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardSidebar from "@/components/layout/DashboardSidebar";
 import DashboardNavbar from "@/components/layout/DashboardNavbar";
 import PropertyAdCard from "@/components/dashboard/Ad/PropertyAdCard";
+import { getAgencies } from "@/server-actions/Agency/agency";
 
 export default function Dashboard() {
   return (

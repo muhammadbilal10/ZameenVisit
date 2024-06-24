@@ -67,6 +67,8 @@ export default function AgentContactForm({
 }: {
   agentName: string;
   agentEmail: string;
+  whatsapp?: string;
+  phoneNo?: string;
 }) {
   const session = useSession();
 

@@ -38,7 +38,7 @@ export default async function AdvancedSearchPage({
   const totalPages = propertiesData?.totalPages;
 
   return (
-    <div className="px-5 py-7">
+    <div className="px-5 py-7 max-w-7xl mx-auto">
       <div className="space-y-2">
         <BreadCrumb breadCrumbItem={BREAD_CRUMB_LIST} />
         <h1 className="text-2xl font-bold text-gray-800">Search Properties</h1>

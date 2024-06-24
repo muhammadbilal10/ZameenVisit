@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Linkedin,
   SearchIcon,
+  Settings,
   Twitter,
   Youtube,
 } from "lucide-react";
@@ -397,6 +398,11 @@ export const dashboardLinks = [
   { href: "/add-listing", icon: CircleFadingPlus, label: "Add New Property" },
   { href: "/property-list", icon: HomeIcon, label: "My Property List" },
   { href: "/account", icon: PersonIcon, label: "My Profile" },
+  {
+    href: "/agency-info",
+    icon: Settings,
+    label: "Agency Settings",
+  },
   // { href: "#", icon: HeartIcon, label: "Favorites" },
   // { href: "#", icon: SearchIcon, label: "Saved Searches" },
 ];

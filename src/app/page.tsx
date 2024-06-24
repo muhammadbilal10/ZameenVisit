@@ -2,9 +2,9 @@ import { CustomCarousel } from "@/components/common/CustomCarousel";
 import Footer from "@/components/layout/Footer";
 import { Hero } from "@/components/layout/Hero";
 import Navbar from "@/components/layout/Navbar";
+import TitaniumAgencies from "@/components/layout/TitaniumAgencies";
 
 import PropertyList from "@/components/property/PropertyList";
-import TitaniumAgencies from "@/components/property/TitaniumAgencies";
 import { PropertySearch } from "@/components/property/propertySearch";
 import CitySearchCard from "@/components/property/propertySearch/CitySearchCard";
 
@@ -69,7 +69,7 @@ export default async function Home() {
         </div>
       </section>
       <section className="py-10 px-10 lg:px-20 min-h-screen">
-        <TitaniumAgencies titaniumAgencies={titaniumAgencies} />
+        <TitaniumAgencies />
       </section>
 
       <section>

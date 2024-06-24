@@ -13,5 +13,5 @@ const protectedRoutes = [
 ];
 
 export async function middleware(request: NextRequest) {
-  return;
+  const session = await getSession();
 }
