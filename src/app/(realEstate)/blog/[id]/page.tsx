@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function BlogDetailsPage() {
@@ -17,21 +19,27 @@ export default function BlogDetailsPage() {
               <div className=" flex items-center gap-3">
                 <div className="avatar">
                   <div className="w-9 rounded-full">
-                    <img src="https://github.com/shadcn.png" alt="avatar" />
+                    <Image
+                      src="https://github.com/shadcn.png"
+                      width={36}
+                      height={36}
+                      className="rounded-full"
+                      alt="avatar"
+                    />
                   </div>
                 </div>
-                <a
-                  href="/"
+                <Link
+                  href="#"
                   className=" text-xs md:text-sm font-medium hover:text-primary transition hover:duration-300"
                 >
                   Muhammad Rizwan
-                </a>
+                </Link>
               </div>
               <p className="text-xs md:text-sm">June 20, 2024</p>
             </div>
           </div>
           <div className="mt-8">
-            <img
+            <Image
               width="800"
               height="462"
               alt={`blog_image`}
@@ -45,9 +53,10 @@ export default function BlogDetailsPage() {
             <div className="mt-8">
               <p className="text-xl leading-8 text-base-content/80">
                 Welcome to ZameenVisit, your trusted partner in finding the
-                perfect property. Whether you’re looking to buy, sell, or rent,
-                our platform offers a seamless experience with comprehensive
-                listings, expert advice, and powerful search tools.
+                perfect property. Whether you&apos;re looking to buy, sell, or
+                rent, our platform offers a seamless experience with
+                comprehensive listings, expert advice, and powerful search
+                tools.
               </p>
               <h5 className="text-2xl leading-7 text-base-content font-semibold mt-8 mb-4">
                 Extensive Property Listings
