@@ -65,19 +65,49 @@ export const menus = [
 ];
 
 export const FooterServices = [
-  {
-    title: "Solutions",
-    services: ["Marketing", "Analytics", "Commerce", "Insights"],
-  },
-  {
-    title: "Support",
-    services: ["Pricing", "Documentation", "Guides", "API Status"],
-  },
+  // {
+  //   title: "Solutions",
+  //   services: ["Marketing", "Analytics", "Commerce", "Insights"],
+  // },
+  // {
+  //   title: "Support",
+  //   services: ["Pricing", "Documentation", "Guides", "API Status"],
+  // },
   {
     title: "Company",
-    services: ["About", "Blog", "Jobs", "Press", "Partners"],
+    services: [
+      {
+        text: "About",
+        link: "/about",
+      },
+      {
+        text: "Blog",
+        link: "/blog",
+      },
+
+      {
+        text: "Contact",
+        link: "/contact",
+      },
+      {
+        text: "Partners",
+        link: "/partners",
+      },
+    ],
   },
-  { title: "Legal", services: ["Claim", "Privacy", "Terms"] },
+  {
+    title: "Legal",
+    services: [
+      {
+        text: "Privacy",
+        link: "/privacy",
+      },
+      {
+        text: "Terms",
+        link: "/terms",
+      },
+    ],
+  },
 ];
 
 // Property data

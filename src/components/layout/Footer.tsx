@@ -31,10 +31,10 @@ const Footer = () => {
                 {service.services.map((ser, index) => (
                   <li key={index} className="mb-2">
                     <Link
-                      href="/marketing"
+                      href={ser.link}
                       className="hover:text-customeWhite-900"
                     >
-                      {ser}
+                      {ser.text}
                     </Link>
                   </li>
                 ))}
