@@ -31,7 +31,7 @@ const NAVBAR_LINKS = [
   { name: "Home", href: "/", icon: Home },
   { name: "Properties", href: "/advanced-search", icon: Home },
   {
-    name: "Plot Finder",
+    name: "Properties Finder",
     href: "/plot-finder",
     icon: Home,
   },

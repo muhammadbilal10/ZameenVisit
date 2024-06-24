@@ -41,9 +41,10 @@ const Footer = () => {
               </ul>
             </div>
           ))}
+          {}
         </div>
       </div>
-      <div className="mt-8 border-t pt-8">
+      {/* <div className="mt-8 border-t pt-8">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center flex-wrap">
           <div className="mb-4 lg:mb-0">
             <p className="font-bold">Subscribe to our newsletter</p>
@@ -57,7 +58,7 @@ const Footer = () => {
             <Button>Subscribe</Button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="mt-8">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center flex-wrap">
           <p className="text-black-500 text-sm">

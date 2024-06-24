@@ -24,7 +24,7 @@ export default function CitySearchCard({
             alt="placeholder"
             height={400}
             width={500}
-            className="w-full h-full rounded-md hover:duration-150 ease-in-out hover:scale-105 transition hover:shadow-lg"
+            className="w-full h-full rounded-md transform transition-all duration-300  hover:scale-105  hover:shadow-lg"
           />
         </CardContent>
       </Card>

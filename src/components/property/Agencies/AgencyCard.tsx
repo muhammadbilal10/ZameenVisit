@@ -32,14 +32,14 @@ const AgencyCard: React.FC<AgencyProps> = ({
 }) => {
   return (
     <Link href={`/agents/${agencyName}/${id}`}>
-      <Card className="">
+      <Card className="group">
         <CardContent className={cn("p-0")}>
           <Image
             src={agencyImage}
             alt={agencyName}
             height={220}
             width={600}
-            className="w-full h-52 bg-cover"
+            className="w-full h-52 bg-cover transform transition-all group-hover:scale-95 duration-300"
           />
         </CardContent>
         <CardHeader>
