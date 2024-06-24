@@ -89,7 +89,7 @@ export default function BlogDetailsPage() {
               </p>
             </div>
             <div className="mt-8">
-              <img
+              <Image
                 width="800"
                 height="462"
                 alt={`blog_image`}
@@ -112,7 +112,7 @@ export default function BlogDetailsPage() {
               </h5>
               <p className="text-xl leading-8 text-base-content/80">
                 Our advanced search filters allow you to find properties that
-                match your specific criteria. Whether you're looking for a
+                match your specific criteria. Whether you&apos;re looking for a
                 particular location, price range, property type, or specific
                 amenities, our search tools make it easy to narrow down your
                 options and find the perfect match. Save your searches and set
@@ -124,10 +124,10 @@ export default function BlogDetailsPage() {
               </h5>
               <p className="text-xl leading-8 text-base-content/80">
                 Our platform is designed with the user in mind. The intuitive
-                interface ensures a smooth browsing experience, whether you’re
-                searching for properties, connecting with agents, or managing
-                your listings. Easy navigation and a clean layout make finding
-                what you need a breeze.
+                interface ensures a smooth browsing experience, whether
+                you&apos;re searching for properties, connecting with agents, or
+                managing your listings. Easy navigation and a clean layout make
+                finding what you need a breeze.
               </p>
               {/* <h5 className="text-2xl leading-7 text-base-content font-semibold mt-8 mb-4">
                         Immerse Yourself in the Local Culture
