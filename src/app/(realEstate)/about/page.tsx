@@ -11,8 +11,8 @@ export default function AboutPage() {
           </h2>
           <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
             Welcome to ZameenVisit, your ultimate destination for buying,
-            selling, and renting properties. Whether you're looking for your
-            dream home, a commercial space, or an investment property, our
+            selling, and renting properties. Whether you&apos;re looking for
+            your dream home, a commercial space, or an investment property, our
             platform offers a comprehensive and user-friendly experience.
             Connect with trusted agents, explore detailed property listings, and
             find your ideal property at competitive prices—all in one place.
