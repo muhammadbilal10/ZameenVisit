@@ -9,10 +9,13 @@ import {
 
 import Image from "next/image";
 import AgencyCard from "../property/Agencies/AgencyCard";
-import { getAgencies } from "@/server-actions/Agency/agency";
+import {
+  getAgencies,
+  getAllTitaniumAgencies,
+} from "@/server-actions/Agency/agency";
 
 export default async function TitaniumAgencies() {
-  const data = await getAgencies();
+  const data = await getAllTitaniumAgencies();
   const agencies = data?.agencies;
 
   return (

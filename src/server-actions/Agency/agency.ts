@@ -2,12 +2,16 @@
 
 import { base } from "@/utils/config";
 import { getSession } from "../auth";
+import { revalidateTag } from "next/cache";
 
 export async function getAgencies() {
   try {
     const res = await fetch(`${base.URL}/api/agency/getAllAgencies`, {
       headers: {
         "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["Agency"],
       },
     });
 
@@ -17,6 +21,30 @@ export async function getAgencies() {
   } catch (error) {
     return {
       error: "An error occurred while fetching agencies",
+    };
+  }
+}
+
+export async function getAllTitaniumAgencies() {
+  try {
+    const res = await fetch(
+      `${base.URL}/api/agency/getAllAgencies?category=tItanium`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          tags: ["Agency"],
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return {
+      error: "An error occurred while fetching titanium agencies",
     };
   }
 }
@@ -31,6 +59,9 @@ export async function getAgencyById(id: number) {
       body: JSON.stringify({
         id,
       }),
+      next: {
+        tags: ["Agency"],
+      },
     });
     const data = await res.json();
     console.log(data);
@@ -46,10 +77,13 @@ export async function getAgencyById(id: number) {
 export async function getAgencyInfo() {
   try {
     const session = await getSession();
-    const res = await fetch(`${base.URL}/api/user/getAgency`, {
+    const res = await fetch(`${base.URL}/api/user/getUserAgency`, {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": session?.user?.token,
+      },
+      next: {
+        tags: ["Agency"],
       },
     });
 
@@ -64,6 +98,7 @@ export async function getAgencyInfo() {
 }
 
 export async function updateAgencyInfo(prevState: any, formData: FormData) {
+  let data;
   try {
     const session = await getSession();
     console.log(formData.get("agencyName"));
@@ -83,6 +118,7 @@ export async function updateAgencyInfo(prevState: any, formData: FormData) {
       method: "POST",
       headers: {
         "x-access-token": session?.user?.token,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         agencyName: agencyName,
@@ -90,23 +126,26 @@ export async function updateAgencyInfo(prevState: any, formData: FormData) {
         city,
         agencyAddress,
         description,
+        agencyImage,
       }),
     });
 
-    const data = await res.json();
+    data = await res.json();
     console.log(data);
-    return data;
   } catch (error) {
     return {
       error: "An error occurred while updating agency info",
     };
   }
+  revalidateTag("Agency");
+  return data;
 }
 
 export async function updateAgencyOwnerInfo(
   prevState: any,
   formData: FormData
 ) {
+  let data;
   try {
     const session = await getSession();
     console.log(formData);
@@ -116,29 +155,55 @@ export async function updateAgencyOwnerInfo(
     const ownerName = formData.get("ownerName");
     const message = formData.get("message");
     const ownerPicture = formData.get("profile-image");
+    const designation = formData.get("designation");
 
-    // const res = await fetch(`${base.URL}/api/user/addOrUpdateAgencyOwner`, {
-    //   method: "POST",
-    //   headers: {
-    //     "x-access-token": session?.user?.token,
-    //   },
-    //   body: JSON.stringify({
-    //     ownerName,
-    //     message,
-    //     ownerPicture,
-    //   }),
-    // });
+    const res = await fetch(`${base.URL}/api/user/addOrUpdateAgency`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": session?.user?.token,
+      },
+      body: JSON.stringify({
+        ownerName,
+        message,
+        ownerPicture,
+        designation,
+      }),
+    });
 
-    // const data = await res.json();
-    // console.log(data);
-    // return data;
-    return {
-      success: true,
-      message: "Owner Profile updated successfully",
-    };
+    data = await res.json();
+    console.log(data);
   } catch (error) {
     return {
       error: "An error occurred while updating agency owner info",
+    };
+  }
+  revalidateTag("Agency");
+  return data;
+}
+
+export async function getAgenciesByCity(city: string) {
+  console.log(city);
+  try {
+    const session = await getSession();
+    const res = await fetch(
+      `${base.URL}/api/agency/getAllAgencies?city=${city}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          tags: ["Agency"],
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return {
+      error: "An error occurred while fetching agencies by city",
     };
   }
 }

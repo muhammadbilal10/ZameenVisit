@@ -202,7 +202,11 @@ export default function AgencyInfoForm({
 
               <div>
                 <Label htmlFor="address">Address</Label>
-                <Input name="agencyAddress" type="text" value={agencyAddress} />
+                <Input
+                  name="agencyAddress"
+                  type="text"
+                  defaultValue={agencyAddress}
+                />
               </div>
 
               <div>
@@ -222,7 +226,7 @@ export default function AgencyInfoForm({
                 <Textarea
                   placeholder="Describe your company in a few word"
                   name="description"
-                  value={description}
+                  defaultValue={description}
                 />
               </div>
 

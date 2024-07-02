@@ -96,6 +96,23 @@ export const FooterServices = [
     ],
   },
   {
+    title: "Real Estate",
+    services: [
+      {
+        text: "For Sale",
+        link: "/advanced-search?purpose=sale",
+      },
+      {
+        text: "For rent",
+        link: "/advanced-search?purpose=rent",
+      },
+      {
+        text: "Add Listing",
+        link: "#",
+      },
+    ],
+  },
+  {
     title: "Legal",
     services: [
       {

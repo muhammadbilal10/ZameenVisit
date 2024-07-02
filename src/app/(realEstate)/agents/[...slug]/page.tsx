@@ -2,6 +2,7 @@ import { BreadCrumb } from "@/components/common/BreadCrumb";
 import AgencyDetailsCard from "@/components/property/Agencies/AgencyDetailsCard";
 import AgencyRecentProperties from "@/components/property/Agencies/AgencyRecentProperties";
 import AgentContactForm from "@/components/property/Agencies/AgentContactForm";
+import PropertyCard from "@/components/property/PropertyList/PropertyCard";
 import { getAgencyById } from "@/server-actions/Agency/agency";
 import { Home } from "lucide-react";
 import React from "react";
@@ -32,6 +33,10 @@ export default async function AgentDetailsPage({
 
   const agencyDetails = data?.agency;
   console.log(agencyDetails);
+
+  const agencyRecentProperties = data?.recentProperties;
+
+  console.log(agencyRecentProperties);
 
   const CONTACT_BREAD_CRUMB_LIST = [
     {
@@ -66,26 +71,56 @@ export default async function AgentDetailsPage({
               Properties by {agencyDetails?.agencyName}
             </h1>
 
-            <div className="flex max-sm:flex-col gap-4 justify-between max-w-xl">
-              <div className="flex space-x-2 items-center">
-                <div className="p-2 bg-muted rounded-full">
-                  <Home className="w-6 h-6" strokeWidth={1.5} />
+            <div className="flex max-sm:flex-col gap-4 items-start justify-between max-w-xl">
+              <div className="space-y-4">
+                <div className="flex space-x-2 items-center">
+                  <div className="p-2 bg-muted rounded-full">
+                    <Home className="w-6 h-6" strokeWidth={1.5} />
+                  </div>
+                  <span className="font-semibold">
+                    {data?.totalSell} properties for sale
+                  </span>
                 </div>
-
-                <span className="font-semibold">{156} properties for sale</span>
-              </div>
-              <div className="flex space-x-2 items-center">
-                <div className="p-2 bg-muted rounded-full">
-                  <Home className="w-6 h-6" strokeWidth={1.5} />
+                <div className="flex gap-10">
+                  {Object.keys(data?.propertySell).map((type) => (
+                    <div
+                      key={type}
+                      className="w-28 h-16 p-4 border rounded-xl border-muted-foreground flex flex-col justify-center items-center"
+                    >
+                      <p key={type} className="text-xl font-semibold">
+                        {" "}
+                        {data?.propertySell[type]}
+                      </p>
+                      <span className="text-muted-foreground">{type}</span>
+                    </div>
+                  ))}
                 </div>
-                <span className="font-semibold">{14} properties for rent</span>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* {properties?.map((property) => (
-                <PropertyCard key={property.id} {...property} />
-              ))} */}
+              <div className="space-y-4">
+                <div className="flex space-x-2 items-center">
+                  <div className="p-2 bg-muted rounded-full">
+                    <Home className="w-6 h-6" strokeWidth={1.5} />
+                  </div>
+                  <span className="font-semibold">
+                    {data?.totalRent} properties for rent
+                  </span>
+                </div>
+                <div className="flex">
+                  {Object.keys(data?.propertyRent).map((type) => (
+                    <div
+                      key={type}
+                      className="p-4 h-16 w-28 border rounded-xl border-muted-foreground flex flex-col justify-center items-center"
+                    >
+                      <p key={type} className="text-xl font-semibold">
+                        {" "}
+                        {data?.propertyRent[type]}
+                      </p>
+                      <span className="text-muted-foreground">{type}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="pt-10">
@@ -102,7 +137,11 @@ export default async function AgentDetailsPage({
           />
         </div>
       </div>
-      <AgencyRecentProperties />
+      {agencyRecentProperties?.length > 0 && (
+        <AgencyRecentProperties
+          agencyRecentProperties={agencyRecentProperties}
+        />
+      )}
     </div>
   );
 }

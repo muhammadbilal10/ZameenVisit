@@ -111,7 +111,7 @@ export default function AgencyOwnerInfoForm({
                   name="designation"
                   placeholder="CEO"
                   required
-                  value={designation}
+                  defaultValue={designation}
                 />
               </div>
 

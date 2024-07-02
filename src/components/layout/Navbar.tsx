@@ -26,6 +26,7 @@ import { useSession } from "../auth/auth-wrapper";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import CustomNavigationMenu from "../common/CustomNavigationMenu";
+import ZameenVisitLogo from "@/images/Z.png";
 
 const NAVBAR_LINKS = [
   { name: "Home", href: "/", icon: Home },
@@ -76,11 +77,11 @@ const Navbar = () => {
       <div className="rounded-lg p-2 max-lg:hidden">
         <Link href="/">
           <Image
-            src="/images/zameenVisit2.png"
+            src={ZameenVisitLogo}
             alt="Zameen Visit"
             width={80}
             height={80}
-            className="h-16 w-24 object-cover"
+            className=""
           />
         </Link>
       </div>
@@ -130,11 +131,11 @@ const Navbar = () => {
 
       <div className="rounded-lg p-2 lg:hidden">
         <Image
-          src="/images/zameenVisit2.png"
+          src={ZameenVisitLogo}
           alt="Zameen Visit"
-          width={200}
-          height={200}
-          className="h-16 w-24 object-cover"
+          width={80}
+          height={80}
+          className=""
         />
       </div>
 
@@ -146,7 +147,7 @@ const Navbar = () => {
             className={
               (cn("text-md border-b-2"),
               pathName === link.href
-                ? "bg-transparent shadow-none rounded-none border-b-2  border-transparent border-gray-700"
+                ? "bg-transparent shadow-none rounded-none border-b-2  border-primary"
                 : "")
             }
           >

@@ -20,57 +20,57 @@ import {
 import { useFormState } from "react-dom";
 import { getCities, getLocations } from "@/server-actions/Search/location";
 
-const cities = [
-  "Lahore",
-  "Karachi",
-  "Islamabad",
-  "Rawalpindi",
-  "Faisalabad",
-  "Multan",
-  "Peshawar",
-  "Quetta",
-  "Gujranwala",
-  "Sialkot",
-  "Hyderabad",
-  "Bahawalpur",
-  "Sargodha",
-  "Sukkur",
-  "Larkana",
-  "Sheikhupura",
-  "Jhang",
-  "Rahim Yar Khan",
-  "Mardan",
-  "Gujrat",
-  "Kasur",
-  "Mingora",
-  "Dera Ghazi Khan",
-  "Nawabshah",
-  "Sahiwal",
-  "Mirpur Khas",
-  "Okara",
-  "Mandi Bahauddin",
-  "Jacobabad",
-  "Jhelum",
-  "Khanewal",
-  "Khairpur",
-  "Khuzdar",
-  "Daska",
-  "Gojra",
-  "Mandi Bahauddin",
-  "Muridke",
-  "Bahawalnagar",
-  "Pakpattan",
-  "Tando Allahyar",
-  "Hafizabad",
-  "Kotli",
-  "Loralai",
-  "Dera Ismail Khan",
-  "Chaman",
-  "Turbat",
-  "Charsadda",
-  "Kamalia",
-  "Umerkot",
-];
+// const cities = [
+//   "Lahore",
+//   "Karachi",
+//   "Islamabad",
+//   "Rawalpindi",
+//   "Faisalabad",
+//   "Multan",
+//   "Peshawar",
+//   "Quetta",
+//   "Gujranwala",
+//   "Sialkot",
+//   "Hyderabad",
+//   "Bahawalpur",
+//   "Sargodha",
+//   "Sukkur",
+//   "Larkana",
+//   "Sheikhupura",
+//   "Jhang",
+//   "Rahim Yar Khan",
+//   "Mardan",
+//   "Gujrat",
+//   "Kasur",
+//   "Mingora",
+//   "Dera Ghazi Khan",
+//   "Nawabshah",
+//   "Sahiwal",
+//   "Mirpur Khas",
+//   "Okara",
+//   "Mandi Bahauddin",
+//   "Jacobabad",
+//   "Jhelum",
+//   "Khanewal",
+//   "Khairpur",
+//   "Khuzdar",
+//   "Daska",
+//   "Gojra",
+//   "Mandi Bahauddin",
+//   "Muridke",
+//   "Bahawalnagar",
+//   "Pakpattan",
+//   "Tando Allahyar",
+//   "Hafizabad",
+//   "Kotli",
+//   "Loralai",
+//   "Dera Ismail Khan",
+//   "Chaman",
+//   "Turbat",
+//   "Charsadda",
+//   "Kamalia",
+//   "Umerkot",
+// ];
 
 export function CitySearch({
   city,
@@ -81,9 +81,12 @@ export function CitySearch({
 }) {
   const [open, setOpen] = React.useState(false);
 
+  const [cities, setCities] = React.useState([]);
+
   React.useEffect(() => {
     async function getCitiesData() {
-      const cities = await getCities();
+      const data = await getCities();
+      data?.cities && setCities(data.cities);
       console.log(cities);
     }
     getCitiesData();

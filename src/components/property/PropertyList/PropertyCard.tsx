@@ -88,8 +88,8 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
   function createPropertySlug() {
-    const baseSlug = `${property.bedrooms}-bedroom-${property?.propertyType}-${property.user?.name}-${property.location?.address}`;
-    const id = property.id;
+    const baseSlug = `${property?.bedrooms}-bedroom-${property?.propertyType}-${property?.user?.name}-${property?.location?.address}`;
+    const id = property?.id;
 
     const slug = baseSlug
       .toLowerCase()

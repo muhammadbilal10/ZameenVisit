@@ -28,9 +28,11 @@ export default function AgencyDetailsCard({
         <div className="space-y-2">
           <div className="flex max-sm:flex-col sm:items-center gap-4">
             <h1 className="text-2xl font-semibold">{agencyName}</h1>
-            <span className="bg-primary max-w-28 text-white text-sm px-2 text-center p-1 rounded-md  uppercase">
-              {category}
-            </span>
+            {category && (
+              <span className="bg-primary max-w-28 text-white text-sm px-2 text-center p-1 rounded-md  uppercase">
+                {category}
+              </span>
+            )}
           </div>
           <div className="flex items-center space-x-2">
             <Mail className="w-4 h-4" />

@@ -1,7 +1,7 @@
 import CustomPagination from "@/components/common/CustomPagination";
 import AgencyCard from "@/components/property/Agencies/AgencyCard";
 import AgencySearchCard from "@/components/property/Agencies/AgencySearchCard";
-import { getAgencies } from "@/server-actions/Agency/agency";
+import { getAgencies, getAgenciesByCity } from "@/server-actions/Agency/agency";
 import React, { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -9,7 +9,7 @@ export default async function AgenciesListingPage({
   params,
   searchParams,
 }: {
-  params: { slug: String };
+  params: { slug: string };
   searchParams: any;
 }) {
   return (
@@ -44,23 +44,18 @@ async function AgenciesListing({
   slug,
   searchParams,
 }: {
-  slug: String;
+  slug: string;
   searchParams: any;
 }) {
-  console.log(slug);
   const currentPage = Number(searchParams?.page) || 1;
-  // const delay = (ms: number) =>
-  //   new Promise((resolve) => setTimeout(resolve, ms));
-
-  // await delay(5000);
-  const data = await getAgencies();
+  const data = await getAgenciesByCity(slug);
   const agencies = data?.agencies;
   console.log(agencies);
   return (
     <>
       <div className="">
         <h1 className="col-span-4 text-2xl font-bold mb-10">
-          {agencies.length} Property Agencies in
+          {agencies.length} Property Agencies in {slug}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 ">
           {agencies?.map((agency: any, index: any) => (

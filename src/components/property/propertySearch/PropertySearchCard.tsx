@@ -57,6 +57,8 @@ import {
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { set } from "date-fns";
+import { CitySearch } from "@/components/common/CitySearch";
+import { LocationByCitySearch } from "@/components/common/LocationByCitySearch";
 
 const cities = [
   {
@@ -277,102 +279,16 @@ export function PropertySearchCard({
 
         <div className="flex flex-col space-y-3">
           <Label htmlFor="city">City</Label>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between"
-              >
-                {city
-                  ? cities.find((framework) => framework.value === city)?.label
-                  : "Select a city"}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="p-0">
-              <Command>
-                <CommandInput placeholder="Search city..." />
-                <CommandList className="">
-                  <CommandEmpty>No framework found.</CommandEmpty>
-                  <CommandGroup>
-                    {cities?.map((framework) => (
-                      <CommandItem
-                        key={framework.value}
-                        value={framework.value}
-                        onSelect={(currentValue) => {
-                          console.log(currentValue);
-                          setCity(currentValue === city ? "" : currentValue);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            city === framework.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                        {framework.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+          <CitySearch city={city} setCity={setCity} />
         </div>
 
         <div className="flex flex-col space-y-3">
           <Label htmlFor="city">Location</Label>
-          <Popover open={locationOpen} onOpenChange={setLocationOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={locationOpen}
-                className="w-full justify-between"
-              >
-                {location
-                  ? locations.find((loc) => loc.value === location)?.label
-                  : "Select a location"}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className=" p-0">
-              <Command>
-                <CommandInput placeholder="Search city..." />
-                <CommandList className="">
-                  <CommandEmpty>No Location found.</CommandEmpty>
-                  <CommandGroup>
-                    {locations?.map((loc) => (
-                      <CommandItem
-                        key={loc.value}
-                        value={loc.value}
-                        onSelect={(currentValue) => {
-                          console.log(currentValue);
-                          setLocation(
-                            currentValue === location ? "" : currentValue
-                          );
-                          setLocationOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            location === loc.value ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {loc.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+          <LocationByCitySearch
+            location={location}
+            setLocation={setLocation}
+            city={city}
+          />
         </div>
         <div className="space-y-1">
           <Label htmlFor="area">Price</Label>

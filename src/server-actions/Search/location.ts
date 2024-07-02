@@ -54,3 +54,26 @@ export async function getCities() {
     return { error: "Failed to get cities. Please try again." };
   }
 }
+
+export async function getLocationsByCity(city: string) {
+  try {
+    const session = await getSession();
+    const response = await fetch(
+      `${base.URL}/api/property/findAddressesByCity`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": session?.user?.token,
+        },
+        body: JSON.stringify({ city }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return { error: "Failed to get locations. Please try again." };
+  }
+}

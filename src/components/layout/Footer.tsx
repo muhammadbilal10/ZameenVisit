@@ -27,13 +27,10 @@ const Footer = () => {
               <h5 className="font-semibold uppercase mb-2.5">
                 {service.title}
               </h5>
-              <ul className="text-customeWhite-600">
+              <ul className="">
                 {service.services.map((ser, index) => (
                   <li key={index} className="mb-2">
-                    <Link
-                      href={ser.link}
-                      className="hover:text-customeWhite-900"
-                    >
+                    <Link href={ser.link} className="hover:text-primary">
                       {ser.text}
                     </Link>
                   </li>
@@ -41,7 +38,24 @@ const Footer = () => {
               </ul>
             </div>
           ))}
-          {}
+          <div>
+            <h5 className="font-semibold uppercase mb-2.5">Contact Us</h5>
+            <ul className="">
+              <li className="mb-2 hover:text-primary">
+                <Link href="tel:+923000000000">+92 300 0000000</Link>
+              </li>
+              <li className="mb-2">
+                {" "}
+                58 A Shadab Colony
+                <br /> Lahore, Pakistan
+              </li>
+              <li className="mb-2 hover:text-primary">
+                <Link href="mailto:zameenvisit@gmailc.om">
+                  zameenvisit@gmail.com
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       {/* <div className="mt-8 border-t pt-8">

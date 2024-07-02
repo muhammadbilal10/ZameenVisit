@@ -63,6 +63,21 @@ const nextConfig = {
         protocol: "https",
         hostname: "github.com",
       },
+
+      {
+        protocol: "https",
+        hostname: "www.zillowstatic.com",
+      },
+
+      {
+        protocol: "https",
+        hostname: "cdn.zeebiz.com",
+      },
+
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
     ],
   },
   env: {
