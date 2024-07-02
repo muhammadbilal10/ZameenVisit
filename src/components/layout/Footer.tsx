@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import ZameenVisitLogo from "@/images/Z.png";
 
 const Footer = () => {
   return (
@@ -10,9 +11,9 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-8">
         <div className="col-span-1 md:col-span-2">
           <Image
-            src="/images/zameenVisit2.png"
+            src={ZameenVisitLogo}
             alt="Company Logo"
-            className="h-16 w-auto"
+            className=""
             width={100}
             height={100}
           />

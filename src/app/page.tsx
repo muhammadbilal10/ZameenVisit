@@ -55,7 +55,7 @@ export default async function Home() {
       <section id="properties" className="pt-14 lg:px-20 min-h-screen">
         <PropertyList properties={properties} />
       </section>
-      <section className="pt-14 p-8 lg:px-20 min-h-screen">
+      <section className="mt-14 pt-14 p-8 lg:px-20 min-h-screen bg-[#b2d5eb]">
         <h1 className="text-3xl font-bold py-10">Properties by City</h1>
         <div className="grid lg:grid-cols-4 gap-4">
           {CITIES.map((city, index) => (

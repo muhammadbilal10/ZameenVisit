@@ -26,7 +26,7 @@ const CONTACT_DETAILS = [
   {
     id: 3,
     label: "Email",
-    value: "mb0587494@gmail.com",
+    value: "zameenvisit@gmail.com",
     href: "mailto:",
   },
 ];

@@ -207,3 +207,52 @@ export async function getAgenciesByCity(city: string) {
     };
   }
 }
+
+export async function getAllAgenciesAddress(city: string) {
+  try {
+    const res = await fetch(
+      `${base.URL}/api/agency/findAgencyAddressAndCompanyByCity`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          tags: ["Agency"],
+        },
+        body: JSON.stringify({
+          city,
+        }),
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return {
+      error: "An error occurred while fetching agencies address",
+    };
+  }
+}
+
+export async function getAgencyCities() {
+  try {
+    const res = await fetch(`${base.URL}/api/agency/getAllAgenciesCities`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["Agency"],
+      },
+    });
+
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return {
+      error: "An error occurred while fetching cities",
+    };
+  }
+}

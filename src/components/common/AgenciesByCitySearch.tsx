@@ -17,7 +17,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { getAgenciesByCity } from "@/server-actions/Agency/agency";
+import {
+  getAgenciesByCity,
+  getAllAgenciesAddress,
+} from "@/server-actions/Agency/agency";
 
 export function AgenciesByCitySearch({
   location,
@@ -35,9 +38,9 @@ export function AgenciesByCitySearch({
   React.useEffect(() => {
     async function getLocations() {
       console.log(city);
-      const data = await getAgenciesByCity(city);
+      const data = await getAllAgenciesAddress(city);
       console.log(data);
-      data?.agencies && setLocations(data?.agencies);
+      data?.addresses && setLocations(data?.addresses);
     }
     getLocations();
   }, [city]);

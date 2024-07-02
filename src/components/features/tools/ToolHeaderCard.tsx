@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 
@@ -5,13 +6,15 @@ export default function ToolHeaderCard({
   title,
   image,
   description,
+  className,
 }: {
   title: string;
   description: string;
   image: string;
+  className?: string;
 }) {
   return (
-    <header className="relative bg-cover bg-center h-96">
+    <header className={cn("relative bg-cover bg-center h-96", className)}>
       <Image
         src={image}
         alt={title}

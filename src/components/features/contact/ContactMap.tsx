@@ -16,8 +16,8 @@ import MapContactCard from "./MapContactCard";
 
 const mapboxToken = base.MAP_TOKEN;
 const CURRENT_LOCATION = {
-  latitude: 35.668641,
-  longitude: 139.750567,
+  latitude: 31.4242876,
+  longitude: 74.3483542,
 };
 
 export default function ContactMap() {
@@ -42,7 +42,7 @@ export default function ContactMap() {
         initialViewState={{
           latitude: CURRENT_LOCATION.latitude,
           longitude: CURRENT_LOCATION.longitude,
-          zoom: 10,
+          zoom: 15,
         }}
         maxZoom={20}
         minZoom={3}
@@ -69,7 +69,8 @@ export default function ContactMap() {
             </div>
           </Popup>
         )}
-        <Marker longitude={139.750567} latitude={35.668641}>
+
+        <Marker longitude={74.3483542} latitude={31.424287}>
           <button
             type="button"
             className="cursor-pointer"

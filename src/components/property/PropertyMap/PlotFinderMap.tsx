@@ -45,15 +45,15 @@ export default function PlotFinderMap({
     address: "",
     city: "",
     geo: {
-      lat: 31.5204,
-      lng: 74.3587,
+      lat: 30.3753,
+      lng: 69.3451,
     },
   });
 
   const [viewState, setViewState] = useState({
-    latitude: propertyList[0]?.location?.geo?.lat || 35.668641,
-    longitude: propertyList[0]?.location?.geo?.lng || 139.750567,
-    zoom: 10,
+    latitude: propertyList[0]?.location?.geo?.lat || 28.1863846711864,
+    longitude: propertyList[0]?.location?.geo?.lng || 67.6952367278874,
+    zoom: 7,
   });
 
   const router = useRouter();
@@ -69,9 +69,9 @@ export default function PlotFinderMap({
     if (location.address) {
       router.replace(`/plot-finder?location=${location.address}`);
       setViewState({
-        latitude: location?.geo?.lat || 35.668641,
-        longitude: location?.geo?.lng || 139.750567,
-        zoom: 10,
+        latitude: location?.geo?.lat || 28.1863846711864,
+        longitude: location?.geo?.lng || 67.6952367278874,
+        zoom: 15,
       });
     }
   }, [location]);

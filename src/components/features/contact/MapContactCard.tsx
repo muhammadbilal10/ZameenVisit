@@ -20,7 +20,7 @@ export default function MapContactCard() {
         <div className="space-y-3">
           <p className="flex items-center space-x-2">
             <MapPin className="h-4 w-4" />
-            <span className="">123, Street Name, City Name, Country Name</span>
+            <span className="">58 A Shadab Colony Lahore, Pakistan</span>
           </p>
           <p className="flex items-center space-x-2">
             <Phone className="h-4 w-4" /> <span>+92 349 441 1115</span>

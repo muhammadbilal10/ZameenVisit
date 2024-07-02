@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { AgencyCitySearch } from "./AgencyCitySearch";
 
 export default function AgencySearchCard() {
   const [city, setCity] = React.useState("");
@@ -28,7 +29,7 @@ export default function AgencySearchCard() {
       <CardContent className="pt-4 grid grid-cols-5 gap-4">
         <div className="space-y-1 col-span-2">
           <Label htmlFor="city">City</Label>
-          <CitySearch city={city} setCity={setCity} />
+          <AgencyCitySearch city={city} setCity={setCity} />
         </div>
         <div className="space-y-1 col-span-2">
           <Label htmlFor="city">Agencies Location</Label>
