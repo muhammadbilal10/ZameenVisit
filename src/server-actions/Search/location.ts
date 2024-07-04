@@ -2,14 +2,18 @@
 
 import { base } from "@/utils/config";
 import { getSession } from "../auth";
+//   const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${city}.json?access_token=${mapboxgl.accessToken}`);
+// const BASE_URL = "https://api.mapbox.com/search/geocode/v6/forward";
+// `${BASE_URL}?q=${loc}&country=pk&proximity=ip&language=en&access_token=${base.MAP_TOKEN}`,
+const BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
-const BASE_URL = "https://api.mapbox.com/search/geocode/v6/forward";
 
 export async function getLocations(prevState: any, formData: FormData) {
   const loc = formData.get("location") as string;
+  console.log(loc);
   try {
     const response = await fetch(
-      `${BASE_URL}?q=${loc}&country=pk&proximity=ip&language=en&access_token=${base.MAP_TOKEN}`,
+      `${BASE_URL}/${encodeURIComponent(loc)}.json?access_token=${base.MAP_TOKEN}&country=PK&types=place,locality,neighborhood,address,poi,region,district,postcode&autocomplete=true&limit=10`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -18,15 +22,29 @@ export async function getLocations(prevState: any, formData: FormData) {
     );
     const data = await response.json();
     console.log(data);
-    const features = data.features.map((feature: any) => {
-      const { properties } = feature;
-      console.log(properties);
+
+    // if (data?.features?.length === 0) {
+    //   // If no results found, retry with different settings or log the issue
+    //   console.log("No results found, consider broadening search criteria");
+    //   return { error: "No locations found. Please try a different search." };
+    // }
+
+    const features = data?.features?.map((feature: any) => {
+      const { geometry, context } = feature;
+      // Extracting city name from context
+      const cityContext = context?.find((c: any) => c.id.startsWith("place"));
+      const regionContext = context?.find((c: any) => c.id.startsWith("region"));
+      const cityName = cityContext?.text || "";
+      const regionName = regionContext?.text || "";
+      console.log(cityName);
+
       return {
-        city: properties.name,
-        address: properties.full_address,
+        city: cityName,
+        region: regionName,
+        address: feature?.place_name,
         geo: {
-          lat: properties?.coordinates?.latitude,
-          lng: properties?.coordinates?.longitude,
+          lat: geometry?.coordinates[1],
+          lng: geometry?.coordinates[0]
         },
       };
     });
@@ -37,6 +55,8 @@ export async function getLocations(prevState: any, formData: FormData) {
     return { error: "Failed to get locations. Please try again." };
   }
 }
+
+
 
 export async function getCities() {
   try {

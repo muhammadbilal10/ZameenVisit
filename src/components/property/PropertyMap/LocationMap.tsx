@@ -29,7 +29,7 @@ export default function LocationMap({
   const [viewState, setViewState] = useState({
     latitude: location?.geo?.lat || 35.668641,
     longitude: location?.geo?.lng || 139.750567,
-    zoom: 10,
+    zoom: 14,
   });
 
   React.useEffect(() => {
@@ -40,7 +40,7 @@ export default function LocationMap({
     setViewState({
       latitude: location?.geo?.lat || 35.668641,
       longitude: location?.geo?.lng || 139.750567,
-      zoom: 10,
+      zoom: 14,
     });
   }, [location]);
 
