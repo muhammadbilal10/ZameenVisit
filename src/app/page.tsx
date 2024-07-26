@@ -1,4 +1,5 @@
 import { CustomCarousel } from "@/components/common/CustomCarousel";
+import ExploreMore from "@/components/features/exploreMore/ExploreMore";
 import Footer from "@/components/layout/Footer";
 import { Hero } from "@/components/layout/Hero";
 import Navbar from "@/components/layout/Navbar";
@@ -55,7 +56,7 @@ export default async function Home() {
       <section id="properties" className="pt-14 lg:px-20 min-h-screen">
         <PropertyList properties={properties} />
       </section>
-      <section className="mt-14 pt-14 p-8 lg:px-20 min-h-screen bg-[#b2d5eb]">
+      <section className="mt-14 pt-14 p-8 lg:px-20 min-h-[70vh] bg-[#b2d5eb]">
         <h1 className="text-3xl font-bold py-10">Properties by City</h1>
         <div className="grid lg:grid-cols-4 gap-4">
           {CITIES.map((city, index) => (
@@ -68,10 +69,12 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      <section className="py-10 px-10 lg:px-20 min-h-screen">
+      <section className="py-10 px-10 lg:px-20 ">
         <TitaniumAgencies />
       </section>
-
+      <section className="px-10 lg:px-20 ">
+        <ExploreMore/>
+      </section>
       <section>
         <Footer />
       </section>
