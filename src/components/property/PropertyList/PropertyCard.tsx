@@ -108,7 +108,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
         </div>
       )}
 
-      <Card className={cn("w-full")}>
+      <Card className={cn("flex flex-col relative w-full h-full")}>
         <Link href={createPropertySlug()}>
           <CardContent className={cn("p-0 h-52 w-full")}>
             {property?.imageUrl?.length > 0 && (
@@ -121,7 +121,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
               />
             )}
           </CardContent>
-          <CardHeader>
+          <CardHeader className="">
             <CardTitle className={cn("text-xl truncate")}>
               <CustomTooltip label={property.title}>
                 <p className="truncate">{property.title}</p>
@@ -150,7 +150,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, type }) => {
           </CardHeader>
           <Separator />
         </Link>
-        <CardFooter className={cn("p-2 mt-auto")}>
+        <CardFooter className={cn("p-2 h-full")}>
           <div className="flex items-center gap-3">
             <Avatar className="h-8 w-8">
               <AvatarImage src={property?.user?.image} />

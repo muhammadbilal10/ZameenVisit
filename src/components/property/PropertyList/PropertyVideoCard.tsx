@@ -13,9 +13,19 @@ export default function PropertyVideoCard({
 }: {
   videoUrl: string[];
 }) {
-  function convertToEmbedUrl(url: string) {
-    const videoId = url.split("v=")[1].split("&")[0];
-    return `https://www.youtube.com/embed/${videoId}`;
+  function convertToEmbedUrl(url: string): string {
+    // Regular expression to match various YouTube URL formats
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+
+    if (match && match[2].length === 11) {
+      // If we have a match and the video ID is 11 characters long (standard YouTube video ID length)
+      return `https://www.youtube.com/embed/${match[2]}`;
+    } else {
+      // If no valid YouTube video ID is found, throw an error
+      throw new Error("Invalid YouTube URL");
+    }
   }
 
   return (
